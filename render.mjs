@@ -5,6 +5,8 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 // Local server and GitHub Pages both mount the site at this path prefix.
 const BASE = "/chinese-literature";
 
+const GA4_ID = "G-LY9LGVESBH";
+
 function shell({ origin, buster, path, title, desc, body, jsonld, og, noindex }) {
   const url = origin + path;
   const o = og || {
@@ -33,6 +35,13 @@ ${noindex ? '<meta name="robots" content="noindex">\n' : ""}<title>${esc(title)}
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="${BASE}/assets/style.css?v=${buster}">
 ${lds}
+<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_ID}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA4_ID}');
+</script>
 </head>
 <body>
 <header class="site">
@@ -50,7 +59,7 @@ ${body}
 <footer class="site">
   <span class="seal" lang="zh" aria-hidden="true">譜</span>
   <p>Built from public-domain texts. English nicknames and verse glosses are interpretive, not official translations.</p>
-  <p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. No tracking on this site beyond the pages you open.</p>
+  <p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. This site measures aggregate usage through Google Analytics — page views, how far pages are scrolled, and which painted leaves are opened. No personal data is collected, nothing is sold, and the site carries no advertising.</p>
 </footer>
 <script src="${BASE}/assets/codex.js?v=${buster}" defer></script>
 </body>
