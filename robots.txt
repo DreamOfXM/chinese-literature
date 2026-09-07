@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dreamofxm.github.io/chinese-literature/sitemap.xml

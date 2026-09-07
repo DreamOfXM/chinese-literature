@@ -1,0 +1,527 @@
+// Water Margin — the 108 Stars of Destiny.
+// Row: [rank, star, nicknameZH, nicknameEN(gloss), nameZH, namePinyin, fate]
+// fate "" = not individually recorded in this table's condensed source (ch. 90-120).
+// English nicknames are glosses, not official translations.
+export const STARS = [
+  [1, "天魁星", "及时雨", "Timely Rain", "宋江", "Song Jiang", "poisoned by the court after the campaign"],
+  [2, "天罡星", "玉麒麟", "Jade Unicorn", "卢俊义", "Lu Junyi", "drowned after court poison"],
+  [3, "天机星", "智多星", "Resourceful Strategist", "吴用", "Wu Yong", "hanged himself at Song Jiang's grave"],
+  [4, "天闲星", "入云龙", "Dragon in the Clouds", "公孙胜", "Gongsun Sheng", "left before the campaign, returned to Taoist study"],
+  [5, "天勇星", "大刀", "Great Blade", "关胜", "Guan Sheng", "appointed, later died from a fall"],
+  [6, "天雄星", "豹子头", "Leopard Head", "林冲", "Lin Chong", "paralysed by illness, died in care"],
+  [7, "天猛星", "霹雳火", "Fiery Thunderbolt", "秦明", "Qin Ming", "killed in the Qingxi campaign"],
+  [8, "天威星", "双鞭", "Double Whips", "呼延灼", "Huyan Zhuo", "appointed, died in office on the frontier"],
+  [9, "天英星", "小李广", "Little Li Guang", "花荣", "Hua Rong", "hanged himself at Song Jiang's grave"],
+  [10, "天贵星", "小旋风", "Little Whirlwind", "柴进", "Chai Jin", "retired, lived out his years at home"],
+  [11, "天富星", "扑天雕", "Soaring Falcon", "李应", "Li Ying", "retired, prospered as a merchant"],
+  [12, "天满星", "美髯公", "Beautiful-Bearded Lord", "朱仝", "Zhu Tong", "appointed, rose to high office"],
+  [13, "天孤星", "花和尚", "Flowery Monk", "鲁智深", "Lu Zhishen", "attained nirvana at the Qiantang tide"],
+  [14, "天伤星", "行者", "The Pilgrim", "武松", "Wu Song", "monk at Liuhe temple, died at eighty"],
+  [15, "天立星", "双枪将", "Double Spears", "董平", "Dong Ping", "killed at Duzhou pass"],
+  [16, "天捷星", "没羽箭", "Featherless Arrow", "张清", "Zhang Qing", "killed at Duzhou pass"],
+  [17, "天暗星", "青面兽", "Blue-Faced Beast", "杨志", "Yang Zhi", "died of illness mid-campaign"],
+  [18, "天祐星", "金枪手", "Golden Lancer", "徐宁", "Xu Ning", "died of a poisoned arrow wound"],
+  [19, "天空星", "急先锋", "Impatient Vanguard", "索超", "Suo Chao", "killed at Hangzhou"],
+  [20, "天速星", "神行太保", "Magic Courier", "戴宗", "Dai Zong", "retired, later died laughing"],
+  [21, "天异星", "赤发鬼", "Red-Haired Devil", "刘唐", "Liu Tang", "crushed by a portcullis at Hangzhou"],
+  [22, "天杀星", "黑旋风", "Black Whirlwind", "李逵", "Li Kui", "poisoned by Song Jiang"],
+  [23, "天微星", "九纹龙", "Nine Tattooed Dragons", "史进", "Shi Jin", "killed at Yulong ridge"],
+  [24, "天究星", "没遮拦", "Unstoppable", "穆弘", "Mu Hong", "died of illness after the campaign"],
+  [25, "天退星", "插翅虎", "Winged Tiger", "雷横", "Lei Heng", "killed at Hangzhou"],
+  [26, "天寿星", "混江龙", "River-Mixing Dragon", "李俊", "Li Jun", "feigned illness, later king of Siam"],
+  [27, "天剑星", "立太岁", "Standing Tai Sui", "阮小二", "Ruan Xiao'er", "killed himself rather than be taken"],
+  [28, "天平星", "船火儿", "Boat Fire", "张横", "Zhang Heng", "died of illness at Hangzhou"],
+  [29, "天罪星", "短命二郎", "Short-Lived Second Lord", "阮小五", "Ruan Xiaowu", "killed at Qingxi"],
+  [30, "天损星", "浪里白条", "White Stripe in the Waves", "张顺", "Zhang Shun", "shot down at Yongjin gate, Hangzhou"],
+  [31, "天败星", "活阎罗", "Living Yama", "阮小七", "Ruan Xiaoqi", "returned to fishing, lived to sixty"],
+  [32, "天牢星", "病关索", "Sick Guan Suo", "杨雄", "Yang Xiong", "died of illness after the campaign"],
+  [33, "天慧星", "拼命三郎", "Reckless Third Lord", "石秀", "Shi Xiu", "killed at Yulong ridge"],
+  [34, "天暴星", "两头蛇", "Two-Headed Snake", "解珍", "Xie Zhen", "fell from the cliff at Wulong ridge"],
+  [35, "天哭星", "双尾蝎", "Double-Tailed Scorpion", "解宝", "Xie Bao", "fell from the cliff at Wulong ridge"],
+  [36, "天巧星", "浪子", "The Prodigal", "燕青", "Yan Qing", "retired, wandered, lived long"],
+  [37, "地魁星", "神机军师", "Divine Strategist", "朱武", "Zhu Wu", "survived, took up Taoist study"],
+  [38, "地煞星", "镇三山", "Subduer of Three Mountains", "黄信", "Huang Xin", "survived, appointed"],
+  [39, "地勇星", "病尉迟", "Sick Yuchi", "孙立", "Sun Li", "survived, appointed"],
+  [40, "地杰星", "丑郡马", "Ugly Prince Consort", "宣赞", "Xuan Zan", "died at Hangzhou"],
+  [41, "地雄星", "井木犴", "Well-Wood An", "郝思文", "Hao Siwen", "captured and executed at Hangzhou"],
+  [42, "地威星", "百胜将", "Ever-Victorious General", "韩滔", "Han Tao", "killed at Changzhou"],
+  [43, "地英星", "天目将", "Heaven-Eyed General", "彭玘", "Peng Qi", "killed at Changzhou"],
+  [44, "地奇星", "圣水将", "Holy Water General", "单廷珪", "Shan Tinggui", ""],
+  [45, "地猛星", "神火将", "Divine Fire General", "魏定国", "Wei Dingguo", ""],
+  [46, "地文星", "圣手书生", "Miraculous Scholar", "萧让", "Xiao Rang", "retained at court for his calligraphy"],
+  [47, "地正星", "铁面孔目", "Iron-Faced Clerk", "裴宣", "Pei Xuan", "retired"],
+  [48, "地辟星", "摩云金翅", "Cloud-Scraping Golden Wings", "欧鹏", "Ou Peng", ""],
+  [49, "地阖星", "火眼狻猊", "Fiery-Eyed Suanni", "邓飞", "Deng Fei", ""],
+  [50, "地强星", "锦毛虎", "Brocade-Furred Tiger", "燕顺", "Yan Shun", ""],
+  [51, "地暗星", "锦豹子", "Brocade Leopard", "杨林", "Yang Lin", ""],
+  [52, "地轴星", "轰天雷", "Sky-Thundering Cannon", "凌振", "Ling Zhen", "appointed, kept for his artillery"],
+  [53, "地会星", "神算子", "Divine Reckoner", "蒋敬", "Jiang Jing", "retired"],
+  [54, "地佐星", "小温侯", "Little Marquis Wen", "吕方", "Lü Fang", ""],
+  [55, "地祐星", "赛仁贵", "Rival of Rengui", "郭盛", "Guo Sheng", ""],
+  [56, "地灵星", "神医", "Divine Physician", "安道全", "An Daoquan", "retained at court as physician"],
+  [57, "地兽星", "紫髯伯", "Purple-Bearded Elder", "皇甫端", "Huangfu Duan", "retained at court for veterinary skill"],
+  [58, "地微星", "矮脚虎", "Short-Legged Tiger", "王英", "Wang Ying", "killed at Hangzhou"],
+  [59, "地慧星", "一丈青", "Ten Feet of Blue", "扈三娘", "Hu Sanniang", "killed at Hangzhou"],
+  [60, "地暴星", "丧门神", "Funeral Gate God", "鲍旭", "Bao Xu", ""],
+  [61, "地默星", "混世魔王", "World-Confusing Demon King", "樊瑞", "Fan Rui", "survived, took up Taoist study"],
+  [62, "地猖星", "毛头星", "Shaggy Head Star", "孔明", "Kong Ming", "died of illness"],
+  [63, "地狂星", "独火星", "Lone Fire Star", "孔亮", "Kong Liang", ""],
+  [64, "地飞星", "八臂哪吒", "Eight-Armed Nezha", "项充", "Xiang Chong", ""],
+  [65, "地走星", "飞天大圣", "Sky-Soaring Great Sage", "李衮", "Li Gun", ""],
+  [66, "地巧星", "玉臂匠", "Jade-Armed Craftsman", "金大坚", "Jin Dajian", "retained at court for his seals"],
+  [67, "地明星", "铁笛仙", "Iron Flute Immortal", "马麟", "Ma Lin", ""],
+  [68, "地进星", "出洞蛟", "Dragon from the Cave", "童威", "Tong Wei", "sailed to Siam with Li Jun"],
+  [69, "地退星", "翻江蜃", "River-Overturning Mirage", "童猛", "Tong Meng", "sailed to Siam with Li Jun"],
+  [70, "地满星", "玉幡竿", "Jade Banner Pole", "孟康", "Meng Kang", ""],
+  [71, "地遂星", "通臂猿", "Arm-Reaching Ape", "侯健", "Hou Jian", "drowned at the sea crossing"],
+  [72, "地周星", "跳涧虎", "Gully-Leaping Tiger", "陈达", "Chen Da", "killed at Yulong ridge"],
+  [73, "地隐星", "白花蛇", "White-Flower Snake", "杨春", "Yang Chun", "killed at Yulong ridge"],
+  [74, "地异星", "白面郎君", "White-Faced Lord", "郑天寿", "Zheng Tianshou", ""],
+  [75, "地理星", "九尾龟", "Nine-Tailed Turtle", "陶宗旺", "Tao Zongwang", ""],
+  [76, "地俊星", "铁扇子", "Iron Fan", "宋清", "Song Qing", "stayed home, declined office"],
+  [77, "地乐星", "铁叫子", "Iron Whistle", "乐和", "Yue He", "retained at court for his music"],
+  [78, "地捷星", "花项虎", "Flowered-Neck Tiger", "龚旺", "Gong Wang", ""],
+  [79, "地速星", "中箭虎", "Arrow-Struck Tiger", "丁得孙", "Ding Desun", "died of a snakebite in camp"],
+  [80, "地镇星", "小遮拦", "Little Unstoppable", "穆春", "Mu Chun", "retired"],
+  [81, "地羁星", "操刀鬼", "Butcher Blade Ghost", "曹正", "Cao Zheng", ""],
+  [82, "地魔星", "云里金刚", "Vajra in the Clouds", "宋万", "Song Wan", "killed at Runzhou"],
+  [83, "地妖星", "摸着天", "Sky-Toucher", "杜迁", "Du Qian", "died at Qingxi"],
+  [84, "地幽星", "病大虫", "Sick Big Worm", "薛永", "Xue Yong", "killed at Yulong ridge"],
+  [85, "地伏星", "金眼彪", "Golden-Eyed Panther", "施恩", "Shi En", ""],
+  [86, "地僻星", "打虎将", "Tiger-Striking General", "李忠", "Li Zhong", "killed at Yulong ridge"],
+  [87, "地空星", "小霸王", "Little Conqueror", "周通", "Zhou Tong", ""],
+  [88, "地孤星", "金钱豹子", "Golden-Leopard", "汤隆", "Tang Long", ""],
+  [89, "地全星", "鬼脸儿", "Ghost Face", "杜兴", "Du Xing", "retired with Li Ying"],
+  [90, "地短星", "出林龙", "Dragon from the Forest", "邹渊", "Zou Yuan", ""],
+  [91, "地角星", "独角龙", "Single-Horned Dragon", "邹润", "Zou Run", ""],
+  [92, "地囚星", "旱地忽律", "Dry-Land Crocodile", "朱贵", "Zhu Gui", "died of illness"],
+  [93, "地藏星", "笑面虎", "Smiling Tiger", "朱富", "Zhu Fu", "died of illness"],
+  [94, "地平星", "铁臂膊", "Iron Arms", "蔡福", "Cai Fu", ""],
+  [95, "地损星", "一枝花", "Single Blossom", "蔡庆", "Cai Qing", ""],
+  [96, "地奴星", "催命判官", "Life-Hastening Judge", "李立", "Li Li", ""],
+  [97, "地察星", "青眼虎", "Blue-Eyed Tiger", "李云", "Li Yun", ""],
+  [98, "地恶星", "没面目", "Faceless", "焦挺", "Jiao Ting", ""],
+  [99, "地丑星", "石将军", "Stone General", "石勇", "Shi Yong", ""],
+  [100, "地数星", "小尉迟", "Little Yuchi", "孙新", "Sun Xin", "survived"],
+  [101, "地阴星", "母大虫", "Female Big Worm", "顾大嫂", "Gu Dasao", "survived"],
+  [102, "地刑星", "菜园子", "Vegetable Garden", "张青", "Zhang Qing", ""],
+  [103, "地壮星", "母夜叉", "Female Yaksha", "孙二娘", "Sun Erniang", ""],
+  [104, "地劣星", "活闪婆", "Lightning Woman", "王定六", "Wang Dingliu", ""],
+  [105, "地健星", "险道神", "Peril-Road God", "郁保四", "Yu Baosi", ""],
+  [106, "地耗星", "白日鼠", "Daylight Rat", "白胜", "Bai Sheng", ""],
+  [107, "地贼星", "鼓上蚤", "Flea on the Drum", "时迁", "Shi Qian", "died of illness after the campaign"],
+  [108, "地狗星", "金毛犬", "Golden-Haired Dog", "段景住", "Duan Jingzhu", ""],
+];
+
+// One leaf per star, keyed by rank: a hook line, `end` (the ending, expanded from
+// the roster's condensed fate column into the sentence that character's own page
+// deserves), then the great deeds as [chapter ref of the 120-chapter edition,
+// episode title in Chinese, telling].
+// Every Heavenly Spirit has a leaf; among the Earthly Fiends only those the
+// novel gives a scene of their own. Ranks absent from this map stay roster-only.
+export const LEAVES = {
+  1: {
+    hook: "The county clerk who became the outlaw chief — and never stopped writing letters home.",
+    end: "The court wine did what no enemy could. He drank it knowing, and poured a cup for Li Kui on the way out, so the one brother who would have raised the mountain again was already dying. Buried at Chuizhao village, where he had been the clerk nobody thought to fear.",
+    events: [
+      ["ch. 18", "私放晁天王", "The Warrant Burned in His Sleeve", "Tips off Chao Gai after the birthday convoy heist, then burns the warrant in his own sleeve."],
+      ["ch. 21", "怒殺閻婆惜", "The Letter Found, the Knife Drawn", "His kept mistress finds the outlaw's letter and puts a price on it; the knife answers before dawn."],
+      ["ch. 39", "潯陽樓題反詩", "The Rebel Verse on Xunyang Tower", "Drunk on the Xunyang tower he writes 'why not reverse the river?' and becomes the court's most wanted man."],
+      ["ch. 40", "江州劫法場", "The Execution Ground Rushed", "The whole mountain comes down onto the execution ground, and he finally accepts the chair."],
+    ],
+  },
+  2: {
+    hook: "The richest squire in Daming, framed into outlawry by a poem he never wrote.",
+    end: "Poisoned at a banquet, then drowned on the river home by the same advisers who had framed him with a poem. The richest squire in the north died with his boots full of water and no charge ever written against him.",
+    events: [
+      ["ch. 61", "智賺玉麒麟", "Enticed by a Forged Prophecy", "A forged prophecy and a steward's poison pull the richest squire of Daming onto the road to Liangshan."],
+      ["ch. 62", "放箭救主", "A Servant's Arrow Saves Him", "Sentenced to die, he is saved by his servant's arrow and a stranger's leap from a wine-shop roof."],
+      ["ch. 68", "活捉史文恭", "Taking Shi Wengong Alive", "He takes Shi Wengong alive in the moat, avenging Chao Gai — and refuses the chair twice."],
+    ],
+  },
+  3: {
+    hook: "The schoolmaster who never threw a punch and won most of the war.",
+    end: "He hanged himself under the trees at Song Jiang's grave; Hua Rong came to mourn and hanged from the same branch. The pen that moved an army could not arrange its own last afternoon.",
+    events: [
+      ["ch. 15", "智取生辰綱", "The Drugged Wine Takes the Convoy", "Monsoon heat and one cart of drugged wine take the birthday convoy without a blow being struck."],
+      ["ch. 66", "燈節破北京", "The Lantern Siege of Daming", "Daming fortress is opened from inside a lantern festival he staged."],
+      ["ch. 81", "借筆議招安", "The Borrowed Brush and Name", "He negotiates the amnesty in the capital with a borrowed brush and a borrowed name."],
+    ],
+  },
+  4: {
+    hook: "A Taoist of the Luo school who lent the mountain its weather, then gave it back.",
+    end: "He asked to be released years before the end, went back to his master, and was not on the roll-call of the dead or the decorated. The roster's only man who read the ending in advance and left the room.",
+    events: [
+      ["ch. 15", "七星聚義", "He Joins the Seven Stars", "He walks into the birthday heist and back out of it, returning to his mountains and his fasting."],
+      ["ch. 53", "鬥法破高廉", "Raising the Luo-School Storm", "The army has no answer to Gaotang's sorcery until he brings the Luo school's storm."],
+      ["ch. 59", "芒碭山降魔", "The Greater Black Wind", "He answers Fan Rui's black wind with a greater one, and takes the sorcerer as a disciple."],
+      ["ch. 110", "歸山不見", "The Farewell Bow to His Master", "After Fang La he bows to his master and is never seen again."],
+    ],
+  },
+  5: {
+    hook: "Guan Yu's descendant, who came to destroy the mountain and stayed to lead its vanguard.",
+    end: "Given a garrison command after the amnesty, he drank, fell from his horse, and died of the fall. The book keeps the line short: a general's death in a courtyard, with no enemy in it.",
+    events: [
+      ["ch. 63", "大刀征梁山", "Siege Answered with Siege", "Sent to crush Liangshan, he answers siege with siege and nearly ends the war in a month."],
+      ["ch. 64", "水軍賺大刀", "Rope-Hooks from the Water", "A feigned retreat and rope-hooks from the water take him; Song Jiang cuts his cords and offers him his own seat."],
+    ],
+  },
+  6: {
+    hook: "The finest spear in the imperial guard, pushed out of the law one betrayal at a time.",
+    end: "The wind-illness took his legs at Hangzhou and Wu Song stayed to nurse him. He died in a monk's bed at the Liuhe pagoda — the one man the mountain destroyed entirely by law, and the law never finished.",
+    events: [
+      ["ch. 7", "誤入白虎堂", "Framed in the White Tiger Hall", "Framed by his sworn brother over his wife, he is branded and exiled with a blade he may not carry."],
+      ["ch. 8", "大鬧野豬林", "The Staff at Wild Boar Wood", "Betrayed twice on the road, he is carried out of the wild boar forest by a monk's staff."],
+      ["ch. 10", "風雪山神廟", "The Plot Through the Temple Wall", "The snowy night he hears the plot through a temple wall: the loyal officer dies and the outlaw is born."],
+      ["ch. 19", "火併王倫", "A Drawn Blade Seats Another Chief", "He seats Chao Gai with a drawn blade in the hall, and refuses the chair himself."],
+    ],
+  },
+  7: {
+    hook: "A temper the mountain needed, bought with his own family's ashes.",
+    end: "Killed at Qingxi in the last of the battles the amnesty bought. The thunderous tempered spear that had been worked into outlawry by a forged dispatch died for a court that had never apologised for it.",
+    events: [
+      ["ch. 34", "瓦礫場絕路", "A Suburb Burned in His Armour", "Song Jiang burns a suburb in his armour so that Qingzhou executes his family; the mountain offers a sister and a seat."],
+      ["ch. 117", "青溪先登", "First Through the Gate at Qingxi", "He went through the gate first at Qingxi, as at every gate before it, and did not come out."],
+    ],
+  },
+  8: {
+    hook: "The general whose linked horses nearly ended Liangshan — then became its anvil.",
+    end: "Made commander of a frontier garrison after the amnesty, and died still holding it. The heavy cavalry that once broke the marsh open outlived every man it was sent against.",
+    events: [
+      ["ch. 54", "連環馬壓寨", "Linked Horses Ride Down Liangshan", "His linked-horse cavalry rides down everything Liangshan sends, until hook-spears are taught in secret."],
+      ["ch. 57", "失馬走青州", "Chasing the Stolen Imperial Steed", "His imperial steed is stolen and he follows it into a trap at Peach Blossom mountain."],
+      ["ch. 58", "禮降呼延灼", "Won by Courtesy, the Army's Anvil", "Song Jiang's courtesy turns him; he holds the line as the army's anvil for the rest of the war."],
+    ],
+  },
+  9: {
+    hook: "The silver lance with a bow no one on the mountain could argue with.",
+    end: "He came to the grave to mourn and hanged himself there with Wu Yong. The bow that never missed was found still strung, and nobody on the mountain put another arrow to it.",
+    events: [
+      ["ch. 33", "神箭斷燈繩", "An Arrow Splits the Lantern Cord", "At Qingzhou he splits a lantern cord in the dark to cover a rescue, and the garrison loses its nerve."],
+      ["ch. 35", "梁山射雁", "The Goose at a Hundred Paces", "A wild goose through the head at a hundred paces silences everyone who doubted him."],
+      ["ch. 120", "蓼兒洼從死", "Hanged in the Same Reed Marsh", "He followed Song Jiang's grave to the end, and hanged himself in the same reed marsh."],
+    ],
+  },
+  10: {
+    hook: "The last heir of a lost dynasty, who bankrolled everyone else's outlawry.",
+    end: "He took his rank, went home to his manor, and died in his own bed — the only man on the mountain whose money, in the end, actually did what he had always promised it would.",
+    events: [
+      ["ch. 9", "門招天下客", "His Door Open to Every Exile", "Last heir of the Later Zhou throne, he keeps a door open for every branded exile in China."],
+      ["ch. 52", "枯井藏身", "Hidden in a Dry Well", "Imprisoned in a dry well at Gaotang for sheltering a fugitive, he is hauled out by a rope and a mountain's war."],
+      ["ch. 112", "駙馬臥底", "A Son-in-Law Set to Burn", "He walks into the Fang La court undercover as a son-in-law and burns it from inside."],
+    ],
+  },
+  11: {
+    hook: "A squire who tried to stay neutral and was recruited by arson.",
+    end: "He refused the appointment, went back to his village, and became what he had been before the ledger and the governor's jealousy took him: a squire with a long memory for his neighbours' names.",
+    events: [
+      ["ch. 47", "獨龍岡中立", "An Arrow for Staying Neutral", "He tries to stay neutral between two feuding villages and is rewarded with an arrow in the arm."],
+      ["ch. 50", "火燒獨龍莊", "The Manor Burned as a Rescue", "Liangshan 'rescues' him by burning everything he owns; he keeps the army's ledger afterwards."],
+      ["ch. 119", "散財歸隱", "Buying His Way Out of Office", "He bought his way out of office after the campaigns and prospered as a merchant."],
+    ],
+  },
+  12: {
+    hook: "The constable who released three fugitives and was paid in the death of a child.",
+    end: "The amnesty turned the constable who twice let a fugitive walk out of his custody into a general, and he served on into high provincial command. Nobody in the book ever mentions the irony, and he never once explained himself.",
+    events: [
+      ["ch. 18", "私放晁蓋", "Releasing Chao Gai in Secret", "The bearded constable lets the convoy thieves walk out of his district, and loses his first post for it."],
+      ["ch. 22", "再放宋公明", "Letting Song Jiang Go Again", "He does it again for Song Jiang, and is exiled to a magistrate who likes his beard."],
+      ["ch. 51", "失小衙內", "The Young Master He Lost", "The mountain repays his mercy by killing the child in his charge, so that he has nowhere left to go."],
+    ],
+  },
+  13: {
+    hook: "An officer who killed a butcher for a stranger's daughter and never once regretted it.",
+    end: "At Hangzhou he heard the Qiantang tide at midnight, took it for the summons, washed, put on his monk's robes, sat upright at the Liuhe pagoda, and was gone before morning. The brother who broke every rule in a temple died inside one.",
+    events: [
+      ["ch. 3", "拳打鎮關西", "Three Punches for the Singer", "Three punches for a singer he never met; the butcher dies and the officer walks out of his uniform."],
+      ["ch. 7", "倒拔垂楊柳", "Uprooting the Weeping Willow", "He uproots a willow to silence the crows, and the ruffians of the acid garden kneel."],
+      ["ch. 8", "大鬧野豬林", "A Thousand Li Beside the Cangue", "He carries Lin Chong off the road to safety and walks a thousand li beside his cangue."],
+      ["ch. 119", "聽潮而圓", "The Liuhe Tide Brings His End", "He hears the tide at Liuhe, laughs, and sits down to die."],
+    ],
+  },
+  14: {
+    hook: "The fist that never asked twice.",
+    end: "The flying sword at Bangyuan took his left arm while he was still reaching for Fang La. He refused to be carried home, stayed at the Liuhe pagoda, and died there at eighty — the only one of the marsh's great fighters to finish on terms he chose.",
+    events: [
+      ["ch. 23", "景陽岡打虎", "Eighteen Bowls and a Tiger", "Eighteen bowls of wine and a bare-handed tiger on the ridge; the county makes him a constable for it."],
+      ["ch. 26", "殺嫂祭兄", "An Inquest Held with a Knife", "A brother's murder the magistrate sold for silver; he holds the inquest himself, with a knife and a witness list."],
+      ["ch. 29", "醉打蔣門神", "Beating the Champion Shop by Shop", "A drunk's revenge on a wrestling champion, one wine shop at a time down the road to Crossroads ridge."],
+      ["ch. 31", "血濺鴛鴦樓", "A Wedding Hall Washed in Blood", "A wedding hall washed in blood, with his name left on the wall in his own hand."],
+      ["ch. 119", "斷臂辭封", "One Arm and No Reward", "He loses an arm taking Fang La and refuses the capital's reward."],
+    ],
+  },
+  15: {
+    hook: "The Double-Gun captain who changed sides for a marriage proposal.",
+    end: "He rode into the pass to get out in front of everyone, as he had done his whole life, and did not come back out. His double spears were recovered; the two horses he had been given for them were not worth the road they were led along.",
+    events: [
+      ["ch. 69", "開門納梁山", "Opens Dongping to Liangshan", "Refused his commander's daughter, he opens Dongping's gates to Liangshan and takes her anyway."],
+      ["ch. 115", "獨松關報仇", "Into the Square of Spears", "Wounded and furious, he charges a square of spears to avenge Zhang Qing and dies inside it."],
+    ],
+  },
+  16: {
+    hook: "A bag of stones and the arm to throw them — fifteen champions unhorsed in an afternoon.",
+    end: "Killed in the same pass as Dong Ping, the stones at the end of his belt still unused. His entire art was to hit a man before he drew; at the pass he was not given the few steps it needed.",
+    events: [
+      ["ch. 70", "飛石連打十五員", "A Bag of Stones, Fifteen Down", "One man and a bag of stones: fifteen Liangshan champions unhorsed in a single sortie."],
+      ["ch. 70", "水陸賺飛石", "Lured by Grain Onto the Mountain", "The water routes trick him into a grain convoy and the mountain finally takes him."],
+      ["ch. 98", "緣配瓊英", "Wedding His Superior Thrower", "He married Qiong Ying, the only person who ever out-threw him."],
+    ],
+  },
+  17: {
+    hook: "Last of a line of generals, and the man who lost the birthday convoy.",
+    end: "He took ill and died on the march, months before the army he had waited his whole life to serve reached the wall it was sent to break. The officer who lost the emperor's silver twice never got it back, and never got a battle either.",
+    events: [
+      ["ch. 12", "楊志賣刀", "The Ancestral Blade on the Bridge", "He sells his ancestral blade on a bridge for food, and the bully who prices it dies under it."],
+      ["ch. 16", "失陷生辰綱", "The Birthday Convoy Lost", "The convoy he swore to guard goes to a cart of drugged wine in the monsoon heat."],
+      ["ch. 17", "落草二龍山", "The Road to Erlong Mountain", "He never recovers from being the man who lost it, and takes the mountain road at Erlong."],
+    ],
+  },
+  18: {
+    hook: "The imperial instructor whose family armour was the price of his freedom.",
+    end: "A poisoned arrow at Hangzhou, and he died on the boat going home. The mountain had stolen him from his family to teach its men how to beat the very armour he wore; the last enemy he trained against was the one that killed him.",
+    events: [
+      ["ch. 56", "湯隆賺徐寧", "Kidnapped for a Coat of Armour", "Kidnapped by his own cousin over a stolen heirloom armour, he wakes up on the mountain."],
+      ["ch. 57", "鉤槍破馬", "The Hook-Spear Taught to Liangshan", "He teaches Liangshan the hook-spear that breaks the linked horses in a single morning."],
+      ["ch. 118", "箭殞睦州", "The Poisoned Arrow at Muzhou", "A poisoned arrow at Muzhou ends him in the last month of the war."],
+    ],
+  },
+  19: {
+    hook: "The Impatient Vanguard, who always went through the gate first.",
+    end: "Struck down at Hangzhou in the open field, first into the charge as always. He was still impatient at the end, which is the only thing the book has ever said about him that its readers would dispute.",
+    events: [
+      ["ch. 13", "北京鬥武", "The Draw That Won the Post", "He fights Yang Zhi to a draw for a place in Daming's drill hall, and wins the post anyway."],
+      ["ch. 64", "雪坑被擒", "Taken in a Snow Pit", "Taken in a snow pit outside the same city he defended, he joins the mountain that dug it."],
+      ["ch. 114", "杭州先登", "First Through the Hangzhou Gate", "He went through the gate first at Hangzhou, as always, and the gate kept him."],
+    ],
+  },
+  20: {
+    hook: "The warden who ran eight hundred li a day and was caught by a seal.",
+    end: "He took the amnesty, grew rich, kept a temple, and one day laughed out loud and was gone. The fastest legs in the empire stopped of their own accord, which is the only message he ever sent without a warrant behind it.",
+    events: [
+      ["ch. 38", "神行太保", "Spirit Tablets on His Legs", "He straps spirit-tablets to his legs and runs eight hundred li a day for the Jiangzhou post."],
+      ["ch. 39", "假書誤戳", "A Letter Falsely Sealed", "A forged letter with the wrong seal stops him on the road, and he is sentenced beside Song Jiang."],
+      ["ch. 40", "法場同判", "Both on the Jiangzhou Scaffold", "The execution ground at Jiangzhou takes both of them, until the mountain arrives."],
+    ],
+  },
+  21: {
+    hook: "The Red-Haired Devil whose drunk night in a temple started the whole war.",
+    end: "Killed at Hangzhou, under the gate that came down at the mouth of the city he was first to reach. One of the seven who took the birthday convoy; the convoy finished him forty chapters later.",
+    events: [
+      ["ch. 14", "醉臥靈官殿", "Chained in the God's Hall", "He walks into a temple drunk and is chained as a vagrant until Chao Gai claims him as a nephew."],
+      ["ch. 15", "報信生辰綱", "Brings Word of the Birthday Convoy", "It is his news about the birthday convoy that starts everything."],
+      ["ch. 114", "侯潮門殞命", "Under the Falling Portcullis", "He rushed the Houcao gate at Hangzhou before it could shut; the portcullis came down on him."],
+    ],
+  },
+  22: {
+    hook: "The Black Whirlwind: no law, no patience, no doubt.",
+    end: "He drank the poison his brother handed him and was furious the whole way to the grave, and went willingly. The last man on the mountain to do exactly as he was told.",
+    events: [
+      ["ch. 40", "江州揮雙斧", "Two Axes on the Execution Ground", "He clears the execution ground with two axes and no distinction between soldier and spectator."],
+      ["ch. 43", "沂嶺殺四虎", "Four Tigers Answered with a Knife", "His mother, carried on his back, is eaten while he fetches water; four tigers die with a knife in answer."],
+      ["ch. 71", "元夜鬧東京", "The Capital's Lantern Night Riot", "He turns a lantern festival in the capital into a riot because the wait is too long."],
+      ["ch. 120", "飲毒從兄", "Drank the Poisoned Cup", "The only man who told Song Jiang to his face that the amnesty was treason — and who drank the poisoned cup because his brother asked."],
+    ],
+  },
+  23: {
+    hook: "The first star the book meets — nine dragons tattooed across his back.",
+    end: "Killed at Yulong ridge, in a campaign he had fought his way across half the country to reach. The first of the 108 to walk onto the page is the first of them the book writes back out.",
+    events: [
+      ["ch. 2", "九紋龍出世", "The Nine-Dragon Tattoo Revealed", "A squire's son who tattoos his whole body for a wandering instructor and ruins his father's patience."],
+      ["ch. 2", "火燒史家莊", "Burning His Own Manor", "He burns his own manor rather than hand over his sworn brothers, and walks out with a staff."],
+      ["ch. 118", "昱嶺關殞命", "The Search Ended at the Pass", "He searched half the empire for his first master, and died in a pass before the last campaign ended."],
+    ],
+  },
+  24: {
+    hook: "The squire of the ferry road, who collected tolls from everyone except the one man who mattered.",
+    end: "He sickened after the campaign and died before the appointments were read out. The township that had paid for his temper for years got its silence back for nothing.",
+    events: [
+      ["ch. 37", "潯陽江追客", "Chasing a Guest to the River", "He chases a tax-dodging exile to the water's edge — and finds he has been hosting the most wanted man in China."],
+      ["ch. 40", "江州劫法場", "Boats and Brothers at the Scaffold", "He brings his boats and his brothers to the Jiangzhou execution ground."],
+      ["ch. 114", "杭州染疫", "The Plague at Hangzhou", "The plague that took the victors of Hangzhou took him before the city was even counted."],
+    ],
+  },
+  25: {
+    hook: "A constable whose purse, forgotten once, cost a singer her life and him his post.",
+    end: "Killed at Hangzhou in the same assault that took Liu Tang. The boy he had beaten to death over an opera ticket, and the officer he had become, died inside one morning.",
+    events: [
+      ["ch. 14", "靈官殿鎖劉唐", "Chains a Drunk in Marshal's Hall", "He chains a drunk vagrant in a temple and nearly executes the man who would start the war."],
+      ["ch. 51", "枷打白秀英", "The Cangue That Killed a Favorite", "He forgets his purse at a singing-house and wears the cangue for it; his mother is struck in the street and the magistrate's favourite dies under the blow."],
+    ],
+  },
+  26: {
+    hook: "The ferryman who sailed out of the story and became a king beyond the sea.",
+    end: "He called himself sick, stayed on the coast, and by the book's last page was a king in Siam with the marsh's whole fleet gone out to serve him. The only man of the 108 who took what he had learned on the water somewhere new.",
+    events: [
+      ["ch. 36", "潯陽江奪船", "Boarding the Bandit Boat Mid-River", "The Xunyang ferryman boards a bandit's boat mid-river and fishes Song Jiang out of the law's net alike."],
+      ["ch. 119", "太湖託病出海", "Pretending Sick to Build a Fleet", "After the campaigns he feigns illness at Suzhou, builds ships with the Tong brothers, and sails out of the story to become a king beyond the sea."],
+    ],
+  },
+  27: {
+    hook: "The eldest Ruan, who sang while the government boats burned.",
+    end: "Rather than be taken alive he cut his own throat at the water fort he had grown up swimming around. The marsh all of it had begun in was already drained dry by the amnesty.",
+    events: [
+      ["ch. 15", "石碣村漁歌", "A Boat, a Song, an Answer", "The 'Tai-Shan Who Stands' of the three Ruan brothers answers a summons with a boat and a song."],
+      ["ch. 19", "火燒官船", "Burned in the Village Reeds", "He sings while the government boats burn in the reeds of his own village."],
+      ["ch. 113", "烏龍嶺自刎", "Cuts His Throat on Wulong Ridge", "Caught in the water at Wulong ridge, he cuts his own banner down — and his own life with it — rather than be taken."],
+    ],
+  },
+  28: {
+    hook: "The gambling fisherman with a flower behind his ear.",
+    end: "Took sick at Hangzhou and died there. The punter who had stripped travellers on the river for a living ended with a coffin the court paid to carry home.",
+    events: [
+      ["ch. 15", "石碣村聚義", "A Boat Risked on the Convoy", "He stakes his boat on the birthday convoy and wins a place on the mountain."],
+      ["ch. 19", "翻船潛渡", "Boarding from Under the Water", "He flips his boat and swims under an enemy fleet to board it from below."],
+      ["ch. 119", "青溪就義", "Killed in the Qingxi Palace Yard", "Captured at Qingxi, he is killed in the palace yard in the last week of the war."],
+    ],
+  },
+  29: {
+    hook: "The youngest Ruan, who drank the emperor's amnesty and called it cheap.",
+    end: "Killed at Qingxi. One of the fishing brothers who went to war over a boat, a net and a murder on the river, and never got either of the first two back.",
+    events: [
+      ["ch. 16", "黃泥岡舉事", "The Ring That Took the Convoy", "Youngest of the three Ruan, he stands in the melon-seller's ring that takes the birthday convoy."],
+      ["ch. 75", "偷換御酒", "The Cheap Amnesty Wine", "He swaps the imperial amnesty wine for cheap stuff and tells the envoys the mountain drinks better."],
+      ["ch. 120", "戲穿龍袍", "A Joke in the Dragon Robe", "He wears dead Fang La's dragon robe as a joke, is stripped of office for it, and goes home to his mother to fish out his years."],
+    ],
+  },
+  30: {
+    hook: "The river robber with a two-item menu, and a brother he could never outrun.",
+    end: "He went into the water alone at Yongjin gate to find a way in, and the arrows and the nets came down on the spring with him in it. They pulled him out days afterwards, still holding his breath the way the river had taught all of them to.",
+    events: [
+      ["ch. 37", "板刀麵", "A Choice of Two Deaths", "He offers a boarded passenger a choice of two deaths — until the passenger's name turns out to be Song Jiang."],
+      ["ch. 40", "江州劫法場", "His Boats Take the River Side", "His boats take the river side of the Jiangzhou execution ground."],
+      ["ch. 114", "杭州染疫", "The Plague in Taken Hangzhou", "He died of the plague in the taken city of Hangzhou, in the same week as his brother's ghost was seen in the water gate."],
+    ],
+  },
+  31: {
+    hook: "The White Stripe in the Waves, who could out-swim a message and out-drown a murderer.",
+    end: "He put the defeated rebel prince's armour on as a joke and lost his office for it, went back to the stone beach, fished, and lived to sixty. The only brother to get the marsh back and keep it.",
+    events: [
+      ["ch. 38", "浪里白條", "Drowning the Black Whirlwind", "He drowns the Black Whirlwind in thirty seconds flat and lets him up only when the crowd laughs."],
+      ["ch. 114", "夜渡涌金門", "The Ghost at the Water Gate", "He swims a night message through Hangzhou's moat and into the water gate; the gate was said to have taken his ghost in exchange for the city's soul."],
+    ],
+  },
+  32: {
+    hook: "The executioner who had to execute his own house.",
+    end: "Died of illness on the march home. He had taken his wife's lovers' names out of his own kitchen and cut her down on Green Screen Ridge, and the book never once went back to ask him how that had sat.",
+    events: [
+      ["ch. 44", "兩院押獄", "Jailer of Jizhou's Two Courts", "The executioner of Jizhou, whose sworn brother watches his wife's door closer than he does."],
+      ["ch. 46", "翠屏山除奸", "The Knife on Copper Screen", "On Copper Screen mountain he settles the betrayal with his own knife, and the road to Liangshan opens."],
+    ],
+  },
+  33: {
+    hook: "The Restless Third Brother, who read a betrayal through a wine-shop window.",
+    end: "Killed at Yulong ridge, climbing where the mountain sent the men who did not need a road. They called him Desperate Third, and the roster's fate column confirms the nickname in one line.",
+    events: [
+      ["ch. 44", "酒樓窺奸", "A Betrayal Read from the Window", "He watches from a wine-shop window and reads a whole betrayal from a door left ajar."],
+      ["ch. 46", "翠屏山對質", "The Evidence on the Mountain Top", "He produces the evidence on a mountain top and lets the executioner hold the knife."],
+      ["ch. 61", "跳樓劫法場", "The Jump from the Roof Alone", "At Daming he recognises the drum-roll of an execution and jumps from the roof alone — too late to save the man, early enough to join him in the pit."],
+    ],
+  },
+  34: {
+    hook: "The hunter jailed for the robbery of his own kill.",
+    end: "He went over the cliff at Wulong ridge, and his brother went over after him. They had started as hunters on a mountain, over a squire's grudge, and ended on one.",
+    events: [
+      ["ch. 49", "賴虎入獄", "Jailed for His Own Tiger", "His tiger is stolen by a squire and he is jailed for the robbery of his own kill."],
+      ["ch. 49", "雪夜越獄", "Freed in a Snowy Jailbreak", "His cousin's jailbreak through a snowstorm brings Dengzhou's garrison over to the mountain."],
+    ],
+  },
+  35: {
+    hook: "The younger Xie brother, who followed a tiger straight into a frame-up.",
+    end: "He followed his brother over the same cliff. The book reports the two deaths in a single sentence, which is more than either of them got anywhere else in it.",
+    events: [
+      ["ch. 49", "毛太公賴虎", "Tracking a Tiger into a Trap", "He tracks the tiger onto the squire's land and straight into a frame-up."],
+      ["ch. 49", "顧大嫂劫牢", "Freed on the Wedding Day", "Freed by Gu Dasao's wedding-day jailbreak, he takes the mountain road with his brother."],
+      ["ch. 113", "烏龍嶺陷坑", "The Trap-Cave at Wulong Ridge", "He fell in the trap-caves of Wulong ridge in the dark of the last campaigns."],
+    ],
+  },
+  36: {
+    hook: "The servant who wrestled a champion, charmed an emperor, and left before the poison.",
+    end: "He left the gold he had been handed, took a bow and one companion, and walked out of the story before the court could thank him. The roster gives him a long life and no grave — the only one of the 108 to get out with nothing owed.",
+    events: [
+      ["ch. 61", "負主逃亡", "Carrying the Exile on His Back", "He carries his master's exile on his back and begs his food through half the empire."],
+      ["ch. 74", "智撲擎天柱", "Wrestling the Pillar Down", "He wrestles the unbeatable Ren Yuan down before a capital crowd that had bet against him."],
+      ["ch. 81", "李師師門", "Enters by Li Shishi's Door", "He walks into the emperor's presence through a courtesan's door and wins the amnesty with a song."],
+      ["ch. 119", "辭主攜金", "Departing with a Cart of Gold", "He leaves before the poison, taking a cart of gold and his own name back."],
+    ],
+  },
+  37: {
+    hook: "The second mind of the army, and one of the few who walked away.",
+    end: "He survived the amnesty and every battle after it, then went off to study the Dao with Zhu Wu. The planner who kept three outlaws on a mountain the size of a postage stamp, and talked an imperial regiment into joining them, knew when the meeting was over.",
+    events: [
+      ["ch. 2", "少華山軍師", "Holding Shaohua with Two Brothers", "The 'Resourceful Strategist' who holds Shaohua mountain with two sworn brothers and a head for formations."],
+      ["ch. 58", "同歸梁山", "His Mountain Moves to Liangshan", "He brings his mountain down to Liangshan when the oath requires it, and becomes the army's second mind."],
+      ["ch. 120", "棄官學道", "Refusing Office for the Dao", "He survived every campaign, refused the office that followed, and went to study the Dao."],
+    ],
+  },
+  38: {
+    hook: "The captain who boasted of crushing three mountains and joined them instead.",
+    end: "Survived the whole war and collected his commission. The book gives him a garrison at the end and, as far as anyone records, nothing left to be sent against.",
+    events: [
+      ["ch. 33", "鎮三山出陣", "One Net at Qingfeng", "The 'Rival of Three Mountains' takes Song Jiang and Hua Rong in one net at Qingfeng fort."],
+      ["ch. 35", "清風山歸順", "He Submits at Qingfeng Mountain", "His own convoy is ambushed on the road, and the three mountains he boasted of become his oath-brothers."],
+      ["ch. 119", "凱旋受封", "Home Alive and Enfeoffed", "He came home alive, which on this mountain counted as a miracle."],
+    ],
+  },
+  39: {
+    hook: "The commander who used his own uniform as a skeleton key.",
+    end: "He went home a surviving officer with the ranks he had bought by turning on his own kin in the Yinzhou plot. Nobody in the book is recorded congratulating him, and he never mentions it either.",
+    events: [
+      ["ch. 49", "提轄反登州", "A Uniform Turned Jailbreak Key", "The Dengzhou commander turns his own uniform into a jailbreak key for the Xie brothers."],
+      ["ch. 50", "臥底祝家莊", "Riding in as an Old Friend", "He rides into Zhu family village as an old friend with a garrison behind him, and opens the gate from inside."],
+      ["ch. 119", "還鄉登州", "The Only One Sent Home Whole", "He survived the campaigns and went home to Dengzhou, the only man the mountain gave back whole."],
+    ],
+  },
+  59: {
+    hook: "The Ten-Foot Blue Snake, taken alive in ten moves and married by committee.",
+    end: "Killed at Hangzhou, riding out to take a man alive. Her family was butchered in the raid on their village manor; she married into the mountain that ordered it, followed her husband's banner into every battle after, and died in the last of them.",
+    events: [
+      ["ch. 48", "一丈青被擒", "Taken Alive in Ten Moves", "She rides out to avenge her betrothed and is taken alive by Lin Chong in ten moves."],
+      ["ch. 50", "配矮腳虎", "Married to the Dwarf Wang Ying", "Her family is slaughtered by Li Kui days later; Song Jiang arranges her marriage to the dwarf Wang Ying."],
+      ["ch. 114", "杭州殞命", "Riding Ahead of Her Husband", "She died in the Hangzhou campaign, still riding ahead of the husband the mountain gave her."],
+    ],
+  },
+  61: {
+    hook: "The sorcerer who boasted he would swallow Liangshan, and stayed as its storm.",
+    end: "He survived, then went off to learn the Dao. The self-styled sorcerer of Mangdang mountain had been out-conned by Wu Yong in a single afternoon, hired by the man who did it, and finally left the profession to nobody.",
+    events: [
+      ["ch. 59", "芒碭山稱聖", "A Black Wind Over Mangdang", "He raises a black wind over Mangdang mountain and boasts he will swallow Liangshan whole."],
+      ["ch. 60", "公孫勝降法", "The Sorcerer Kneels for a Teacher", "Gongsun Sheng answers his storm with a greater one, and the sorcerer kneels for a teacher."],
+      ["ch. 120", "隨朱武學道", "Into the Mountains as a Student", "He outlived the campaigns and went into the mountains again, this time as a student of the Dao."],
+    ],
+  },
+  101: {
+    hook: "The Mother Tiger, who ran a jailbreak out of her own kitchen.",
+    end: "She survived the prison break she organised, the fortress she took in men's clothes, and the whole southern campaign, then went home with a title and her own two hands. The roster's whole note on her is one word: survived.",
+    events: [
+      ["ch. 49", "母大蟲定計", "A Jailbreak Planned in Her Tavern", "She plans a jailbreak from her own tavern and plants her husband and his brother inside the prison as guards."],
+      ["ch. 49", "喜宴劫牢", "The Wedding Banquet Jailbreak", "A wedding banquet is the cover; the Xie brothers walk out and Dengzhou's garrison walks to the mountain."],
+      ["ch. 119", "受封還鄉", "Alive, Enfeoffed, and Home Again", "She came out of the campaigns alive and enfeoffed, which almost no woman in the book manages."],
+    ],
+  },
+  103: {
+    hook: "The innkeeper whose buns were famously not pork.",
+    end: "Killed at Qingxi, in the last of the battles the amnesty bought. She had kept the road inn where travellers woke up on the slab, and the book hands her a rank and an unremarkable death without once mentioning the inn again.",
+    events: [
+      ["ch. 27", "十字坡黑店", "Buns That Were Not Pork", "The innkeeper of Crossroads ridge whose buns were famously not pork — until the exile she drugged woke up inside his own sack."],
+      ["ch. 27", "結義武松", "Following in a Merchant's Disguise", "She lived to tell it, and followed him to the mountain in a merchant's disguise."],
+      ["ch. 118", "青溪殞命", "Fallen in the Qingxi Yard", "She died inside the Qingxi palace yard in the last week of the war."],
+    ],
+  },
+  106: {
+    hook: "The idle villager whose bucket of wine won the birthday convoy.",
+    end: "The book gives him an illness on the road home and no scene at all. He was the decoy victim of the birthday convoy, the man who broke under the torture and still named nobody worth naming; the entire 108 begins with his bad luck, and ends without noticing he is gone.",
+    events: [
+      ["ch. 16", "黃泥岡賣酒", "The Bucket on Yellow Mud Ridge", "His bucket of 'wine' on the ridge takes the birthday convoy without a blow being struck."],
+      ["ch. 17", "拷供七人", "Tortured into Naming the Seven", "Tortured in Jizhou until he names the seven, then pardoned into the mountain's service as a scout."],
+    ],
+  },
+  107: {
+    hook: "Ranked 107th for work that won half the campaigns.",
+    end: "He died of illness on the march home — the fever the later printings name, in a ditch, the flea who had gone up every wall in the empire. Not one of the mountain's rescues works without him climbing it first, and the appointments at the end were made for heavier men.",
+    events: [
+      ["ch. 46", "祝家莊偷雞", "A Chicken Borrowed at Zhu Village", "The Flea on the Drum starts a war over a borrowed chicken at Zhu family village, and is worth every soldier it costs."],
+      ["ch. 56", "盜甲賺徐寧", "Lifting the Armour Off a Beam", "He lifts the heirloom armour off a beam in the capital, and with it the imperial instructor himself."],
+      ["ch. 66", "火燒翠雲樓", "One Lantern Opens Daming", "A single lantern in the watchtower is the signal that opens Daming fortress from inside."],
+    ],
+  },
+};
