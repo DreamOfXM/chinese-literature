@@ -58,7 +58,9 @@ ${body}
 </main>
 <footer class="site">
   <span class="seal" lang="zh" aria-hidden="true">譜</span>
-  <p>Built from public-domain texts. English nicknames and verse glosses are interpretive, not official translations.</p>
+  <p class="sig"><a href="${esc(origin + BASE)}/"><b>Chinese Literature</b> · <span class="url">${esc((origin + BASE).replace(/^https?:\/\//, ""))}/</span></a></p>
+  <p>Built from public-domain texts. The rankings, notes and ink illustrations are original to this site; republication without a link back is not permitted.</p>
+  <p>English nicknames and verse glosses are interpretive, not official translations.</p>
   <p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. This site measures aggregate usage through Google Analytics — page views, how far pages are scrolled, and which painted leaves are opened. No personal data is collected, nothing is sold, and the site carries no advertising.</p>
 </footer>
 <script src="${BASE}/assets/codex.js?v=${buster}" defer></script>

@@ -1219,6 +1219,11 @@ footer.site p {
 
 footer.site .seal { margin-bottom: .4rem; }
 
+footer.site .sig { font-size: .95rem; margin-top: .2rem; }
+footer.site .sig a { color: inherit; text-decoration: none; }
+footer.site .sig b { color: #f0e6d2; font-weight: 600; letter-spacing: .02em; }
+footer.site .sig .url { color: #a89c82; font-size: .82rem; }
+
 /* ---------- motion ---------- */
 
 @keyframes rise {
