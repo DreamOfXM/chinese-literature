@@ -1167,6 +1167,62 @@ body.lb-on { overflow: hidden; }
 .leaf-nav a span { font-family: var(--kai); font-size: 1.05rem; letter-spacing: .08em; }
 .leaf-nav .end { color: var(--ink-faint); border-style: dashed; background: transparent; }
 
+/* the shelf-mark line: which book, which list, which date — what a reader who arrived
+   from a search box needs before they take in a single word of prose */
+.lp-context {
+  margin: 0 0 1.3rem;
+  padding: .5rem .1rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--micro);
+  font-size: .82rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+
+.lp-context a {
+  color: var(--seal-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.lp-context a:hover { color: var(--seal); border-bottom-color: var(--seal); }
+
+.lp-context span[lang="zh"] { font-family: var(--kai); letter-spacing: .1em; }
+
+/* who else stands in these chapters */
+.lp-related { margin: 0 0 1.6rem; }
+
+.lp-related h2.rule { margin-top: 1.8rem; }
+
+ul.kin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0 1.3rem;
+  margin: .7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.kin li {
+  padding: .5rem .1rem;
+  border-bottom: 1px dotted var(--line);
+  font-size: .92rem;
+}
+
+ul.kin .zh {
+  font-family: var(--kai);
+  font-size: 1.06rem;
+  letter-spacing: .06em;
+  color: var(--ink);
+}
+
+ul.kin a { text-decoration: none; color: var(--ink); }
+
+ul.kin a:hover { color: var(--seal-deep); }
+
+ul.kin .gloss { display: block; margin-top: .12rem; font-size: .8rem; }
+
 /* ---------- tree ---------- */
 
 ul.tree, .tree ul { list-style: none; }
@@ -1218,6 +1274,9 @@ footer.site p {
 }
 
 footer.site .seal { margin-bottom: .4rem; }
+
+footer.site p a { color: #f0e6d2; text-decoration-color: rgba(216, 207, 186, .45); text-underline-offset: 3px; }
+footer.site p a:hover { color: #f7d9c8; text-decoration-color: var(--seal); }
 
 footer.site .sig { font-size: .95rem; margin-top: .2rem; }
 footer.site .sig a { color: inherit; text-decoration: none; }

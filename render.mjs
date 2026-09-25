@@ -7,7 +7,11 @@ const BASE = "/chinese-literature";
 
 const GA4_ID = "G-LY9LGVESBH";
 
-function shell({ origin, buster, path, title, desc, body, jsonld, og, noindex }) {
+function shell({ origin, buster, path, title, desc, body, jsonld, og, ogType, noindex }) {
+  // One choke point for the SERP budget: no page can ship a title or description
+  // Google would cut off mid-word.
+  title = clip(title, TITLE_MAX);
+  desc = clip(desc, DESC_MAX);
   const url = origin + path;
   const o = og || {
     img: "/assets/og.jpg", w: 1200, h: 630,
@@ -23,7 +27,7 @@ function shell({ origin, buster, path, title, desc, body, jsonld, og, noindex })
 ${noindex ? '<meta name="robots" content="noindex">\n' : ""}<title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${esc(url)}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="${ogType || "website"}">
 <meta property="og:site_name" content="Chinese Literature">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
@@ -45,12 +49,12 @@ gtag('config', '${GA4_ID}');
 </head>
 <body>
 <header class="site">
-  <a class="brand" href="${BASE}/index.html"><span class="seal" lang="zh" aria-hidden="true">譜</span>Chinese Literature</a>
+  <a class="brand" href="${BASE}/"><span class="seal" lang="zh" aria-hidden="true">譜</span>Chinese Literature</a>
   <nav>
-    <a href="${BASE}/water-margin/index.html">Water Margin</a>
-    <a href="${BASE}/journey-west/index.html">Journey to the West</a>
-    <a href="${BASE}/red-chamber/index.html">Red Chamber</a>
-    <a href="${BASE}/three-kingdoms/index.html">Three Kingdoms <span class="soon-chip" lang="zh">籌備中</span></a>
+    <a href="${BASE}/water-margin/">Water Margin</a>
+    <a href="${BASE}/journey-west/">Journey to the West</a>
+    <a href="${BASE}/red-chamber/">Red Chamber</a>
+    <a href="${BASE}/three-kingdoms/">Three Kingdoms <span class="soon-chip" lang="zh">籌備中</span></a>
   </nav>
 </header>
 <main>
@@ -62,6 +66,7 @@ ${body}
   <p>Built from public-domain texts. The rankings, notes and ink illustrations are original to this site; republication without a link back is not permitted.</p>
   <p>English nicknames and verse glosses are interpretive, not official translations.</p>
   <p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. This site measures aggregate usage through Google Analytics — page views, how far pages are scrolled, and which painted leaves are opened. No personal data is collected, nothing is sold, and the site carries no advertising.</p>
+  <p>Maintained by <a href="https://github.com/DreamOfXM" rel="me">DreamOfXM</a>. Every row cites a chapter, so corrections can be checked — <a href="https://github.com/DreamOfXM/chinese-literature/issues">open an issue</a>.</p>
 </footer>
 <script src="${BASE}/assets/codex.js?v=${buster}" defer></script>
 </body>
@@ -72,10 +77,94 @@ const NAV_CRUMB = (origin, path, name) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Chinese Literature", item: origin + BASE + "/index.html" },
+    { "@type": "ListItem", position: 1, name: "Chinese Literature", item: origin + BASE + "/" },
     { "@type": "ListItem", position: 2, name, item: origin + path },
   ],
 });
+
+// ---------- search-facing wording ----------
+// Inside the site a page is "Leaf 13 of the marsh"; a reader arriving from a search
+// box typed "Lu Zhishen Water Margin character" instead, so <title> and the meta
+// description carry their vocabulary rather than ours. Display width counts one CJK
+// glyph as two latin cells, which is roughly how a SERP renders it.
+const TITLE_MAX = 58;
+const DESC_MAX = 155;
+const dispLen = (s) => [...String(s)].reduce((n, ch) => n + (/[\u2e80-\u9fff\uf900-\ufaff\uff00-\uffef]/.test(ch) ? 2 : 1), 0);
+const clip = (s, max) => {
+  if (dispLen(s) <= max) return s;
+  let out = "";
+  for (const ch of s) {
+    if (dispLen(out + ch) > max) break;
+    out += ch;
+  }
+  return out.replace(/\s*\S*$/, "").replace(/[,;:.\s]+$/, "") + "…";
+};
+
+const seoTitle = (r, nv) => {
+  let t = `${r.en} — ${nv.seoNovel} Character`;
+  const add = (s) => { if (dispLen(t + s) <= TITLE_MAX) t += s; };
+  if (r.nng && dispLen(r.nng) <= 26) add(`: ${r.nng}`);
+  add(" & Fate");
+  if (r.zh) add(` ${r.zh}`);
+  return t;
+};
+
+const seoDesc = (r, nv) => {
+  const bits = [`${r.en} ${r.zh} — ${nv.seoNovel} character`];
+  if (nv.seoRole(r)) bits.push(nv.seoRole(r));
+  if (r.nng) bits.push(`nicknamed “${r.nng}”`);
+  return clip(`${bits.join(", ")}. ${r.hook}`, DESC_MAX);
+};
+
+// Chapters a record appears in, read off its own deed labels plus its tribulation key.
+const chaptersOf = (r) => {
+  const s = new Set();
+  const scan = (text) => {
+    // "32-35" names four chapters, not two endpoints
+    for (const m of text.matchAll(/(\d+)\s*[-–—]\s*(\d+)/g)) {
+      const a = +m[1];
+      const b = +m[2];
+      if (b > a && b - a <= 20) for (let c = a; c <= b; c++) s.add(c);
+    }
+    for (const m of text.matchAll(/\d+/g)) s.add(+m[0]);
+  };
+  for (const e of r.events || []) scan(String(e[0]));
+  scan(String(r.trib || ""));
+  return s;
+};
+
+// Roll-call chapters (the ch. 119 death list, the ch. 5 register) set a crowd on one
+// page without letting them meet, so sharing one proves nothing. Cut at 6 leaves:
+// the busiest ordinary chapter in these three books reaches 5.
+const ROLL_CALL = new WeakMap();
+const rollCallChapters = (nv) => {
+  let crowd = ROLL_CALL.get(nv);
+  if (!crowd) {
+    const freq = new Map();
+    for (const r of nv.rows) for (const c of chaptersOf(r)) freq.set(c, (freq.get(c) || 0) + 1);
+    crowd = new Set([...freq].filter(([, n]) => n >= 6).map(([c]) => c));
+    ROLL_CALL.set(nv, crowd);
+  }
+  return crowd;
+};
+
+// Who else stands in the same chapters; ties broken by rank so the set is stable
+// across rebuilds.
+const peersOf = (nv, r) => {
+  const crowd = rollCallChapters(nv);
+  const mine = new Set([...chaptersOf(r)].filter((c) => !crowd.has(c)));
+  return nv.rows
+    .filter((o) => o !== r)
+    .map((o) => {
+      const theirs = chaptersOf(o);
+      let shared = 0;
+      for (const c of mine) if (theirs.has(c)) shared++;
+      return { o, score: shared + (o.grp && o.grp === r.grp ? 0.4 : 0) };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score || a.o.id - b.o.id)
+    .slice(0, 6);
+};
 
 const pic = (buster, name, alt, w, h, eager) => `  <picture>
     <source srcset="${BASE}/assets/${name}.avif?v=${buster}" type="image/avif">
@@ -113,22 +202,22 @@ holds a reserved booth below, and its tables arrive when they can beat an essay.
 <section class="plates">
   <h2 class="rule">The tools <span class="zh-h" lang="zh">三冊</span></h2>
   <div class="cards">
-    <a class="card" href="${BASE}/water-margin/index.html">
+    <a class="card" href="${BASE}/water-margin/">
       <span class="card-zh" lang="zh" aria-hidden="true">水滸</span>
       <h2>The 108 Stars of Water Margin</h2>
       <p>Every star in rank order: heavenly or earthly, nickname in Chinese and English, name, and a condensed fate from the campaign chapters. Stars with a leaf of their own open into a painted portrait and their deeds in chapter order.</p>
     </a>
-    <a class="card" href="${BASE}/journey-west/index.html">
+    <a class="card" href="${BASE}/journey-west/">
       <span class="card-zh" lang="zh" aria-hidden="true">西遊</span>
       <h2>Demons &amp; Tribulations of Journey to the West</h2>
       <p>Each named antagonist episode: place, demon, magic treasure or ability, how it was resolved, and the chapter range — with a painted leaf for everyone in it, pilgrim, god or monster.</p>
     </a>
-    <a class="card" href="${BASE}/red-chamber/index.html">
+    <a class="card" href="${BASE}/red-chamber/">
       <span class="card-zh" lang="zh" aria-hidden="true">紅樓</span>
       <h2>Red Chamber: Family Tree &amp; Twelve Beauties</h2>
       <p>The Jia house as an expandable tree, the Jinling register with its verses, glosses and fates, and a painted leaf for every named person in the house — many headed by the 判詞 written about them in chapter five.</p>
     </a>
-    <a class="card soon" href="${BASE}/three-kingdoms/index.html">
+    <a class="card soon" href="${BASE}/three-kingdoms/">
       <span class="card-zh" lang="zh" aria-hidden="true">三國</span>
       <h2>Romance of the Three Kingdoms <span class="soon-chip" lang="zh">籌備中</span></h2>
       <p>Booth reserved for the fourth great novel. The plan: the era as a dated table — which lord, which strategist, which battle turned which province — plus painted leaves for the oath brothers and their rivals. The ink is still drying.</p>
@@ -142,11 +231,11 @@ rank against rank, chapter against chapter — where prose hides them. Where a f
 gloss or a condensation, the page says so.</p>
 </section>`;
   return shell({
-    origin, buster, path: `${BASE}/index.html`,
-    title: "Chinese Literature — Lookup Tools for the Four Great Novels",
-    desc: "Lookup tools for China's classical novels: the 108 Stars of Water Margin, Journey to the West demons and treasures, the Red Chamber house — each a painted leaf.",
+    origin, buster, path: `${BASE}/`,
+    title: "Four Great Chinese Novels — Character Tables & Family Trees",
+    desc: "Searchable lookup tools for the Chinese literary canon in English: all 108 Water Margin characters ranked, every Journey to the West demon and how its fight ended, and the Dream of the Red Chamber family tree.",
     body,
-    jsonld: { "@context": "https://schema.org", "@type": "WebSite", name: "Chinese Literature", url: origin + BASE + "/index.html" },
+    jsonld: { "@context": "https://schema.org", "@type": "WebSite", name: "Chinese Literature", url: origin + BASE + "/" },
   });
 }
 
@@ -158,7 +247,7 @@ const slugOf = (py) => py.toLowerCase().replace(/ü/g, "u").replace(/[^a-z0-9]+/
 // that has a page, already merged with that character's hook / events / end.
 //   record = { id, tag, tagShort, zh, en, nn, nng, label, hook, end, events,
 //              verse?, verseGloss?, painting?, meta? }
-const leafHref = (nv, r) => `${BASE}/${nv.dir}/${slugOf(r.en)}/index.html`;
+const leafHref = (nv, r) => `${BASE}/${nv.dir}/${slugOf(r.en)}/`;
 const leafPic = (nv, r) => nv.imgOf(r);
 
 // The lightbox reads its gallery from this payload, so the rail and every leaf
@@ -191,13 +280,14 @@ function leafPage({ origin, buster }, nv, r) {
   const at = nv.rows.indexOf(r);
   const prev = nv.rows[at - 1];
   const next = nv.rows[at + 1];
+  const link = pageLinker(nv, r);
   const nav = (o, label) => o
     ? `<a href="${leafHref(nv, o)}">${label} <span lang="zh">${esc(o.zh)}</span></a>`
     : `<span class="end">${label}</span>`;
   const deeds = r.events.map(([ch, zh, ten, text]) =>
-    `      <li><span class="ch">${esc(ch)}</span><h3 class="en-t">${esc(ten)}</h3><span class="zh-t" lang="zh">${esc(zh)}</span><p>${esc(text)}</p></li>`).join("\n");
+    `      <li><span class="ch">${esc(ch)}</span><h3 class="en-t">${esc(ten)}</h3><span class="zh-t" lang="zh">${esc(zh)}</span><p>${link(text)}</p></li>`).join("\n");
   const meta = r.meta && r.meta.length
-    ? `    <dl class="lp-meta">\n${r.meta.map(([k, v]) => `      <div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("\n")}\n    </dl>`
+    ? `    <dl class="lp-meta">\n${r.meta.map(([k, v]) => `      <div><dt>${esc(k)}</dt><dd>${link(v)}</dd></div>`).join("\n")}\n    </dl>`
     : "";
   const verse = r.verse
     ? `    <figure class="judgement">
@@ -207,6 +297,14 @@ function leafPage({ origin, buster }, nv, r) {
       <p class="jm-paint"><span lang="zh">畫</span> ${esc(r.painting)}</p>` : ""}
     </figure>`
     : "";
+  const peers = peersOf(nv, r);
+  const related = peers.length >= 1 ? `
+    <section class="lp-related">
+      <h2 class="rule">${esc(nv.relatedHeading.en)} <span class="zh-h" lang="zh">${nv.relatedHeading.zh}</span></h2>
+      <ul class="kin">
+${peers.map(({ o }) => `        <li><a class="rowlink" href="${leafHref(nv, o)}"><span class="zh" lang="zh">${esc(o.zh)}</span> ${esc(o.en)}</a>${o.nng ? `<span class="gloss">${esc(o.nng)}</span>` : ""}</li>`).join("\n")}
+      </ul>
+    </section>` : "";
   const body = `
 <section class="leafpage">
   <div class="lp-mount">
@@ -219,6 +317,7 @@ ${pic(buster, leafPic(nv, r), `Ink leaf portrait of ${esc(r.en)}, ${esc(r.nng)}.
   <div class="lp-body">
     <p class="kicker">${esc(nv.leafWord)} ${esc(r.tagShort)} ${esc(nv.unit)}${r.nn ? ` · <span lang="zh">${esc(r.nn)}</span> ${esc(r.nng)}` : ""}</p>
     <h1>${esc(r.en)} <span class="zh-h" lang="zh">${esc(r.zh)}</span></h1>
+    <p class="lp-context">In <a href="${BASE}/${nv.dir}/">${esc(nv.seoNovel)}</a> <span lang="zh">${esc(nv.novelZh)}</span> (${esc(nv.novelDate)}) · ${nv.seoRole(r)}${r.nn ? ` · nicknamed <span lang="zh">${esc(r.nn)}</span> “${esc(r.nng)}”` : ""}</p>
     <p class="lede">${esc(r.hook)}</p>
 ${meta}
 ${verse}
@@ -228,30 +327,33 @@ ${deeds}
     </ol>
     <div class="colophon">
       <p class="col-label"><span lang="zh">${nv.endLabel}</span> ${esc(nv.endLabelEn)}</p>
-      <p class="col-text">${esc(r.end)}</p>
+      <p class="col-text">${link(r.end)}</p>
     </div>
+${related}
     <nav class="leaf-nav">
       ${nav(prev, "← Prev")}
-      <a href="${BASE}/${nv.dir}/index.html">${esc(nv.indexLink)} <span lang="zh">${nv.indexLinkZh}</span></a>
+      <a href="${BASE}/${nv.dir}/">${esc(nv.indexLink)} <span lang="zh">${nv.indexLinkZh}</span></a>
       ${nav(next, "Next →")}
     </nav>
   </div>
 ${lbData(nv)}
 </section>`;
-  const tail = nv.metaTail;
-  const raw = r.hook.length + tail.length + 1 <= 158 ? `${r.hook} ${tail}` : r.hook;
-  const desc = raw.length <= 158 ? raw : raw.slice(0, 155).trimEnd() + "…";
-  const path = `${BASE}/${nv.dir}/${slugOf(r.en)}/index.html`;
-  const full = `${r.en} ${r.zh} · ${r.label} — ${nv.pageTail} ${r.tagShort}`;
+  const path = `${BASE}/${nv.dir}/${slugOf(r.en)}/`;
   return shell({
     origin, buster, path,
-    title: esc(full).length <= 65 ? full : `${r.en} ${r.zh} — ${nv.pageTail} ${r.tagShort}`,
-    desc,
+    title: seoTitle(r, nv),
+    desc: seoDesc(r, nv),
     body,
+    ogType: "article",
     og: { img: `/assets/${leafPic(nv, r)}.jpg`, w: 720, h: 900, alt: `Ink leaf portrait of ${r.en}, ${r.nng}.` },
     jsonld: [
       NAV_CRUMB(origin, path, `${r.en} ${r.zh}`),
-      { "@context": "https://schema.org", "@type": "Person", name: r.en, alternateName: [r.zh, r.nn, r.nng, r.label].filter(Boolean), description: r.hook },
+      {
+        "@context": "https://schema.org", "@type": "Person", name: r.en,
+        alternateName: [r.zh, r.nn, r.nng, r.label].filter(Boolean),
+        description: r.hook,
+        image: `${origin}${BASE}/assets/${leafPic(nv, r)}.jpg`,
+      },
     ],
   });
 }
@@ -268,8 +370,9 @@ const wmNovel = (STARS, LEAVES) => ({
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
   endLabel: "結局", endLabelEn: "The ending",
   indexLink: "The roster", indexLinkZh: "天罡地煞",
-  pageTail: "Water Margin Leaf",
-  metaTail: "Painted leaf portrait, the great deeds in chapter order, and how it ended.",
+  seoNovel: "Water Margin", novelZh: "水滸傳", novelDate: "c. 1400",
+  seoRole: (r) => `rank ${r.id} of the 108 Stars`,
+  relatedHeading: { en: "In the same chapters", zh: "同回" },
 });
 
 const jwNovel = (PEOPLE) => ({
@@ -283,8 +386,12 @@ const jwNovel = (PEOPLE) => ({
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
   endLabel: "結局", endLabelEn: "The ending",
   indexLink: "The index", indexLinkZh: "八十一難",
-  pageTail: "Journey to the West Leaf",
-  metaTail: "Painted leaf portrait, the great deeds in chapter order, and the episode it belongs to.",
+  seoNovel: "Journey to the West", novelZh: "西遊記", novelDate: "c. 1592",
+  seoRole: (r) => (r.grp === "pilgrim" ? "one of the four pilgrims"
+    : r.grp === "demon" ? "a demon on the road west"
+    : r.grp === "heaven" ? "a heaven-sent power who ends the fight"
+    : ""),
+  relatedHeading: { en: "In the same episode", zh: "同難" },
 });
 
 // Which roll of the Taixu Huanjing register a record sits in, or where else in the
@@ -311,8 +418,9 @@ const rcNovel = (PEOPLE) => ({
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
   endLabel: "結局", endLabelEn: "The ending",
   indexLink: "The register", indexLinkZh: "金陵十二釵",
-  pageTail: "Red Chamber Leaf",
-  metaTail: "Painted leaf portrait, its register verse, the great deeds in chapter order, and the ending.",
+  seoNovel: "Dream of the Red Chamber", novelZh: "紅樓夢", novelDate: "c. 1791",
+  seoRole: (r) => { const roll = rollOf(r.grp); return roll.zh ? `in the ${roll.en.replace(/^The\s+/i, "")} (${roll.zh})` : ""; },
+  relatedHeading: { en: "In the same register & chapters", zh: "同冊" },
 });
 
 function waterMargin({ origin, buster, STARS, nv }) {
@@ -356,11 +464,11 @@ ${rows}
 </table>
 </div>`;
   return shell({
-    origin, buster, path: `${BASE}/water-margin/index.html`,
-    title: "The 108 Stars of Water Margin — Ranked Table, Leaves & Fates",
-    desc: "All 108 Stars of Destiny in rank order — star, nickname in Chinese and English, name, and condensed fate. 45 characters open into their own painted leaf page.",
+    origin, buster, path: `${BASE}/water-margin/`,
+    title: "Water Margin's 108 Stars — All Characters Ranked & Fates",
+    desc: "Every Water Margin character in rank order: the 108 Stars of Destiny with star name, nickname in Chinese and English, and condensed fate. 45 characters open into their own page with deeds and ending.",
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/water-margin/index.html`, "Water Margin 108 Stars"),
+    jsonld: NAV_CRUMB(origin, `${BASE}/water-margin/`, "Water Margin 108 Stars"),
   });
 }
 
@@ -437,32 +545,53 @@ ${tribs}
 </table>
 </div>`;
   return shell({
-    origin, buster, path: `${BASE}/journey-west/index.html`,
-    title: "Journey to the West — Demon, Treasure & Resolution Index",
+    origin, buster, path: `${BASE}/journey-west/`,
+    title: "Journey to the West Demons — Fiends, Treasures & Endings",
     desc: `Every demon episode of Journey to the West: place, antagonist, treasure or ability, how it was resolved, and the chapter range. ${n} characters open as painted leaves.`,
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/journey-west/index.html`, "Journey to the West Index"),
+    jsonld: NAV_CRUMB(origin, `${BASE}/journey-west/`, "Journey to the West Index"),
   });
 }
 
-// Anywhere a person's English name appears inside a label — a tree node, a register
-// row — it becomes the link to their leaf. Longest name wins so "Grandmother Jia"
-// is never eaten by a shorter match.
-const linkNames = (nv, text) => {
+// Anywhere a person's English name appears inside a label or a deed — a tree node, a
+// register row, a chapter summary — it becomes the link to their leaf. Longest name
+// wins so "Grandmother Jia" is never eaten by a shorter match. `self` stops a page
+// linking to itself; each name links once and a page caps out, so the prose stays
+// readable rather than turning into a field of blue.
+const linkNames = (nv, text, self, budget = 12, seen = new Set()) => {
   let out = "";
-  let rest = text;
-  while (rest) {
+  let rest = String(text);
+  let links = 0;
+  while (rest && links < budget) {
     let hit = null;
     for (const r of nv.rows) {
+      if (r === self || seen.has(r.en)) continue;
       const i = rest.indexOf(r.en);
       if (i < 0) continue;
+      const before = i > 0 ? rest[i - 1] : " ";
+      const after = rest[i + r.en.length] || " ";
+      if (/[A-Za-z]/.test(before) || /[A-Za-z]/.test(after)) continue;
       if (!hit || i < hit.i || (i === hit.i && r.en.length > hit.r.en.length)) hit = { i, r };
     }
     if (!hit) return out + esc(rest);
+    seen.add(hit.r.en);
+    links++;
     out += esc(rest.slice(0, hit.i)) + `<a class="rowlink" href="${leafHref(nv, hit.r)}">${esc(hit.r.en)}</a>`;
     rest = rest.slice(hit.i + hit.r.en.length);
   }
-  return out;
+  return out + esc(rest);
+};
+
+// One linker per leaf page: a name becomes a link the first time the page says it,
+// and the whole page stops at `cap`, so the deeds read as prose with handholds.
+const pageLinker = (nv, self, cap = 14) => {
+  const seen = new Set();
+  let used = 0;
+  return (text) => {
+    const out = linkNames(nv, text, self, cap - used, seen);
+    used = seen.size;
+    return out;
+  };
 };
 
 function treeHTML(nodes, nv) {
@@ -528,11 +657,11 @@ ${rows}
 </table>
 </div>`;
   return shell({
-    origin, buster, path: `${BASE}/red-chamber/index.html`,
-    title: "Dream of the Red Chamber — Family Tree, Register & Leaves",
+    origin, buster, path: `${BASE}/red-chamber/`,
+    title: "Dream of the Red Chamber Family Tree & Twelve Beauties",
     desc: `The Jia family tree, the Twelve Beauties of Jinling with their verses, and ${n} characters who open into their own painted leaf — ${verses} headed by their 判词.`,
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/red-chamber/index.html`, "Red Chamber Tree & Register"),
+    jsonld: NAV_CRUMB(origin, `${BASE}/red-chamber/`, "Red Chamber Tree & Register"),
   });
 }
 
@@ -552,14 +681,14 @@ function threeKingdoms({ origin, buster }) {
   campaigns indexed by river and pass, and painted leaves for the oath brothers and their rivals.
   Each answer a row, not an essay.</p>
   <p class="soon-note">The ink is still drying — check back after the next kiln firing.</p>
-  <nav class="soon-nav"><a href="${BASE}/index.html">← The four great novels</a></nav>
+  <nav class="soon-nav"><a href="${BASE}/">← The four great novels</a></nav>
 </section>`;
   return shell({
-    origin, buster, path: `${BASE}/three-kingdoms/index.html`, noindex: true,
+    origin, buster, path: `${BASE}/three-kingdoms/`, noindex: true,
     title: "Romance of the Three Kingdoms — booth reserved",
     desc: "A reserved booth: lookup tables and painted leaves for Romance of the Three Kingdoms are in preparation.",
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/three-kingdoms/index.html`, "Romance of the Three Kingdoms"),
+    jsonld: NAV_CRUMB(origin, `${BASE}/three-kingdoms/`, "Romance of the Three Kingdoms"),
   });
 }
 

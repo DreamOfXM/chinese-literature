@@ -38,9 +38,11 @@ for (const [rel, html] of pages) {
 }
 
 writeFileSync(join(root, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${ORIGIN}${BASE}/sitemap.xml\n`);
+// Pages ship as <dir>/index.html but are canonicalised at <dir>/, so the sitemap has
+// to list the same URLs the pages point at — or it advertises a second copy of everything.
 const urls = pages
   .filter(([rel]) => rel !== "three-kingdoms/index.html") // reserved booth: noindex teaser, not for crawlers
-  .map(([rel]) => `  <url><loc>${ORIGIN}${BASE}/${rel}</loc><lastmod>${lastmod}</lastmod></url>`)
+  .map(([rel]) => `  <url><loc>${ORIGIN}${BASE}/${rel.replace(/index\.html$/, "")}</loc><lastmod>${lastmod}</lastmod></url>`)
   .join("\n");
 writeFileSync(
   join(root, "sitemap.xml"),
