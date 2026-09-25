@@ -1,5 +1,7 @@
 // Pure string builders. build.mjs calls these at build time so every page
 // ships its full content in HTML — no client-side-rendered empty shells.
+import { LOCALES, DEFAULT_LOCALE, LOCALE_ORDER, localeTiers } from "./locales.mjs";
+
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
 // Local server and GitHub Pages both mount the site at this path prefix.
@@ -7,7 +9,11 @@ const BASE = "/chinese-literature";
 
 const GA4_ID = "G-LY9LGVESBH";
 
-function shell({ origin, buster, path, title, desc, body, jsonld, og, ogType, noindex }) {
+// Non-default locales live under /<code>/; English keeps the bare paths it has
+// always had, because its 141 URLs are already in Google's index.
+const lp = (code) => (code === DEFAULT_LOCALE ? "" : `/${code}`);
+
+function shell({ origin, buster, path, title, desc, body, jsonld, og, ogType, noindex, L, alt = {} }) {
   // One choke point for the SERP budget: no page can ship a title or description
   // Google would cut off mid-word.
   title = clip(title, TITLE_MAX);
@@ -15,20 +21,32 @@ function shell({ origin, buster, path, title, desc, body, jsonld, og, ogType, no
   const url = origin + path;
   const o = og || {
     img: "/assets/og.jpg", w: 1200, h: 630,
-    alt: "Ink-wash banner: marsh boat, mountain bridge, stone staff and moon-gate garden, one vignette per novel.",
+    alt: L["shell.ogAlt"],
   };
   const lds = (Array.isArray(jsonld) ? jsonld : [jsonld])
     .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join("\n");
+  // Only pages that really have a translated twin declare a cluster — an
+  // hreflang to a page that doesn't exist is worse than no hreflang.
+  const cluster = [{ code: L.code, href: path },
+    ...Object.entries(alt).map(([code, href]) => ({ code, href }))].sort((a, b) => a.code.localeCompare(b.code));
+  const alts = cluster.length > 1
+    ? cluster.map((c) => `<link rel="alternate" hreflang="${c.code}" href="${esc(origin + c.href)}">`).join("\n")
+      + `\n<link rel="alternate" hreflang="x-default" href="${esc(origin + (cluster.find((c) => c.code === DEFAULT_LOCALE) || cluster[0]).href)}">`
+    : "";
+  const switcher = cluster.length > 1 ? `
+  <nav class="lang-switch" aria-label="${esc(L.langLabel)}">
+${cluster.map((c) => `    <a href="${esc(c.href)}" hreflang="${c.code}" lang="${c.code}"${c.code === L.code ? ' class="on" aria-current="true"' : ""}>${esc(LOCALES[c.code].selfName)}</a>`).join("\n")}
+  </nav>` : "";
   return `<!doctype html>
-<html lang="en">
+<html lang="${L.htmlLang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ${noindex ? '<meta name="robots" content="noindex">\n' : ""}<title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${esc(url)}">
-<meta property="og:type" content="${ogType || "website"}">
-<meta property="og:site_name" content="Chinese Literature">
+${alts}${alts ? "\n" : ""}<meta property="og:type" content="${ogType || "website"}">
+<meta property="og:site_name" content="${esc(L["shell.site"])}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${esc(url)}">
@@ -49,35 +67,31 @@ gtag('config', '${GA4_ID}');
 </head>
 <body>
 <header class="site">
-  <a class="brand" href="${BASE}/"><span class="seal" lang="zh" aria-hidden="true">譜</span>Chinese Literature</a>
+  <a class="brand" href="${BASE}${lp(L.code)}/"><span class="seal" lang="zh" aria-hidden="true">譜</span>${esc(L["shell.site"])}</a>
   <nav>
-    <a href="${BASE}/water-margin/">Water Margin</a>
-    <a href="${BASE}/journey-west/">Journey to the West</a>
-    <a href="${BASE}/red-chamber/">Red Chamber</a>
-    <a href="${BASE}/three-kingdoms/">Three Kingdoms <span class="soon-chip" lang="zh">籌備中</span></a>
-  </nav>
+    <a href="${BASE}${lp(L.code)}/water-margin/">${esc(L["shell.nav.wm"])}</a>
+    <a href="${BASE}${lp(L.code)}/journey-west/">${esc(L["shell.nav.jw"])}</a>
+    <a href="${BASE}${lp(L.code)}/red-chamber/">${esc(L["shell.nav.rc"])}</a>
+    <a href="${BASE}${lp(L.code)}/three-kingdoms/">${esc(L["shell.nav.tk"])} <span class="soon-chip" lang="zh">籌備中</span></a>
+  </nav>${switcher}
 </header>
 <main>
 ${body}
 </main>
 <footer class="site">
   <span class="seal" lang="zh" aria-hidden="true">譜</span>
-  <p class="sig"><a href="${esc(origin + BASE)}/"><b>Chinese Literature</b> · <span class="url">${esc((origin + BASE).replace(/^https?:\/\//, ""))}/</span></a></p>
-  <p>Built from public-domain texts. The rankings, notes and ink illustrations are original to this site; republication without a link back is not permitted.</p>
-  <p>English nicknames and verse glosses are interpretive, not official translations.</p>
-  <p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. This site measures aggregate usage through Google Analytics — page views, how far pages are scrolled, and which painted leaves are opened. No personal data is collected, nothing is sold, and the site carries no advertising.</p>
-  <p>Maintained by <a href="https://github.com/DreamOfXM" rel="me">DreamOfXM</a>. Every row cites a chapter, so corrections can be checked — <a href="https://github.com/DreamOfXM/chinese-literature/issues">open an issue</a>.</p>
+${L["shell.footer"].map((f) => "  " + f(origin + BASE + lp(L.code))).join("\n")}
 </footer>
 <script src="${BASE}/assets/codex.js?v=${buster}" defer></script>
 </body>
 </html>`;
 }
 
-const NAV_CRUMB = (origin, path, name) => ({
+const NAV_CRUMB = (origin, path, name, L) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Chinese Literature", item: origin + BASE + "/" },
+    { "@type": "ListItem", position: 1, name: L["shell.site"], item: origin + BASE + lp(L.code) + "/" },
     { "@type": "ListItem", position: 2, name, item: origin + path },
   ],
 });
@@ -97,7 +111,12 @@ const clip = (s, max) => {
     if (dispLen(out + ch) > max) break;
     out += ch;
   }
-  return out.replace(/\s*\S*$/, "").replace(/[,;:.\s]+$/, "") + "…";
+  // Space-delimited text can drop its last partial word. Japanese and Chinese
+  // carry no spaces, so that same rule would eat the whole string and ship a
+  // description of one ellipsis — they cut at the last clause mark instead.
+  if (/\s/.test(out)) return out.replace(/\s*\S*$/, "").replace(/[,;:.\s]+$/, "") + "…";
+  const at = Math.max(out.lastIndexOf("。"), out.lastIndexOf("、"), out.lastIndexOf("・"));
+  return (at > out.length / 2 ? out.slice(0, at) : out) + "…";
 };
 
 const seoTitle = (r, nv) => {
@@ -185,57 +204,40 @@ ${pic(buster, img, alt, 1600, 766, true)}
 </section>`;
 }
 
-const PLATE_NOTE = "Modern ink interpretations painted for this site after the Ming drinking-leaf tradition — not historical portraits and not scans of any edition.";
-
-function hub({ origin, buster }) {
+function hub({ origin, buster, L, alt }) {
+  const p = `${BASE}${lp(L.code)}/`;
+  const card = (dir, key, zhCard, title, body) => `    <a class="card${key}" href="${BASE}${lp(L.code)}/${dir}/">
+      <span class="card-zh" lang="zh" aria-hidden="true">${zhCard}</span>
+      <h2>${title}</h2>
+      <p>${body}</p>
+    </a>`;
   const body = `${hero(buster, {
     img: "og",
-    alt: "Ink-wash banner: a marsh boat, a mountain bridge, a stone staff and a moon-gate garden — one vignette per novel.",
-    kicker: "The Ming–Qing canon · 冊頁",
-    title: "The classical novels, as lookup tools",
-    zh: "四大名著",
-    lede: `Not essays — tables, trees, indexes and painted leaves you can filter. Each tool answers a
-question with a row or a branch: who held which rank, which demon carried which treasure, who is
-whose mother in the Jia house. Three of the four great novels have tools here today; the fourth
-holds a reserved booth below, and its tables arrive when they can beat an essay.`,
+    alt: L["hub.alt"],
+    kicker: L["hub.kicker"],
+    title: L["hub.title"],
+    zh: L["hub.zh"],
+    lede: L["hub.lede"],
   })}
 <section class="plates">
-  <h2 class="rule">The tools <span class="zh-h" lang="zh">三冊</span></h2>
+  <h2 class="rule">${esc(L["hub.tools"])} <span class="zh-h" lang="zh">三冊</span></h2>
   <div class="cards">
-    <a class="card" href="${BASE}/water-margin/">
-      <span class="card-zh" lang="zh" aria-hidden="true">水滸</span>
-      <h2>The 108 Stars of Water Margin</h2>
-      <p>Every star in rank order: heavenly or earthly, nickname in Chinese and English, name, and a condensed fate from the campaign chapters. Stars with a leaf of their own open into a painted portrait and their deeds in chapter order.</p>
-    </a>
-    <a class="card" href="${BASE}/journey-west/">
-      <span class="card-zh" lang="zh" aria-hidden="true">西遊</span>
-      <h2>Demons &amp; Tribulations of Journey to the West</h2>
-      <p>Each named antagonist episode: place, demon, magic treasure or ability, how it was resolved, and the chapter range — with a painted leaf for everyone in it, pilgrim, god or monster.</p>
-    </a>
-    <a class="card" href="${BASE}/red-chamber/">
-      <span class="card-zh" lang="zh" aria-hidden="true">紅樓</span>
-      <h2>Red Chamber: Family Tree &amp; Twelve Beauties</h2>
-      <p>The Jia house as an expandable tree, the Jinling register with its verses, glosses and fates, and a painted leaf for every named person in the house — many headed by the 判詞 written about them in chapter five.</p>
-    </a>
-    <a class="card soon" href="${BASE}/three-kingdoms/">
-      <span class="card-zh" lang="zh" aria-hidden="true">三國</span>
-      <h2>Romance of the Three Kingdoms <span class="soon-chip" lang="zh">籌備中</span></h2>
-      <p>Booth reserved for the fourth great novel. The plan: the era as a dated table — which lord, which strategist, which battle turned which province — plus painted leaves for the oath brothers and their rivals. The ink is still drying.</p>
-    </a>
+${card("water-margin", "", "水滸", L["hub.card.wm.t"], L["hub.card.wm.b"])}
+${card("journey-west", "", "西遊", L["hub.card.jw.t"], L["hub.card.jw.b"])}
+${card("red-chamber", "", "紅樓", L["hub.card.rc.t"], L["hub.card.rc.b"])}
+${card("three-kingdoms", " soon", "三國", `${L["hub.card.tk.t"]} <span class="soon-chip" lang="zh">籌備中</span>`, L["hub.card.tk.b"])}
   </div>
 </section>
 <section class="plates">
-  <h2 class="rule">Why tables and not articles <span class="zh-h" lang="zh">以表代文</span></h2>
-  <p class="plate-note" style="font-style:normal;font-size:1rem;color:var(--ink-soft)">The novels are public domain; the readings are not. A table makes its claims checkable —
-rank against rank, chapter against chapter — where prose hides them. Where a field is a
-gloss or a condensation, the page says so.</p>
+  <h2 class="rule">${esc(L["hub.why"])} <span class="zh-h" lang="zh">以表代文</span></h2>
+  <p class="plate-note" style="font-style:normal;font-size:1rem;color:var(--ink-soft)">${L["hub.why.b"]}</p>
 </section>`;
   return shell({
-    origin, buster, path: `${BASE}/`,
-    title: "Four Great Chinese Novels — Characters & Family Trees",
-    desc: "Searchable lookup tools for the Chinese literary canon in English: all 108 Water Margin characters ranked, every Journey to the West demon and how its fight ended, and the Dream of the Red Chamber family tree.",
+    origin, buster, path: p, L, alt,
+    title: L["hub.seoTitle"],
+    desc: L["hub.seoDesc"],
     body,
-    jsonld: { "@context": "https://schema.org", "@type": "WebSite", name: "Chinese Literature", url: origin + BASE + "/" },
+    jsonld: { "@context": "https://schema.org", "@type": "WebSite", name: L["shell.site"], url: origin + p },
   });
 }
 
@@ -258,25 +260,29 @@ const lbData = (nv) => `  <script type="application/json" class="lb-data">${JSON
   webp: `${BASE}/assets/${leafPic(nv, r)}.webp`, jpg: `${BASE}/assets/${leafPic(nv, r)}.jpg`,
 })))}</script>`;
 
-function leafRail(buster, nv) {
-  const cards = nv.rows.map((r, i) => `    <button class="leafcard" data-lb="${i}" aria-label="Open the leaf of ${esc(r.en)} full size">
-${pic(buster, leafPic(nv, r), `Ink leaf portrait of ${esc(r.en)}, ${esc(r.nng)}.`, 720, 900)}
+function leafRail(buster, nv, L) {
+  const cards = nv.rows.map((r, i) => `    <button class="leafcard" data-lb="${i}" aria-label="${esc(L["rail.cardAria"](r.en))}">
+${pic(buster, leafPic(nv, r), L["rail.cardAlt"](r.en, r.nng), 720, 900)}
       <span class="leaf-zh" lang="zh">${esc(r.zh)}</span>
       <span class="leaf-en">${esc(r.en)} · ${esc(r.tagShort)}</span>
     </button>`).join("\n");
   return `
 <section class="rail-sec">
-  <h2 class="rule">${nv.railHeading} <span class="zh-h" lang="zh">${nv.railHeadingZh}</span></h2>
-  <p class="rail-hint">All ${nv.rows.length} painted leaves are in this rail. Swipe it sideways, click one to open it full size, then arrow or drag through the rest.</p>
-  <div class="rail" tabindex="0" aria-label="${esc(nv.railAria)}">
+  <h2 class="rule">${esc(L["rail.heading"])} <span class="zh-h" lang="zh">${nv.railHeadingZh}</span></h2>
+  <p class="rail-hint">${L["rail.hint"](nv.rows.length)}</p>
+  <div class="rail" tabindex="0" aria-label="${esc(L[`rail.aria.${nv.key}`])}">
 ${cards}
   </div>
-  <p class="plate-note">${esc(nv.plateNote)}</p>
+  <p class="plate-note">${esc(L["rail.plateNote"])}</p>
 ${lbData(nv)}
 </section>`;
 }
 
 function leafPage({ origin, buster }, nv, r) {
+  // Leaves are English-only in the pilot, so they carry the default locale's
+  // chrome and no hreflang cluster — a cluster pointing at a /ja/ leaf that was
+  // never written would be worse than declaring nothing.
+  const L = LOCALES[DEFAULT_LOCALE];
   const at = nv.rows.indexOf(r);
   const prev = nv.rows[at - 1];
   const next = nv.rows[at + 1];
@@ -340,14 +346,14 @@ ${lbData(nv)}
 </section>`;
   const path = `${BASE}/${nv.dir}/${slugOf(r.en)}/`;
   return shell({
-    origin, buster, path,
+    origin, buster, path, L,
     title: seoTitle(r, nv),
     desc: seoDesc(r, nv),
     body,
     ogType: "article",
     og: { img: `/assets/${leafPic(nv, r)}.jpg`, w: 720, h: 900, alt: `Ink leaf portrait of ${r.en}, ${r.nng}.` },
     jsonld: [
-      NAV_CRUMB(origin, path, `${r.en} ${r.zh}`),
+      NAV_CRUMB(origin, path, `${r.en} ${r.zh}`, L),
       {
         "@context": "https://schema.org", "@type": "Person", name: r.en,
         alternateName: [r.zh, r.nn, r.nng, r.label].filter(Boolean),
@@ -359,13 +365,11 @@ ${lbData(nv)}
 }
 
 const wmNovel = (STARS, LEAVES) => ({
-  dir: "water-margin",
+  dir: "water-margin", key: "wm",
   imgOf: (r) => `img/wm-s${String(r.id).padStart(3, "0")}`,
   rows: STARS.filter(([rank]) => LEAVES[rank]).map(([rank, label, nn, nng, zh, en, fate]) =>
     ({ id: rank, tag: `rank ${rank}`, tagShort: String(rank), label, nn, nng, zh, en, fate, ...LEAVES[rank] })),
-  railHeading: "The leaves", railHeadingZh: "水滸葉子",
-  railAria: "Portrait leaves of the Water Margin characters, scrollable sideways",
-  plateNote: PLATE_NOTE,
+ railHeadingZh: "水滸葉子",
   leafWord: "Leaf", unit: "of the marsh",
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
   endLabel: "結局", endLabelEn: "The ending",
@@ -376,12 +380,10 @@ const wmNovel = (STARS, LEAVES) => ({
 });
 
 const jwNovel = (PEOPLE) => ({
-  dir: "journey-west",
+  dir: "journey-west", key: "jw",
   imgOf: (r) => `img/jw-${slugOf(r.en)}`,
   rows: PEOPLE.map((r) => ({ ...r, tag: `no. ${r.id}`, tagShort: String(r.id) })),
-  railHeading: "The leaves", railHeadingZh: "取經葉子",
-  railAria: "Portrait leaves of the Journey to the West characters, scrollable sideways",
-  plateNote: PLATE_NOTE,
+ railHeadingZh: "取經葉子",
   leafWord: "Leaf", unit: "of the pilgrimage",
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
   endLabel: "結局", endLabelEn: "The ending",
@@ -407,12 +409,10 @@ const RC_ROLL = {
 const rollOf = (grp) => RC_ROLL[grp] || { zh: "", en: grp };
 
 const rcNovel = (PEOPLE) => ({
-  dir: "red-chamber",
+  dir: "red-chamber", key: "rc",
   imgOf: (r) => `img/rc-${slugOf(r.en)}`,
   rows: PEOPLE.map((r) => ({ ...r, tag: `no. ${r.id}`, tagShort: String(r.id) })),
-  railHeading: "The leaves", railHeadingZh: "金陵葉子",
-  railAria: "Portrait leaves of the Dream of the Red Chamber characters, scrollable sideways",
-  plateNote: PLATE_NOTE,
+ railHeadingZh: "金陵葉子",
   leafWord: "Leaf", unit: "of the Red Chamber",
   verseLabel: "判詞", verseLabelEn: "The register verse",
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
@@ -423,7 +423,7 @@ const rcNovel = (PEOPLE) => ({
   relatedHeading: { en: "In the same register & chapters", zh: "同冊" },
 });
 
-function waterMargin({ origin, buster, STARS, nv }) {
+function waterMargin({ origin, buster, STARS, nv, L, alt }) {
   const byId = new Map(nv.rows.map((r) => [r.id, r]));
   const rows = STARS.map(([rank, star, nz, ne, mz, py, fate]) => {
     const group = rank <= 36 ? "heavenly" : "earthly";
@@ -437,38 +437,36 @@ function waterMargin({ origin, buster, STARS, nv }) {
   }).join("\n");
   const body = `${hero(buster, {
     img: "img/wm-hero",
-    alt: "Ink-wash painting of the Liangshan marsh at dawn: a palisade stronghold with unmarked banners, reed beds and boats on still water.",
-    kicker: "Leaf I · The marsh · c. 1400",
-    title: "The 108 Stars of Water Margin",
-    zh: "水滸傳",
-    lede: `The Liangshan roster in rank order. The first 36 are the Heavenly Spirits, the remaining 72
-the Earthly Fiends. Fates are condensed from chapters 90–120; a dash means this table's source
-summary does not record that person individually. Every row with a leaf opens into that
-character's own page — painted portrait, great deeds in chapter order, and the ending.`,
+    alt: L["wm.alt"],
+    kicker: L["wm.kicker"],
+    title: L["wm.title"],
+    zh: L["wm.zh"],
+    lede: L["wm.lede"],
   })}
-${leafRail(buster, nv)}
-<h2 class="rule">The roster <span class="zh-h" lang="zh">天罡地煞</span></h2>
+${leafRail(buster, nv, L)}
+<h2 class="rule">${esc(L["wm.roster"])} <span class="zh-h" lang="zh">天罡地煞</span></h2>
 <div class="controls">
-  <input type="search" id="q" data-filter-table="#stars" placeholder="Search nickname, name, star…">
-  <button data-group-filter="#stars" data-group="all" class="on">All 108</button>
-  <button data-group-filter="#stars" data-group="heavenly">Heavenly 36</button>
-  <button data-group-filter="#stars" data-group="earthly">Earthly 72</button>
+  <input type="search" id="q" data-filter-table="#stars" placeholder="${esc(L["wm.ph"])}">
+  <button data-group-filter="#stars" data-group="all" class="on">${esc(L["wm.all"])}</button>
+  <button data-group-filter="#stars" data-group="heavenly">${esc(L["wm.heavenly"])}</button>
+  <button data-group-filter="#stars" data-group="earthly">${esc(L["wm.earthly"])}</button>
   <span class="count" data-count="#stars"></span>
 </div>
 <div class="scroll-x">
 <table id="stars">
-  <thead><tr><th>#</th><th>Star</th><th>Nickname</th><th>Name</th><th>Fate</th></tr></thead>
+  <thead><tr>${L["wm.th"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
   <tbody>
 ${rows}
   </tbody>
 </table>
 </div>`;
+  const path = `${BASE}${lp(L.code)}/water-margin/`;
   return shell({
-    origin, buster, path: `${BASE}/water-margin/`,
-    title: "Water Margin's 108 Stars — All Characters Ranked & Fates",
-    desc: "Every Water Margin character in rank order: the 108 Stars of Destiny with star name, nickname in Chinese and English, and condensed fate. 45 characters open into their own page with deeds and ending.",
+    origin, buster, path, L, alt,
+    title: L["wm.seoTitle"],
+    desc: L["wm.seoDesc"],
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/water-margin/`, "Water Margin 108 Stars"),
+    jsonld: NAV_CRUMB(origin, path, L["wm.crumb"], L),
   });
 }
 
@@ -491,65 +489,61 @@ const tribLinks = (nv) => {
   return { demon, fetcher, cell };
 };
 
-const GROUP_LABEL = { pilgrim: "Pilgrim", heaven: "Heaven", demon: "Demon" };
-
-function journeyWest({ origin, buster, TRIBULATIONS, nv }) {
+function journeyWest({ origin, buster, TRIBULATIONS, nv, L, alt }) {
   const { demon: demonLeaf, fetcher, cell } = tribLinks(nv);
   const cast = nv.rows.map((r) => {
     const href = leafHref(nv, r);
-    return `      <tr data-group="${r.grp}" class="${r.id % 2 === 0 ? "zebra" : ""} has-leaf" data-leaf="${href}"><td class="num">${r.id}</td><td class="gloss">${GROUP_LABEL[r.grp] || r.grp}</td><td><a class="rowlink" href="${href}"><span class="zh">${esc(r.zh)}</span> <span class="gloss">${esc(r.en)}</span></a></td><td><span class="zh">${esc(r.nn)}</span> <span class="gloss">${esc(r.nng)}</span></td><td class="zh">${esc(r.label)}</td><td>${esc(r.hook)}</td></tr>`;
+    return `      <tr data-group="${r.grp}" class="${r.id % 2 === 0 ? "zebra" : ""} has-leaf" data-leaf="${href}"><td class="num">${r.id}</td><td class="gloss">${esc(L["jw.side"][r.grp] || r.grp)}</td><td><a class="rowlink" href="${href}"><span class="zh">${esc(r.zh)}</span> <span class="gloss">${esc(r.en)}</span></a></td><td><span class="zh">${esc(r.nn)}</span> <span class="gloss">${esc(r.nng)}</span></td><td class="zh">${esc(r.label)}</td><td>${esc(r.hook)}</td></tr>`;
   }).join("\n");
   const tribs = TRIBULATIONS.map(([place, fiend, treasure, resolution, ch]) =>
     `      <tr><td>${esc(place)}</td><td>${cell(demonLeaf, ch, fiend)}</td><td>${esc(treasure)}</td><td>${cell(fetcher, ch, resolution)}</td><td class="num">${esc(ch)}</td></tr>`).join("\n");
   const n = nv.rows.length;
   const body = `${hero(buster, {
     img: "img/jw-hero",
-    alt: "Ink-wash painting of four pilgrims crossing a stone bridge among karst peaks and cloud, on the road west.",
-    kicker: "Leaf II · The road west · c. 1592",
-    title: "Demons &amp; Tribulations of Journey to the West",
-    zh: "西遊記",
-    lede: `The novel's own register counts eighty-one calamities. This index covers the named antagonist
-episodes — the ones people actually look up: which demon, which magic treasure, and who had to
-come and fetch it. Every named person below opens into their own leaf: painted portrait, deeds
-in chapter order, and the ending.`,
+    alt: L["jw.alt"],
+    kicker: L["jw.kicker"],
+    title: L["jw.title"],
+    zh: L["jw.zh"],
+    lede: L["jw.lede"],
   })}
-${leafRail(buster, nv)}
-<h2 class="rule">The cast <span class="zh-h" lang="zh">取經人物</span></h2>
+${leafRail(buster, nv, L)}
+<h2 class="rule">${esc(L["jw.cast"])} <span class="zh-h" lang="zh">取經人物</span></h2>
 <div class="controls">
-  <input type="search" id="q" data-filter-table="#cast" placeholder="Search name, epithet, title…">
-  <button data-group-filter="#cast" data-group="all" class="on">All ${n}</button>
-  <button data-group-filter="#cast" data-group="pilgrim">Pilgrims</button>
-  <button data-group-filter="#cast" data-group="heaven">Heaven</button>
-  <button data-group-filter="#cast" data-group="demon">Demons</button>
+  <input type="search" id="q" data-filter-table="#cast" placeholder="${esc(L["jw.ph"])}">
+  <button data-group-filter="#cast" data-group="all" class="on">${esc(L["jw.all"](n))}</button>
+  <button data-group-filter="#cast" data-group="pilgrim">${esc(L["jw.pilgrim"])}</button>
+  <button data-group-filter="#cast" data-group="heaven">${esc(L["jw.heaven"])}</button>
+  <button data-group-filter="#cast" data-group="demon">${esc(L["jw.demon"])}</button>
   <span class="count" data-count="#cast"></span>
 </div>
 <div class="scroll-x">
 <table id="cast">
-  <thead><tr><th>#</th><th>Side</th><th>Name</th><th>Epithet</th><th>Style / seat</th><th>Why this leaf exists</th></tr></thead>
+  <thead><tr>${L["jw.th"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
   <tbody>
 ${cast}
   </tbody>
 </table>
 </div>
-<h2 class="rule">The index <span class="zh-h" lang="zh">八十一難</span></h2>
+<h2 class="rule">${esc(L["jw.index"])} <span class="zh-h" lang="zh">八十一難</span></h2>
 <div class="controls">
-  <input type="search" id="q2" data-filter-table="#tribs" placeholder="Search demon, place, treasure…">
+  <input type="search" id="q2" data-filter-table="#tribs" placeholder="${esc(L["jw.ph2"])}">
   <span class="count" data-count="#tribs"></span>
 </div>
 <div class="scroll-x">
 <table id="tribs">
-  <thead><tr><th>Place</th><th>Demon / antagonist</th><th>Treasure or ability</th><th>Resolution</th><th>Ch.</th></tr></thead>
+  <thead><tr>${L["jw.th2"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
   <tbody>
 ${tribs}
   </tbody>
 </table>
 </div>`;
+  const path = `${BASE}${lp(L.code)}/journey-west/`;
   return shell({
-    origin, buster, path: `${BASE}/journey-west/`,
-    title: "Journey to the West Demons — Fiends, Treasures & Endings",
-    desc: `Every demon episode of Journey to the West: place, antagonist, treasure or ability, how it was resolved, and the chapter range. ${n} characters open as painted leaves.`,
+    origin, buster, path, L, alt,
+    title: L["jw.seoTitle"],
+    desc: L["jw.seoDesc"](n),
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/journey-west/`, "Journey to the West Index"),
+    jsonld: NAV_CRUMB(origin, path, L["jw.crumb"], L),
   });
 }
 
@@ -601,107 +595,138 @@ function treeHTML(nodes, nv) {
     `</li>`).join("\n")}\n</ul>`;
 }
 
-function redChamber({ origin, buster, TREE, BEAUTIES, nv }) {
+function redChamber({ origin, buster, TREE, BEAUTIES, nv, L, alt }) {
+  const rollName = (g) => L["rc.roll"][g] || g;
   const cast = nv.rows.map((r) => {
     const roll = rollOf(r.grp);
     const href = leafHref(nv, r);
-    return `      <tr data-group="${r.grp}" class="${r.id % 2 === 0 ? "zebra" : ""} has-leaf" data-leaf="${href}"><td class="num">${r.id}</td><td><span class="zh">${esc(roll.zh)}</span> <span class="gloss">${esc(roll.en)}</span></td><td><a class="rowlink" href="${href}"><span class="zh">${esc(r.zh)}</span> <span class="gloss">${esc(r.en)}</span></a></td><td><span class="zh">${esc(r.nn)}</span> <span class="gloss">${esc(r.nng)}</span></td><td class="zh">${esc(r.label)}</td><td>${esc(r.hook)}</td></tr>`;
+    return `      <tr data-group="${r.grp}" class="${r.id % 2 === 0 ? "zebra" : ""} has-leaf" data-leaf="${href}"><td class="num">${r.id}</td><td><span class="zh">${esc(roll.zh)}</span> <span class="gloss">${esc(rollName(r.grp))}</span></td><td><a class="rowlink" href="${href}"><span class="zh">${esc(r.zh)}</span> <span class="gloss">${esc(r.en)}</span></a></td><td><span class="zh">${esc(r.nn)}</span> <span class="gloss">${esc(r.nng)}</span></td><td class="zh">${esc(r.label)}</td><td>${esc(r.hook)}</td></tr>`;
   }).join("\n");
   const rows = BEAUTIES.map(([name, verse, gloss, fate]) =>
     `      <tr><td>${linkNames(nv, name)}</td><td class="zh verse">${esc(verse)}</td><td class="gloss">${esc(gloss)}</td><td>${esc(fate)}</td></tr>`).join("\n");
   const grps = [...new Set(nv.rows.map((r) => r.grp))];
   const buttons = grps.map((g) => {
     const roll = rollOf(g);
-    return `  <button data-group-filter="#people" data-group="${g}">${esc(roll.en)}${roll.zh ? ` <span class="zh" lang="zh">${roll.zh}</span>` : ""}</button>`;
+    return `  <button data-group-filter="#people" data-group="${g}">${esc(rollName(g))}${roll.zh ? ` <span class="zh" lang="zh">${roll.zh}</span>` : ""}</button>`;
   }).join("\n");
   const n = nv.rows.length;
   const verses = nv.rows.filter((r) => r.verse).length;
   const body = `${hero(buster, {
     img: "img/rc-hero",
-    alt: "Ink-wash painting of a classical Chinese garden: moon gate, pavilion, zigzag bridge over a pond with falling petals.",
-    kicker: "Leaf III · The garden · c. 1791",
-    title: "Dream of the Red Chamber: Family Tree &amp; Twelve Beauties",
-    zh: "紅樓夢",
-    lede: `The Jia house is the plot: who is whose mother decides who can marry whom and who mourns
-whom. Expand the branches, then read the Jinling register — the verses that foretell each
-woman's ending, with glosses. Every named person below opens into their own leaf: painted
-portrait, the register verse that was written about them before they did anything, the deeds
-in chapter order, and the ending.`,
+    alt: L["rc.alt"],
+    kicker: L["rc.kicker"],
+    title: L["rc.title"],
+    zh: L["rc.zh"],
+    lede: L["rc.lede"],
   })}
-${leafRail(buster, nv)}
-<h2 class="rule">The household <span class="zh-h" lang="zh">寧榮二府</span></h2>
+${leafRail(buster, nv, L)}
+<h2 class="rule">${esc(L["rc.household"])} <span class="zh-h" lang="zh">寧榮二府</span></h2>
 <div class="controls">
-  <input type="search" id="q" data-filter-table="#people" placeholder="Search name, epithet, role…">
-  <button data-group-filter="#people" data-group="all" class="on">All ${n}</button>
+  <input type="search" id="q" data-filter-table="#people" placeholder="${esc(L["rc.ph"])}">
+  <button data-group-filter="#people" data-group="all" class="on">${esc(L["rc.all"](n))}</button>
 ${buttons}
   <span class="count" data-count="#people"></span>
 </div>
 <div class="scroll-x">
 <table id="people">
-  <thead><tr><th>#</th><th>Roll</th><th>Name</th><th>Epithet</th><th>Seat / role</th><th>Why this leaf exists</th></tr></thead>
+  <thead><tr>${L["rc.th"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
   <tbody>
 ${cast}
   </tbody>
 </table>
 </div>
-<h2 class="rule">The family tree <span class="zh-h" lang="zh">賈府</span></h2>
+<h2 class="rule">${esc(L["rc.tree"])} <span class="zh-h" lang="zh">賈府</span></h2>
 ${treeHTML(TREE, nv)}
-<h2 class="rule">The Twelve Beauties of Jinling <span class="zh-h" lang="zh">金陵十二釵</span></h2>
-<p class="rail-hint">${verses} of these people keep their own leaf, with the ${verses === 1 ? "verse" : "verses"} quoted in full above their deeds; the register rows below carry the condensed couplets as the chapter-5 book keeps them.</p>
+<h2 class="rule">${esc(L["rc.beauties"])} <span class="zh-h" lang="zh">金陵十二釵</span></h2>
+<p class="rail-hint">${L["rc.hint"](verses)}</p>
 <div class="scroll-x">
 <table id="beauties">
-  <thead><tr><th>Name</th><th>Register verse</th><th>Gloss</th><th>Fate</th></tr></thead>
+  <thead><tr>${L["rc.th2"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
   <tbody>
 ${rows}
   </tbody>
 </table>
 </div>`;
+  const path = `${BASE}${lp(L.code)}/red-chamber/`;
   return shell({
-    origin, buster, path: `${BASE}/red-chamber/`,
-    title: "Dream of the Red Chamber Family Tree & Twelve Beauties",
-    desc: `The Jia family tree, the Twelve Beauties of Jinling with their verses, and ${n} characters who open into their own painted leaf — ${verses} headed by their 判词.`,
+    origin, buster, path, L, alt,
+    title: L["rc.seoTitle"],
+    desc: L["rc.seoDesc"](n, verses),
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/red-chamber/`, "Red Chamber Tree & Register"),
+    jsonld: NAV_CRUMB(origin, path, L["rc.crumb"], L),
   });
 }
 
 // Reserved booth for the fourth great novel: a teaser leaf, kept out of the
 // sitemap and noindex until its tables exist.
-function threeKingdoms({ origin, buster }) {
+function threeKingdoms({ origin, buster, L, alt }) {
   const body = `
 <section class="soon-page">
   <div class="soon-plate" aria-hidden="true">
     <span class="soon-zh" lang="zh">三國</span>
     <span class="soon-seal" lang="zh">籌備中</span>
   </div>
-  <p class="kicker">Leaf IV · The three kingdoms · c. 1522 · booth reserved</p>
-  <h1>Romance of the Three Kingdoms <span class="zh-h" lang="zh">三國演義</span></h1>
-  <p class="lede">The fourth of the four great novels holds its slot on the shelf. The tools are being drafted:
-  the era as a dated table — which lord, which strategist, which battle turned which province — the
-  campaigns indexed by river and pass, and painted leaves for the oath brothers and their rivals.
-  Each answer a row, not an essay.</p>
-  <p class="soon-note">The ink is still drying — check back after the next kiln firing.</p>
-  <nav class="soon-nav"><a href="${BASE}/">← The four great novels</a></nav>
+  <p class="kicker">${esc(L["tk.kicker"])}</p>
+  <h1>${esc(L["tk.title"])}${L["tk.titleZh"] ? ` <span class="zh-h" lang="zh">${esc(L["tk.titleZh"])}</span>` : ""}</h1>
+  <p class="lede">${L["tk.lede"]}</p>
+  <p class="soon-note">${esc(L["tk.note"])}</p>
+  <nav class="soon-nav"><a href="${BASE}${lp(L.code)}/">${esc(L["tk.back"])}</a></nav>
 </section>`;
+  const path = `${BASE}${lp(L.code)}/three-kingdoms/`;
   return shell({
-    origin, buster, path: `${BASE}/three-kingdoms/`, noindex: true,
-    title: "Romance of the Three Kingdoms — booth reserved",
-    desc: "A reserved booth: lookup tables and painted leaves for Romance of the Three Kingdoms are in preparation.",
+    origin, buster, path, noindex: true, L, alt,
+    title: L["tk.seoTitle"],
+    desc: L["tk.seoDesc"],
     body,
-    jsonld: NAV_CRUMB(origin, `${BASE}/three-kingdoms/`, "Romance of the Three Kingdoms"),
+    jsonld: NAV_CRUMB(origin, path, L["tk.crumb"], L),
   });
 }
+
+// The three novel overviews share their builder call signature — they all need
+// the novel spec (`nv`) on top of cfg — so the tier doubles as its data lookup.
+const TIERS_NOVEL = { "water-margin": waterMargin, "journey-west": journeyWest, "red-chamber": redChamber };
 
 export function renderAll(cfg) {
   const specs = [wmNovel(cfg.STARS, cfg.LEAVES)];
   if (cfg.JW_PEOPLE) specs.push(jwNovel(cfg.JW_PEOPLE));
   if (cfg.RC_PEOPLE) specs.push(rcNovel(cfg.RC_PEOPLE));
+  const byDir = Object.fromEntries(specs.map((nv) => [nv.dir, nv]));
 
-  const index = { "water-margin": waterMargin, "journey-west": journeyWest, "red-chamber": redChamber };
-  const pages = [["index.html", hub(cfg)], ["three-kingdoms/index.html", threeKingdoms(cfg)]];
-  for (const nv of specs) {
-    pages.push([`${nv.dir}/index.html`, index[nv.dir]({ ...cfg, nv })]);
-    for (const r of nv.rows) pages.push([`${nv.dir}/${slugOf(r.en)}/index.html`, leafPage(cfg, nv, r)]);
+  const relOf = (code, tier) => `${code === DEFAULT_LOCALE ? "" : `${code}/`}${tier ? `${tier}/` : ""}index.html`;
+  const pathOf = (code, tier) => `${BASE}${lp(code)}${tier ? `/${tier}` : ""}/`;
+
+  const overview = (code, tier) => {
+    // A noindex page declares no hreflang cluster: Google can't honour a
+    // translation pair where one side asks to be left out of the index.
+    const alt = tier === "three-kingdoms" ? {} : Object.fromEntries(
+      LOCALE_ORDER.filter((other) => other !== code && localeTiers(other).includes(tier)).map((other) => [other, pathOf(other, tier)])
+    );
+    const args = { ...cfg, L: LOCALES[code], alt };
+    const builder = tier === "" ? hub : tier === "three-kingdoms" ? threeKingdoms : TIERS_NOVEL[tier];
+    if (builder === undefined) return null;
+    if (TIERS_NOVEL[tier]) {
+      if (!byDir[tier]) return null; // a tier whose data isn't loaded ships nothing
+      args.nv = byDir[tier];
+    }
+    return [relOf(code, tier), builder(args)];
+  };
+
+  const pages = [];
+  // English keeps its historical emission order so sitemap.xml doesn't churn,
+  // and its leaves stay interleaved with its overviews.
+  for (const tier of ["", "three-kingdoms", ...specs.map((nv) => nv.dir)]) {
+    const built = localeTiers(DEFAULT_LOCALE).includes(tier) ? overview(DEFAULT_LOCALE, tier) : null;
+    if (!built) continue;
+    pages.push(built);
+    for (const r of byDir[tier]?.rows || []) {
+      pages.push([`${tier}/${slugOf(r.en)}/index.html`, leafPage(cfg, byDir[tier], r)]);
+    }
+  }
+  for (const code of LOCALE_ORDER.filter((c) => c !== DEFAULT_LOCALE)) {
+    for (const tier of localeTiers(code)) {
+      const built = overview(code, tier);
+      if (built) pages.push(built);
+    }
   }
   return pages;
 }
