@@ -232,7 +232,7 @@ gloss or a condensation, the page says so.</p>
 </section>`;
   return shell({
     origin, buster, path: `${BASE}/`,
-    title: "Four Great Chinese Novels — Character Tables & Family Trees",
+    title: "Four Great Chinese Novels — Characters & Family Trees",
     desc: "Searchable lookup tools for the Chinese literary canon in English: all 108 Water Margin characters ranked, every Journey to the West demon and how its fight ended, and the Dream of the Red Chamber family tree.",
     body,
     jsonld: { "@context": "https://schema.org", "@type": "WebSite", name: "Chinese Literature", url: origin + BASE + "/" },
