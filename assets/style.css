@@ -187,6 +187,10 @@ main { display: block; }
   align-items: end;
 }
 
+.hero.compact {
+  min-height: clamp(230px, 32vh, 330px);
+}
+
 .kicker {
   grid-area: kicker;
   margin: 0 0 .55rem;
@@ -979,6 +983,49 @@ body.lb-on { overflow: hidden; }
 }
 
 .lp-body > .kicker { margin-bottom: .7rem; }
+
+/* ---------- answer pages ---------- */
+/* `.guide` carries `lp-body` too, so its h1/lede/kicker/h2 rules come from the
+   leaf column unchanged; only the measure and the source list are new.
+   The section stays full width so the prose starts at the same edge as the hero
+   text; the reading measure is applied per child, which is what lets a table
+   outgrow it instead of being crushed by it. */
+.guide > p,
+.guide > h2,
+.guide > .plate-note,
+.guide > .guide-src { max-width: 48rem; }
+
+/* both of these carry `margin: … auto`, which centres them once a measure is
+   applied — the prose column must start at the same edge as the hero text */
+.guide > h2,
+.guide > .plate-note { margin-left: 0; }
+
+/* three answer chips across, not two-plus-an-orphan */
+.guide > .lp-meta { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+
+/* the answer tables carry prose cells: under this width a cell becomes a word a
+   line, so they scroll instead — the same ledger convention as the roster */
+.guide .scroll-x table { min-width: 46rem; }
+
+/* a two-line heading used to strand the Chinese label, breaking it between glyphs */
+.guide h2.rule .zh-h { flex: none; white-space: nowrap; }
+
+.guide-src {
+  margin: .4rem 0 1.8rem;
+  /* the section gutter, not an extra indent: this class would otherwise win over
+     `main > section > *` and pull the list 30px left of the prose column */
+  padding-left: clamp(1rem, 4vw, 3rem);
+  font-size: .88rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  list-style: none;
+}
+
+.guide-src li { border-bottom: 1px solid var(--line); padding: .4rem 0; }
+
+.guide-src a { color: var(--indigo); text-decoration: none; border-bottom: 1px dotted var(--indigo); }
+
+.guide-src a:hover { color: var(--seal-deep); border-bottom-color: var(--seal-deep); }
 
 /* attribute chips: the leaf's fact strip, three cells, hairline-ruled like a ledger */
 .lp-meta {

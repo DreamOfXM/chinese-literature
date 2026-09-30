@@ -191,9 +191,9 @@ const pic = (buster, name, alt, w, h, eager) => `  <picture>
     <img src="${BASE}/assets/${name}.jpg?v=${buster}" alt="${esc(alt)}" width="${w}" height="${h}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}>
   </picture>`;
 
-function hero(buster, { img, alt, kicker, title, zh, lede }) {
+function hero(buster, { img, alt, kicker, title, zh, lede, cls }) {
   return `
-<section class="hero">
+<section class="hero${cls ? ` ${cls}` : ""}">
 ${pic(buster, img, alt, 1600, 766, true)}
   <div class="hero-inner">
     <p class="kicker">${esc(kicker)}</p>
@@ -239,6 +239,92 @@ ${card("three-kingdoms", " soon", "三國", `${L["hub.card.tk.t"]} <span class="
     body,
     jsonld: { "@context": "https://schema.org", "@type": "WebSite", name: L["shell.site"], url: origin + p },
   });
+}
+
+// ---------- answer pages ----------
+// The overview tiers answer "who is in this book"; these answer the questions a
+// reader types before they have opened it — what happens, how long it takes,
+// which translation to buy. Same chrome as a leaf (English-only, `lp-body`
+// typography), so nothing here enters the locale parity gate: the copy lives in
+// the novel's data module, where the sourced numbers can be checked row by row.
+const guideHref = (nv, g) => `${BASE}/${nv.dir}/${g.slug}/`;
+
+function guidePage({ origin, buster }, nv, g) {
+  const L = LOCALES[DEFAULT_LOCALE];
+  const link = pageLinker(nv, null, 20);
+  const at = nv.guidePages.indexOf(g);
+  const prev = nv.guidePages[at - 1];
+  const next = nv.guidePages[at + 1];
+  const go = (x, label) => x
+    ? `<a href="${guideHref(nv, x)}">${label} <span>${esc(x.navLabel)}</span></a>`
+    : "";
+  const answer = g.answer && g.answer.length
+    ? `    <dl class="lp-meta">\n${g.answer.map(([k, v]) => `      <div><dt>${esc(k)}</dt><dd>${link(v)}</dd></div>`).join("\n")}\n    </dl>`
+    : "";
+  const table = (t) => `    <div class="scroll-x">
+    <table${t.id ? ` id="${t.id}"` : ""}>
+      <thead><tr>${t.th.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
+      <tbody>
+${t.rows.map((r) => `        <tr>${r.map((c, j) => `<td${t.num && j === 0 ? ' class="num"' : ""}>${link(c)}</td>`).join("")}</tr>`).join("\n")}
+      </tbody>
+    </table>
+    </div>`;
+  const blocks = g.blocks.map((b) => `    <h2 class="rule">${esc(b.h)}${b.zh ? ` <span class="zh-h" lang="zh">${esc(b.zh)}</span>` : ""}</h2>
+${(b.paras || []).map((p) => `    <p>${link(p)}</p>`).join("\n")}${b.table ? "\n" + table(b.table) : ""}${b.note ? `
+    <p class="plate-note">${esc(b.note)}</p>` : ""}`).join("\n");
+  const sources = `    <h2 class="rule">${esc(nv.guideSourcesHeading.en)} <span class="zh-h" lang="zh">${esc(nv.guideSourcesHeading.zh)}</span></h2>
+    <ul class="guide-src">
+${g.sources.map(([label, url]) => `      <li><a href="${esc(url)}" rel="noopener">${esc(label)}</a></li>`).join("\n")}
+    </ul>`;
+  const body = `
+${hero(buster, {
+    img: nv.heroImg, cls: "compact",
+    alt: L[`${nv.key}.alt`],
+    kicker: g.kicker, title: esc(g.h1), zh: esc(g.h1zh), lede: link(g.lede),
+  })}
+<section class="lp-body guide">
+${answer}
+${blocks}
+${sources}
+    <nav class="leaf-nav">
+      ${go(prev, "←")}
+      <a href="${BASE}/${nv.dir}/">${esc(nv.indexLink)} <span lang="zh">${nv.indexLinkZh}</span></a>
+      ${go(next, "→")}
+    </nav>
+</section>`;
+  const path = guideHref(nv, g);
+  return shell({
+    origin, buster, path, L,
+    title: g.seoTitle,
+    desc: g.seoDesc,
+    body,
+    ogType: "article",
+    jsonld: [
+      NAV_CRUMB(origin, path, g.h1, L),
+      {
+        "@context": "https://schema.org", "@type": "Article",
+        headline: g.seoTitle, description: g.seoDesc, inLanguage: "en",
+        isPartOf: { "@type": "WebSite", name: L["shell.site"], url: origin + BASE + "/" },
+        about: { "@type": "Book", name: nv.seoNovel, alternateName: nv.novelZh },
+      },
+    ],
+  });
+}
+
+// The tool block on an overview page: the same card plate the hub uses, so an
+// answer page is reachable from the page that already ranks.
+function guideCards(nv, L) {
+  if (!nv.guidePages || !nv.guidePages.length) return "";
+  const cards = nv.guidePages.map((g) => `    <a class="card" href="${guideHref(nv, g)}">
+      <span class="card-zh" lang="zh" aria-hidden="true">${esc(g.cardZh)}</span>
+      <h2>${esc(g.cardTitle)}</h2>
+      <p>${esc(g.cardBody)}</p>
+    </a>`).join("\n");
+  return `
+<h2 class="rule">${esc(nv.guideHeading.en)} <span class="zh-h" lang="zh">${esc(nv.guideHeading.zh)}</span></h2>
+  <div class="cards">
+${cards}
+  </div>`;
 }
 
 const slugOf = (py) => py.toLowerCase().replace(/ü/g, "u").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -340,7 +426,8 @@ ${related}
       ${nav(prev, "← Prev")}
       <a href="${BASE}/${nv.dir}/">${esc(nv.indexLink)} <span lang="zh">${nv.indexLinkZh}</span></a>
       ${nav(next, "Next →")}
-    </nav>
+    </nav>${nv.guidePages && nv.guidePages.length ? `
+    <p class="rail-hint">${esc(nv.guideLeafHint.en)} ${nv.guidePages.map((g) => `<a href="${guideHref(nv, g)}">${esc(g.navLabel)}</a>`).join(" · ")}</p>` : ""}
   </div>
 ${lbData(nv)}
 </section>`;
@@ -408,10 +495,15 @@ const RC_ROLL = {
 };
 const rollOf = (grp) => RC_ROLL[grp] || { zh: "", en: grp };
 
-const rcNovel = (PEOPLE) => ({
+const rcNovel = (PEOPLE, GUIDES) => ({
   dir: "red-chamber", key: "rc",
   imgOf: (r) => `img/rc-${slugOf(r.en)}`,
+  heroImg: "img/rc-hero",
   rows: PEOPLE.map((r) => ({ ...r, tag: `no. ${r.id}`, tagShort: String(r.id) })),
+  guidePages: GUIDES || [],
+  guideHeading: { en: "Before you start reading", zh: "先讀這三頁" },
+  guideSourcesHeading: { en: "Where these figures come from", zh: "出處" },
+  guideLeafHint: { en: "The book itself: what happens, how long it is, which English version to read —" },
  railHeadingZh: "金陵葉子",
   leafWord: "Leaf", unit: "of the Red Chamber",
   verseLabel: "判詞", verseLabelEn: "The register verse",
@@ -646,7 +738,7 @@ ${treeHTML(TREE, nv)}
 ${rows}
   </tbody>
 </table>
-</div>`;
+</div>${guideCards(nv, L)}`;
   const path = `${BASE}${lp(L.code)}/red-chamber/`;
   return shell({
     origin, buster, path, L, alt,
@@ -689,7 +781,7 @@ const TIERS_NOVEL = { "water-margin": waterMargin, "journey-west": journeyWest, 
 export function renderAll(cfg) {
   const specs = [wmNovel(cfg.STARS, cfg.LEAVES)];
   if (cfg.JW_PEOPLE) specs.push(jwNovel(cfg.JW_PEOPLE));
-  if (cfg.RC_PEOPLE) specs.push(rcNovel(cfg.RC_PEOPLE));
+  if (cfg.RC_PEOPLE) specs.push(rcNovel(cfg.RC_PEOPLE, cfg.RC_GUIDES));
   const byDir = Object.fromEntries(specs.map((nv) => [nv.dir, nv]));
 
   const relOf = (code, tier) => `${code === DEFAULT_LOCALE ? "" : `${code}/`}${tier ? `${tier}/` : ""}index.html`;
@@ -720,6 +812,11 @@ export function renderAll(cfg) {
     pages.push(built);
     for (const r of byDir[tier]?.rows || []) {
       pages.push([`${tier}/${slugOf(r.en)}/index.html`, leafPage(cfg, byDir[tier], r)]);
+    }
+    // Answer pages ride with their novel so the sitemap's existing lines keep
+    // their order and only the new ones are added.
+    for (const g of byDir[tier]?.guidePages || []) {
+      pages.push([`${tier}/${g.slug}/index.html`, guidePage(cfg, byDir[tier], g)]);
     }
   }
   for (const code of LOCALE_ORDER.filter((c) => c !== DEFAULT_LOCALE)) {

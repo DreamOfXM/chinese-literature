@@ -879,3 +879,217 @@ export const PEOPLE = [
     end: "She is the one the novel lets go unharmed. The marriage her dead father arranged, with a son of the Mei family, is fulfilled offstage in a line or two while the girls are still at poetry; the 120-chapter text gives her no share in the raids and deaths that follow. She leaves before it darkens.",
   }
 ];
+
+// Three answer pages: what happens, how long it is, which English version to buy.
+// The overview tier answers "who is in this book"; these answer what a reader types
+// before they have opened it. English-only like the leaves, and deliberately NOT in
+// locales.mjs — the parity gate would demand a Japanese copy for prose that is here
+// to be checked line by line against a source, so the strings live beside the facts.
+// Every figure below names where it came from; the fetch record for 2026-09-30 is
+// evidence/2026-09-30-cl-guides/ on the build machine.
+const WIKI = "https://en.wikipedia.org/wiki/Dream_of_the_Red_Chamber";
+const GUARDIAN = "https://www.theguardian.com/books/2009/aug/25/obituary-david-hawkes";
+const MINFORD_BIO = "https://en.wikipedia.org/wiki/John_Minford";
+const JOLY_1892 = "https://web.archive.org/web/20091231163954/http://ebooks.adelaide.edu.au/c/cao_xueqin/c2359h/complete.html";
+const CH_TEXT = "https://en.wikisource.org/wiki/zh:%E7%B4%85%E6%A8%93%E5%A4%A2";
+
+export const GUIDES = [
+  {
+    slug: "plot-summary", navLabel: "The story", cardZh: "情節",
+    cardTitle: "What happens, in five bands of chapters",
+    cardBody: "The 120 chapters cut into five bands, each with what turns in it and whose leaf carries it. The ending is at the end, where chapter 5 already put it.",
+    seoTitle: "Dream of the Red Chamber Plot Summary, Chapter by Chapter",
+    seoDesc: "What happens in Dream of the Red Chamber, in five chapter bands from the stone's birth to the confiscation, each with its turn and who carries it.",
+    kicker: "Reading note I · The story",
+    h1: "What happens in Dream of the Red Chamber",
+    h1zh: "紅樓夢情節",
+    lede: "Five bands of chapters, the turn in each, and the leaf to open for whoever carries it. The ending is in the last row: so is it in the first five chapters, in verse, which is the book's own argument that a summary spoils nothing.",
+    answer: [
+      ["Chapters", "120. The first 80 are Cao Xueqin's, written through the 1740s and circulated in copy; the last 40 were added when Cheng Weiyuan and Gao E printed the novel for the first time in 1791."],
+      ["The hinge", "Chapter 74. Up to it the house is spending; after it the house is finding out that it cannot go on."],
+      ["Where to start", "Chapters 1–5: the stone's errand into the world, the two mansions, and the dream in which the registers of Jinling name every ending in advance."],
+    ],
+    blocks: [
+      {
+        h: "The five bands", zh: "五代",
+        paras: [
+          "The chapter numbers are the book's; the cuts between bands are ours, drawn where the leaves on this site start and stop carrying the weight.",
+        ],
+        table: {
+          th: ["#", "Chapters", "What happens", "Whose leaf to open"], num: true,
+          rows: [
+            ["I", "1–5", "A stone left over from the mending of the heaven asks to be born, and is born as Jia Baoyu with the jade in his mouth. His aunt dies and the orphaned cousin Lin Daiyu comes to live at the Rongguo mansion; the Xue family arrives with a murderer in its baggage. Asleep in his sister-in-law's room, Baoyu is shown the registers of Jinling, where each woman's ending is written as a verse he cannot read.", "Jia Baoyu · Lin Daiyu · Xue Baochai · Qin Keqing · Xiangling"],
+            ["II", "6–18", "The house at the top of its credit. Qin Keqing dies of an illness no physician can name and is buried with a wood above her rank; a daughter of the house is made a consort, and to receive her visit the family builds a garden they cannot afford. Its first inmates are the children and the maids who teach them.", "Wang Xifeng · Jia Zhen · Jia Yuanchun · Granny Liu · Jia Rui"],
+            ["III", "19–54", "The garden years: the poetry club, the crab feast, the chrysanthemum prizes, a country woman walked round an estate she cannot thank them for. Underneath the club, the half-brother's malice, a maid's drowned death, Jia Zheng near to beating his son to death, and his own father trying to add the old woman's favourite maid to a son's bed.", "Jia Tanchun · Li Wan · Xiren · Qingwen · Jinchuan · Yuanyang · Jia Huan · Xue Baoqin"],
+            ["IV", "55–80", "Money trouble turns into policing. Tanchun runs the household against the odds and cannot stop the holes; a silk purse found in a garden seat brings a search of the whole quarter, and the search brings out what everyone had arranged not to see. The best maid dies in disgrace; two girls of the register go to the husbands their verses named.", "Qingwen · Jia Tanchun · Wang Xifeng · Lady Xing · Jia Yingchun · Xiangling · Fangguan"],
+            ["V", "81–120", "The added forty chapters. Yuanchun dies; a bride is swapped in the sedan and Daiyu burns her poems at the hour of the bridal lamps; the estates are confiscated and the old woman dies, and the maids who loved her go one way and another. The heir sits the examination, gets the degree the family needed, and is last seen in a red cape in the snow.", "Jia Yuanchun · Xue Baochai · Zijuan · Grandmother Jia · Miaoyu · Jia Qiaojie · Jia Baoyu"],
+          ],
+        },
+      },
+      {
+        h: "The frame is not a frame", zh: "石頭記",
+        paras: [
+          "The novel's other title is The Story of a Stone, and the stone is the narrator as well as the hero: the block left unused when the goddess mended the heaven begs a Daoist and a monk to take it into the red dust, and its report of that life is the book. In the earlier incarnation it watered a flower on the bank of the Milky Way; the flower is born a girl owing tears as interest, which is why the cousin's eyes are never dry. The device is not decoration. It makes the whole rise-and-fall of the Jia house a single errand the stone made, and it is why the book keeps interrupting itself with hints that this has already been read through once.",
+          "Read that way, the famous slowness of the opening — the family genealogies, the four households who prop each other up, the magistrate who cannot decide a case — is the stone taking stock of the country it means to visit. Chapter 5 is the table of contents, and Baoyu is the only reader in the book who does not understand it.",
+        ],
+      },
+      {
+        h: "What a summary cannot carry", zh: "所失",
+        paras: [
+          "Two counts to hold against any synopsis, including the table above. The novel has been indexed at 447 named people, and it is usually counted at nearly forty major characters with over four hundred more; this site paints a leaf for 40 of them and puts the register rows beneath. And the plot is the least of what is there: the book is a household's etiquette, medicine, cookery, taxonomy of estates, and several hundred poems, in a vernacular plain enough that lexicographers later mined it for the vocabulary of modern spoken Chinese. A reader who finishes it remarking that the story was slow is like a visitor to a garden who remarks that the paths were long.",
+        ],
+        note: "The last sentence is a gloss, not a source. The counts are: the 1986 红楼梦辞典 indexes 447 named characters; the character-number figures and the language claim are from the article cited below.",
+      },
+    ],
+    sources: [
+      [`English Wikipedia, “Dream of the Red Chamber” — text, frame, chapter and character counts, and the 1791 editions (read 30 Sep 2026)`, WIKI],
+      [`The Guardian, David Hawkes's obituary — “the complete text has 120 chapters”, and the three volumes of the first 80`, GUARDIAN],
+      [`The novel in Chinese, chapter by chapter, at Wikisource`, CH_TEXT],
+    ],
+  },
+  {
+    slug: "how-long", navLabel: "How long it is", cardZh: "篇幅",
+    cardTitle: "How many pages, how many evenings",
+    cardBody: "Chapter counts for the Chinese, page and word counts for the English edition most readers buy, and the arithmetic that turns them into sittings.",
+    seoTitle: "Dream of the Red Chamber: How Many Pages, How Long?",
+    seoDesc: "Dream of the Red Chamber is 120 chapters; the complete English text runs to some 2,339 pages and an estimated 845,000 words — about 56 hours of reading.",
+    kicker: "Reading note II · The length",
+    h1: "How long is Dream of the Red Chamber?",
+    h1zh: "紅樓夢篇幅",
+    lede: "There are two answers because there are two books: a 120-chapter Chinese novel, and — in the English most readers buy — about 845,000 words laid over 2,339 pages of story in five volumes. Everything in the tables below is that second book, or arithmetic done on it in the open.",
+    answer: [
+      ["Chapters", "120, of which the last 40 were not there when the author died."],
+      ["Pages in English", "2,339 of story in Penguin's five volumes; over 2,800 once you count the prefaces, introductions and appendices."],
+      ["Reading time", "About 56 hours at 250 words a minute. That is our division, not a measurement of anybody."],
+    ],
+    blocks: [
+      {
+        h: "The book in numbers", zh: "數字",
+        table: {
+          th: ["Measure", "Figure", "What it is"],
+          rows: [
+            ["Chapters", "120", "The Cheng-Gao printed text of 1791–92, which is the book people read. The manuscripts that circulated in the author's lifetime stop at 80."],
+            ["Author's share", "80", "Cao Xueqin worked on it through the 1740s until his death in 1763 or 1764; the first 80 chapters were complete and being copied by hand."],
+            ["Words, English", "≈845,000", "Estimated for the Penguin Classics translation of the whole 120 chapters."],
+            ["Pages of story", "2,339", "The core text of the five Penguin volumes, excluding prefaces, introductions and appendices."],
+            ["Pages with apparatus", "over 2,800", "The same five volumes counted whole, which is what lands on a table."],
+            ["One chapter", "≈7,000 words · ≈20 pages", "845,000 and 2,339 divided by 120. Chapters run uneven, so this is a mean and not a promise."],
+            ["Named people", "447", "The number of entries in the 1986 红楼梦辞典; the novel is usually described as carrying nearly forty major characters and over four hundred minor ones."],
+            ["Leaves on this site", `${PEOPLE.length}`, "Every one of those names is not served here; the register rows below the leaves carry the rest."],
+          ],
+        },
+        note: "Nothing here is a page count of a Chinese edition: the 120 chapters are printed as three volumes in Beijing and five in Harmondsworth, and a Chinese hardback's length moves with the type size. Quote a page count only against the edition you are holding.",
+      },
+      {
+        h: "What that is in evenings", zh: "幾晚",
+        paras: [
+          "The hours below are 845,000 words divided by a reading rate, then cut into sittings. Change the rate and the schedule moves; the arithmetic is shown so you can.",
+        ],
+        table: {
+          th: ["You read", "The book takes", "Working"], num: false,
+          rows: [
+            ["half an hour a night", "about 4 months", "one chapter ≈ 7,000 words ≈ 28 minutes at 250 words a minute; 120 nights"],
+            ["an hour a night", "about 2 months", "two chapters a night; 60 nights"],
+            ["a long weekend", "about 7 sittings of 8 hours", "56 hours of straight reading, which nobody does; the number is there to be disbelieved usefully"],
+            ["only Cao Xueqin's 80", "about 3 months, or 37 hours", "80/120 of the word count at the same rate — the first three volumes of the Penguin set, and nothing after them"],
+          ],
+        },
+      },
+      {
+        h: "Why the counts move", zh: "版本",
+        paras: [
+          "Length was the first thing English readers objected to. Reviewing the novel in 1873, Alfred Lister counted twenty volumes in it and called the bulk a disadvantage, and the number of people, he said, with the mysteriously heavy introductory chapters, made it a book no heroic effort would ever place in Western letters. He was reviewing a partial translation of the first fifty-six chapters.",
+          "What changes between editions is not the chapter count but what is folded in around it: how many of the red-commented manuscripts' variants are printed, whether the last forty chapters are there at all, how much of the poetry is kept and whether it is footnoted to death. Zhou Ruchang distrusted the added chapters so completely that his editions run to 80, and in 2006 he and the novelist Liu Xinwu published an 80-chapter text with an ending of their own reconstruction. Penguin's set is 5 volumes because the first translator resigned an Oxford chair to do the first 80 chapters and his son-in-law took the remaining 40 after his death.",
+        ],
+      },
+      {
+        h: "The honest short version", zh: "節本",
+        paras: [
+          "There is no good abridgement in print. Wang Chi-Chen's 1929 version, which led with the love story, was expanded in 1958 and still stopped at chapter 60; Florence and Isabel McHugh's 1958 abridgement was made from Franz Kuhn's 1932 German, not from the Chinese. What does exist is a shorter complete book: read the first 80 chapters in Hawkes, which is a whole novel that simply has its ending unwritten, and go to the register verses in chapter 5 for what was planned. This site's leaves do that — the verses are quoted above each life, and the endings come from the 120-chapter text.",
+        ],
+        note: "The recommendation is ours. The facts under it — what each abridgement covers and from which language — are from the sources below.",
+      },
+    ],
+    sources: [
+      [`English Wikipedia, “Dream of the Red Chamber” — the Penguin page and word counts, the Cheng-Gao editions, Lister's 1873 review, Zhou Ruchang's 80-chapter text (read 30 Sep 2026)`, WIKI],
+      [`The Guardian, David Hawkes's obituary — 120 chapters complete; the first 80 in three volumes, 1973, 1977 and 1980`, GUARDIAN],
+      [`Wikipedia, John Minford — the 40 chapters of The Story of the Stone he translated`, MINFORD_BIO],
+    ],
+  },
+  {
+    slug: "which-translation", navLabel: "Which translation", cardZh: "譯本",
+    cardTitle: "Which English translation to read",
+    cardBody: "The two complete versions, what each one is trying to do, how each renders the names you will meet on these leaves, and the free partial one.",
+    seoTitle: "Dream of the Red Chamber: Which English Translation?",
+    seoDesc: "Hawkes or the Yangs for Dream of the Red Chamber: what each covers, what each does with names and verse, and the 1892 translation you can read for free.",
+    kicker: "Reading note III · The translations",
+    h1: "Which English translation of Dream of the Red Chamber?",
+    h1zh: "紅樓夢譯本",
+    lede: "Exactly two complete English translations exist, and they are different books on purpose: one was made to be read as a novel by someone who has never seen Chinese, the other to carry the Chinese across near the line. Buy on that difference. It also decides whether the maid on your page is called Xiren or Aroma.",
+    answer: [
+      ["Hawkes & Minford", "The Story of the Stone, Penguin, five volumes, 1973 to 1986. The first 80 chapters are David Hawkes's, the last 40 John Minford's."],
+      ["The Yangs", "A Dream of Red Mansions, Foreign Language Press, Beijing, three volumes, 1978–1980. The first complete English translation, made by Yang Xianyi and Gladys Yang."],
+      ["Free", "H. Bencraft Joly's 1892 version of the first 56 chapters, public domain and readable online."],
+    ],
+    blocks: [
+      {
+        h: "The two complete versions", zh: "全譯",
+        table: {
+          th: ["Edition", "Covers", "Published", "What the translator was after"],
+          rows: [
+            ["The Story of the Stone, translated by David Hawkes (vol. 4–5 by John Minford)", "ch. 1–80 Hawkes, ch. 81–120 Minford", "Penguin Classics; Hawkes's three volumes 1973, 1977, 1980; the set complete by 1986", "Penguin asked him for something that could appeal to English readers, and he resigned the Shaw Professorship of Chinese at Oxford to do it — a translation that would keep the realism and the poetry rather than the apparatus."],
+            ["A Dream of Red Mansions, translated by Yang Xianyi and Gladys Yang", "ch. 1–120", "Foreign Language Press, Beijing; three volumes, 1978–1980", "The first complete version, commissioned and begun in 1961, stopped by the Cultural Revolution, finished after their release in 1974. Its aim is the text: rendering word for word, which scholars have contrasted with Hawkes's text for text."],
+          ],
+        },
+      },
+      {
+        h: "The name problem", zh: "人名",
+        paras: [
+          "A great many names in this novel mean something, and one translator's choice is another's loss. Hawkes kept the family's names as sounds — Jia Baoyu, Lin Daiyu, Wang Xifeng, Jia Zheng, Lady Wang — and translated the servants instead, so a page of Penguin gives you Aroma where this site gives you Xiren. He put the Daoists' and Buddhists' names into Latin, and actors' names into French. The Yangs, keeping the text near the line, keep the Chinese names as names.",
+          "The four you are most likely to meet in the first month of reading:",
+        ],
+        table: {
+          th: ["This site", "Chinese", "In Penguin's Hawkes", "Who"],
+          rows: [
+            ["Xiren", "花襲人", "Aroma", "Baoyu's principal maid, the register's flower of the third roll; his first tenderness and the one who later marries the actor Jiang Yuhan."],
+            ["Qingwen", "晴雯", "Skybright", "The brightest of his maids, torn out of the house and dead of disgrace in chapter 77; the girl he writes the hibiscus elegy for."],
+            ["Miaoyu", "妙玉", "Adamantina", "The nun in the garden, cleaner than anyone is allowed to be, abducted in the last forty chapters."],
+            ["Xiangling", "香菱", "Caltrop", "The daughter stolen in chapter 1 and sold back into the family that took her; she learns verse in the garden at chapter 48 and is renamed Autumn Caltrop out of spite at chapter 79."],
+          ],
+        },
+        note: "The equivalences are as recorded in the article cited below. Where an edition renames the servants, the Chinese in a leaf's header is the fix: it is the same three or four characters on every page of this site.",
+      },
+      {
+        h: "The partial, the free and the lost", zh: "殘本",
+        table: {
+          th: ["Year", "Translation", "Covers", "State"],
+          rows: [
+            ["1812", "Robert Morrison", "part of chapter 4", "The first recorded English rendering; it sat in the second volume of a book unpublished in his lifetime."],
+            ["1830", "John Francis Davis", "a poem from chapter 3", "Davis had printed an excerpt in 1819; this is the verse that got into print."],
+            ["1846", "Presbyterian Mission Press, Ningbo", "selected passages", "Made literal on purpose, for foreigners learning Chinese."],
+            ["1868", "Edward Charles Bowra", "chapters 1–8", "The first run of the story in English."],
+            ["1892", "H. Bencraft Joly", "chapters 1–56", "Public domain; still readable online, and reprinted with a foreword by John Minford."],
+            ["1929", "Wang Chi-Chen", "abridged, the love story first", "With a preface by Arthur Waley. Expanded in 1958 and still stopping at chapter 60."],
+            ["1950s", "Bramwell Seaton Bonsall", "all 120 chapters, as Red Chamber Dream", "Probably the first complete English version; publication was abandoned when Penguin announced the Hawkes project. A typescript is online."],
+            ["1958", "Florence and Isabel McHugh", "abridged", "Made from Franz Kuhn's 1932 German translation, not from the Chinese."],
+            ["1973", "Lin Yutang's own abridgement", "about half the book", "Six copies printed and sent to publishers, all declined; the manuscript was found in a Japanese library in 2015 and his estate has refused to publish it."],
+          ],
+        },
+      },
+      {
+        h: "What the reviewers argue about", zh: "評",
+        paras: [
+          "The disagreement is old and it is not about accuracy. Frederic Wakeman, reviewing Hawkes and Minford in 1980, called the novel a masterpiece and its author a literary genius. A 2014 study of fourteen translations into English, German, French and Spanish found some of the book's problems surmountable and others not, and gave Hawkes the prize for precision: he came up with versions that were accurate, ingenious and delightful, recreating the meanings and the sounds of the original more successfully than any of his fellow translators. Another scholar put the difference plainly — the Yangs are literal, word for word; Hawkes is literal at the level of the text, which is why he can keep a servant's joke and a mistress's allusion at different heights in the same sentence.",
+          "So the choice is not which is truer. It is whether you want to read a Chinese novel in English, or read this novel in English.",
+        ],
+        note: "That last line is this site's own summary of the two aims, not a quotation. The quotation marks in the paragraph above are all from the article cited below.",
+      },
+    ],
+    sources: [
+      [`English Wikipedia, “Dream of the Red Chamber” — the translation history, the 1812 to 1958 versions, Hawkes's naming policy, the 2014 fourteen-translation study (read 30 Sep 2026)`, WIKI],
+      [`The Guardian, David Hawkes's obituary — Penguin's commission, the resignation, and the volumes of 1973, 1977 and 1980`, GUARDIAN],
+      [`Wikipedia, John Minford — 40 chapters of The Story of the Stone`, MINFORD_BIO],
+      [`Joly's 1892–93 translation, first 56 chapters, archived by the University of Adelaide`, JOLY_1892],
+    ],
+  },
+];
