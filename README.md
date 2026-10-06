@@ -2,7 +2,7 @@
 
 ### The Four Great Chinese Novels, as lookup tools
 
-[Open the website](https://dreamofxm.github.io/chinese-literature/) · [Water Margin](https://dreamofxm.github.io/chinese-literature/water-margin/) · [Journey to the West](https://dreamofxm.github.io/chinese-literature/journey-west/) · [Red Chamber](https://dreamofxm.github.io/chinese-literature/red-chamber/)
+[Open the website](https://dreamofxm.github.io/chinese-literature/) · [Water Margin](https://dreamofxm.github.io/chinese-literature/water-margin/) · [Journey to the West](https://dreamofxm.github.io/chinese-literature/journey-west/) · [Red Chamber](https://dreamofxm.github.io/chinese-literature/red-chamber/) · [Three Kingdoms](https://dreamofxm.github.io/chinese-literature/three-kingdoms/)
 
 ![Chinese Literature — lookup tools for the Four Great Novels](assets/og.jpg)
 
@@ -27,7 +27,7 @@ The website is already published on GitHub Pages. **Readers do not need Node.js,
 | [Water Margin](https://dreamofxm.github.io/chinese-literature/water-margin/) | The 108 Stars in rank order, with Chinese and English nicknames, names, condensed fates and painted character leaves. |
 | [Journey to the West](https://dreamofxm.github.io/chinese-literature/journey-west/) | Named demons, treasures, powers, locations, chapter ranges and how each encounter ends. |
 | [Red Chamber](https://dreamofxm.github.io/chinese-literature/red-chamber/) | The Jia family tree, the Jinling register, verses, glosses, fates and character leaves. |
-| Three Kingdoms | Planned as the fourth section. |
+| [Three Kingdoms](https://dreamofxm.github.io/chinese-literature/three-kingdoms/) | The era's cast — lords, strategists and warriors with courtesy names, allegiance and fates — plus a dated timeline of the battles, every row citing its chapters. Painted leaves to follow. |
 
 ## Why use it
 
@@ -54,6 +54,8 @@ The local preview is for development only. It is not required to read the publis
 
 Open an issue. Each entry points back to a chapter or source context, so corrections can be checked and incorporated into the page.
 
-## License
+## Licenses
 
-There is currently no general open-source license for the site's content. The rankings, notes and ink illustrations are original to this site; the paintings are modern interpretations made for it in the Ming drinking-leaf tradition. No scan, studio still or game asset appears anywhere on the site. Republication requires attribution and a link back.
+The site's **code** — the build scripts, data modules, renderers and styles — is released under the [MIT License](LICENSE).
+
+The site's **content** — the rankings, condensed fates, notes, verse glosses and the ink illustrations — is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): republication is welcome with attribution and a link back, for non-commercial use. The paintings are modern interpretations made for this site in the Ming drinking-leaf tradition. No scan, studio still or game asset appears anywhere on the site.

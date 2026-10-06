@@ -72,7 +72,7 @@ gtag('config', '${GA4_ID}');
     <a href="${BASE}${lp(L.code)}/water-margin/">${esc(L["shell.nav.wm"])}</a>
     <a href="${BASE}${lp(L.code)}/journey-west/">${esc(L["shell.nav.jw"])}</a>
     <a href="${BASE}${lp(L.code)}/red-chamber/">${esc(L["shell.nav.rc"])}</a>
-    <a href="${BASE}${lp(L.code)}/three-kingdoms/">${esc(L["shell.nav.tk"])} <span class="soon-chip" lang="zh">籌備中</span></a>
+    <a href="${BASE}${lp(L.code)}/three-kingdoms/">${esc(L["shell.nav.tk"])}</a>
   </nav>${switcher}
 </header>
 <main>
@@ -220,12 +220,12 @@ function hub({ origin, buster, L, alt }) {
     lede: L["hub.lede"],
   })}
 <section class="plates">
-  <h2 class="rule">${esc(L["hub.tools"])} <span class="zh-h" lang="zh">三冊</span></h2>
+  <h2 class="rule">${esc(L["hub.tools"])} <span class="zh-h" lang="zh">四冊</span></h2>
   <div class="cards">
 ${card("water-margin", "", "水滸", L["hub.card.wm.t"], L["hub.card.wm.b"])}
 ${card("journey-west", "", "西遊", L["hub.card.jw.t"], L["hub.card.jw.b"])}
 ${card("red-chamber", "", "紅樓", L["hub.card.rc.t"], L["hub.card.rc.b"])}
-${card("three-kingdoms", " soon", "三國", `${L["hub.card.tk.t"]} <span class="soon-chip" lang="zh">籌備中</span>`, L["hub.card.tk.b"])}
+${card("three-kingdoms", "", "三國", L["hub.card.tk.t"], L["hub.card.tk.b"])}
   </div>
 </section>
 <section class="plates">
@@ -749,30 +749,69 @@ ${rows}
   });
 }
 
-// Reserved booth for the fourth great novel: a teaser leaf, kept out of the
-// sitemap and noindex until its tables exist.
-function threeKingdoms({ origin, buster, L, alt }) {
-  const body = `
-<section class="soon-page">
-  <div class="soon-plate" aria-hidden="true">
-    <span class="soon-zh" lang="zh">三國</span>
-    <span class="soon-seal" lang="zh">籌備中</span>
-  </div>
-  <p class="kicker">${esc(L["tk.kicker"])}</p>
-  <h1>${esc(L["tk.title"])}${L["tk.titleZh"] ? ` <span class="zh-h" lang="zh">${esc(L["tk.titleZh"])}</span>` : ""}</h1>
-  <p class="lede">${L["tk.lede"]}</p>
-  <p class="soon-note">${esc(L["tk.note"])}</p>
-  <nav class="soon-nav"><a href="${BASE}${lp(L.code)}/">${esc(L["tk.back"])}</a></nav>
-</section>`;
+// The fourth tool: the era as two dated tables — the cast of the people who
+// moved it, and the battles that moved the map. No painted leaves yet, so cast
+// rows carry no data-leaf and nothing here promises a page with no painting.
+function threeKingdoms({ origin, buster, TK_CAST, TK_ERA, L, alt }) {
+  const side = (g) => L["tk.side"][g] || g;
+  const cast = TK_CAST.map((r) => {
+    const al = r.al || "other";
+    return `      <tr data-group="${r.grp}" class="${r.id % 2 === 0 ? "zebra" : ""}"><td class="num">${r.id}</td><td>${esc(side(r.grp))}</td><td><span class="zh">${esc(r.zh)}</span> <span class="gloss">${esc(r.en)}</span></td><td><span class="zh">${esc(r.nn)}</span> <span class="gloss">${esc(r.nng)}</span></td><td><span class="zh">${esc(AL_ZH[al])}</span> <span class="gloss">${esc(L["tk.alleg"][al] || "")}</span></td><td>${esc(r.fate)}</td></tr>`;
+  }).join("\n");
+  const era = TK_ERA.map(([year, event, sides, end, ch], i) =>
+    `      <tr${i % 2 === 0 ? ' class="zebra"' : ""}><td class="num">${year}</td><td>${esc(event)}</td><td>${esc(sides)}</td><td>${esc(end)}</td><td class="num">${esc(ch)}</td></tr>`).join("\n");
+  const n = TK_CAST.length;
+  const body = `${hero(buster, {
+    img: "og",
+    alt: L["hub.alt"],
+    kicker: L["tk.kicker"],
+    title: L["tk.title"],
+    zh: L["tk.titleZh"],
+    lede: L["tk.lede"],
+  })}
+<h2 class="rule">${esc(L["tk.cast"])} <span class="zh-h" lang="zh">群英</span></h2>
+<div class="controls">
+  <input type="search" id="q" data-filter-table="#cast" placeholder="${esc(L["tk.ph"])}">
+  <button data-group-filter="#cast" data-group="all" class="on">${esc(L["tk.all"](n))}</button>
+  <button data-group-filter="#cast" data-group="lord">${esc(L["tk.lord"])}</button>
+  <button data-group-filter="#cast" data-group="strategist">${esc(L["tk.strategist"])}</button>
+  <button data-group-filter="#cast" data-group="warrior">${esc(L["tk.warrior"])}</button>
+  <span class="count" data-count="#cast"></span>
+</div>
+<div class="scroll-x">
+<table id="cast">
+  <thead><tr>${L["tk.th"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
+  <tbody>
+${cast}
+  </tbody>
+</table>
+</div>
+<h2 class="rule">${esc(L["tk.era"])} <span class="zh-h" lang="zh">大事記</span></h2>
+<div class="controls">
+  <input type="search" id="q2" data-filter-table="#era" placeholder="${esc(L["tk.ph2"])}">
+  <span class="count" data-count="#era"></span>
+</div>
+<div class="scroll-x">
+<table id="era">
+  <thead><tr>${L["tk.th2"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
+  <tbody>
+${era}
+  </tbody>
+</table>
+</div>`;
   const path = `${BASE}${lp(L.code)}/three-kingdoms/`;
   return shell({
-    origin, buster, path, noindex: true, L, alt,
+    origin, buster, path, L, alt,
     title: L["tk.seoTitle"],
     desc: L["tk.seoDesc"],
     body,
     jsonld: NAV_CRUMB(origin, path, L["tk.crumb"], L),
   });
 }
+
+// Allegiance glyphs are Chinese on every page, whatever the locale: the span
+// keeps lang="zh" styling; the romanised label beside it comes from locales.
+const AL_ZH = { wei: "魏", shu: "蜀", wu: "吳", other: "群" };
 
 // The three novel overviews share their builder call signature — they all need
 // the novel spec (`nv`) on top of cfg — so the tier doubles as its data lookup.
@@ -788,9 +827,7 @@ export function renderAll(cfg) {
   const pathOf = (code, tier) => `${BASE}${lp(code)}${tier ? `/${tier}` : ""}/`;
 
   const overview = (code, tier) => {
-    // A noindex page declares no hreflang cluster: Google can't honour a
-    // translation pair where one side asks to be left out of the index.
-    const alt = tier === "three-kingdoms" ? {} : Object.fromEntries(
+    const alt = Object.fromEntries(
       LOCALE_ORDER.filter((other) => other !== code && localeTiers(other).includes(tier)).map((other) => [other, pathOf(other, tier)])
     );
     const args = { ...cfg, L: LOCALES[code], alt };

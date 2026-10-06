@@ -37,8 +37,8 @@ const EN = {
   "hub.zh": "四大名著",
   "hub.lede": `Not essays — tables, trees, indexes and painted leaves you can filter. Each tool answers a
 question with a row or a branch: who held which rank, which demon carried which treasure, who is
-whose mother in the Jia house. Three of the four great novels have tools here today; the fourth
-holds a reserved booth below, and its tables arrive when they can beat an essay.`,
+whose mother in the Jia house. All four great novels now hold a table here; the fourth's painted
+leaves arrive when the ink dries.`,
   "hub.tools": "The tools",
   "hub.card.wm.t": "The 108 Stars of Water Margin",
   "hub.card.wm.b": "Every star in rank order: heavenly or earthly, nickname in Chinese and English, name, and a condensed fate from the campaign chapters. Stars with a leaf of their own open into a painted portrait and their deeds in chapter order.",
@@ -47,13 +47,13 @@ holds a reserved booth below, and its tables arrive when they can beat an essay.
   "hub.card.rc.t": "Red Chamber: Family Tree &amp; Twelve Beauties",
   "hub.card.rc.b": "The Jia house as an expandable tree, the Jinling register with its verses, glosses and fates, and a painted leaf for every named person in the house — many headed by the 判詞 written about them in chapter five.",
   "hub.card.tk.t": "Romance of the Three Kingdoms",
-  "hub.card.tk.b": "Booth reserved for the fourth great novel. The plan: the era as a dated table — which lord, which strategist, which battle turned which province — plus painted leaves for the oath brothers and their rivals. The ink is still drying.",
+  "hub.card.tk.b": "The era as two dated tables: the lords, strategists and warriors who moved it — allegiance, courtesy name, fate — and the battles that turned provinces, every row cited to its chapters. Painted leaves for the oath brothers follow the ink.",
   "hub.why": "Why tables and not articles",
   "hub.why.b": `The novels are public domain; the readings are not. A table makes its claims checkable —
 rank against rank, chapter against chapter — where prose hides them. Where a field is a
 gloss or a condensation, the page says so.`,
   "hub.seoTitle": "Four Great Chinese Novels — Characters & Family Trees",
-  "hub.seoDesc": "Searchable lookup tools for the Chinese literary canon in English: all 108 Water Margin characters ranked, every Journey to the West demon and how its fight ended, and the Dream of the Red Chamber family tree.",
+  "hub.seoDesc": "The four great Chinese novels as lookup tools: all 108 Water Margin stars ranked, every Journey to the West demon, the Jia family tree, the era dated.",
 
   "rail.heading": "The leaves",
   "rail.hint": (n) => `All ${n} painted leaves are in this rail. Swipe it sideways, click one to open it full size, then arrow or drag through the rest.`,
@@ -130,18 +130,30 @@ in chapter order, and the ending.`,
   "rc.seoDesc": (n, v) => `The Jia family tree, the Twelve Beauties of Jinling with their verses, and ${n} characters who open into their own painted leaf — ${v} headed by their 判词.`,
   "rc.crumb": "Red Chamber Tree & Register",
 
-  "tk.kicker": "Leaf IV · The three kingdoms · c. 1522 · booth reserved",
+  "tk.alt": "Ink-wash banner: a marsh boat, a mountain bridge, a stone staff and a moon-gate garden — one vignette per novel.",
+  "tk.kicker": "Leaf IV · The three kingdoms · c. 1522",
   "tk.title": "Romance of the Three Kingdoms",
   "tk.titleZh": "三國演義",
-  "tk.lede": `The fourth of the four great novels holds its slot on the shelf. The tools are being drafted:
-  the era as a dated table — which lord, which strategist, which battle turned which province — the
-  campaigns indexed by river and pass, and painted leaves for the oath brothers and their rivals.
-  Each answer a row, not an essay.`,
-  "tk.note": "The ink is still drying — check back after the next kiln firing.",
-  "tk.back": "← The four great novels",
-  "tk.seoTitle": "Romance of the Three Kingdoms — booth reserved",
-  "tk.seoDesc": "A reserved booth: lookup tables and painted leaves for Romance of the Three Kingdoms are in preparation.",
-  "tk.crumb": "Romance of the Three Kingdoms",
+  "tk.lede": `The era as two dated tables. The cast: the lords, strategists and warriors who moved
+it, with courtesy names, allegiance and a condensed fate. The battles: which lord, which
+strategist, which fight turned which province — every row citing the chapters, so a claim can
+be checked against the novel. Painted leaves for the oath brothers and their rivals follow
+when the ink is dry.`,
+  "tk.cast": "The cast",
+  "tk.ph": "Search name, courtesy name, fate…",
+  "tk.all": (n) => `All ${n}`,
+  "tk.side": { lord: "Lord", strategist: "Strategist", warrior: "Warrior" },
+  "tk.lord": "Lords",
+  "tk.strategist": "Strategists",
+  "tk.warrior": "Warriors",
+  "tk.alleg": { wei: "Wei", shu: "Shu", wu: "Wu", other: "—" },
+  "tk.th": ["#", "Role", "Name", "Courtesy name", "Allegiance", "Fate"],
+  "tk.era": "The era, dated",
+  "tk.ph2": "Search battle, lord, year…",
+  "tk.th2": ["Year", "Event", "Sides", "How it ended", "Ch."],
+  "tk.seoTitle": "Romance of the Three Kingdoms — Cast & Battles Dated",
+  "tk.seoDesc": "Every major figure of the Three Kingdoms — lord, strategist or warrior — with allegiance and a condensed fate, plus the era's battles dated by chapter.",
+  "tk.crumb": "Three Kingdoms Cast & Battles",
 };
 
 const JA = {
@@ -169,8 +181,8 @@ const JA = {
   "hub.kicker": "明清の四大名著 · 冊頁",
   "hub.title": "古典小説を、引ける形で",
   "hub.zh": "四大名著",
-  "hub.lede": "随筆ではなく、表・系図・索引・めくれる冊葉です。それぞれの道具は一行か一枝で答えます。誰が何位の星だったか、どの妖がどの法宝を持っていたか、賈府では誰が誰の母か。四大名著のうち三つはすでにここにあり、残り一つは下の席に場所を確保しています。表が文章に勝てるものができるまで、その棚は空いたままです。",
-  "hub.tools": "三つの冊",
+  "hub.lede": "随筆ではなく、表・系図・索引・めくれる冊葉です。それぞれの道具は一行か一枝で答えます。誰が何位の星だったか、どの妖がどの法宝を持っていたか、賈府では誰が誰の母か。四大名著の四つの表がここに揃いました。最後の冊の肖像は、墨の乾くときに。",
+  "hub.tools": "四つの冊",
   "hub.card.wm.t": "水滸伝 一百八星",
   "hub.card.wm.b": "全108星を座次順に。天罡か地煞か、綽号（あだ名）の漢字と英訳、姓名、そして九十回以降の結末の要約まで。冊葉を持つ星は、その人のページに水墨の肖像と回目順の大事記が続きます。",
   "hub.card.jw.t": "西遊記 妖怪と難",
@@ -178,11 +190,11 @@ const JA = {
   "hub.card.rc.t": "紅楼夢 族譜と十二釵",
   "hub.card.rc.b": "広げられる賈氏の系図、判詞と訓読と結末を並べた金陵十二釵の冊、そして名前の出る人物一人に一葉。多くの葉の頭には、第五回で先に書かれていた予言の詩が置かれています。",
   "hub.card.tk.t": "三國演義",
-  "hub.card.tk.b": "四つ目のための空席です。予定しているのは、年代入りの表——どの諸侯にどの軍師、どの戦いでどの州が動いたか——と、川と関で引く戦役索引、結義兄弟とその敵たちの冊葉。まだ墨が乾いていません。",
+  "hub.card.tk.b": "年代入りの二つの表にまとめました。群雄・軍師・武将の氏字と所属と結末、そして州を動かした戦いの数々——どの行も回目つきです。結義兄弟の冊葉は、墨の乾く後に。",
   "hub.why": "なぜ文章でなく表か",
   "hub.why.b": "原作はパブリックドメインですが、読み方は人それぞれです。表なら主張を検証できます——星と星、回と回を突き合わせる。散文ではそれが隠れます。訓読や要約にとどめた欄には、その旨をページに書いています。",
   "hub.seoTitle": "四大名著 人物検索・系図・回目索引",
-  "hub.seoDesc": "中国の四大名著を検索用の表にまとめました。水滸伝の108星を座次順、西遊記の妖怪と法宝・収め方、紅楼夢の賈氏系図と金陵十二釵の判詞。人物ページは肖像付き。",
+  "hub.seoDesc": "中国の四大名著を検索用の表にまとめました。水滸伝の108星を座次順、西遊記の妖怪と法宝・収め方、紅楼夢の賈氏系図と十二釵の判詞、三國演義の群雄と戦いの年表。人物ページは肖像付き。",
 
   "rail.heading": "肖像の冊葉",
   "rail.hint": (n) => `${n}枚の冊葉をこの列にまとめています。横になぞるか、一枚をクリックして拡大し、矢印かドラッグで続きを見てください。`,
@@ -249,15 +261,26 @@ const JA = {
   "rc.seoDesc": (n, v) => `賈氏の広げられる系図、判詞つきの金陵十二釵、そして ${n} 人の人物冊葉——うち ${v} 人は判詞を頭に戴いています。`,
   "rc.crumb": "紅楼夢 系図と冊",
 
-  "tk.kicker": "冊 IV · 三國・1522年頃 · 席を確保中",
+  "tk.alt": "水墨の横断画——葦原の舟、山の橋、錫杖、月門の庭。四つの小説にそれぞれ一場面。",
+  "tk.kicker": "冊 IV · 三國・1522年頃",
   "tk.title": "三國演義",
-  "tk.titleZh": "",
-  "tk.lede": "四大名著の四つ目は、棚の場所を取ってあります。いま描いているのは、年代入りの表——どの諸侯にどの軍師、どの戦いでどの州が動いたか——と、川と関で引く戦役索引、結義兄弟とその敵たちの冊葉です。答えは一行で出し、随筆では置きません。",
-  "tk.note": "墨が乾き次第に。窯が冷めたら、またどうぞ。",
-  "tk.back": "← 四大名著の一覧へ",
-  "tk.seoTitle": "三國演義 準備中",
-  "tk.seoDesc": "四つ目の名著のための空席です。検索用の表と人物冊葉を用意しています。",
-  "tk.crumb": "三國演義",
+  "tk.titleZh": "三國志演義",
+  "tk.lede": "時代を二つの年代付きの表にまとめました。群雄・軍師・武将の人柄を、氏字・所属・要約した結末まで一行に。官渡から赤壁、夷陵へ——州を動かした戦いは、どの行も回目をかいているので、原作と突き合わせて確かめられます。結義兄弟とその敵たちの冊葉は、墨の乾いた後に。",
+  "tk.cast": "群雄・軍師・武将",
+  "tk.ph": "姓名・氏字・結末を検索…",
+  "tk.all": (n) => `全${n}`,
+  "tk.side": { lord: "群雄", strategist: "軍師", warrior: "武将" },
+  "tk.lord": "群雄",
+  "tk.strategist": "軍師",
+  "tk.warrior": "武将",
+  "tk.alleg": { wei: "魏", shu: "蜀", wu: "呉", other: "群" },
+  "tk.th": ["#", "立場", "姓名", "氏字", "所属", "結末"],
+  "tk.era": "時代の年表",
+  "tk.ph2": "戦い・君主・年を検索…",
+  "tk.th2": ["年", "出来事", "陣営", "収まり", "回"],
+  "tk.seoTitle": "三國演義 群雄と軍師と戦いの年表",
+  "tk.seoDesc": "三國演義の群雄・軍師・武将を、所属と結末まで一行に。官渡から赤壁、夷陵まで、戦いは年代と回目つきの表で。",
+  "tk.crumb": "三國演義 群雄と戦いの年表",
 };
 
 // The overview tiers each locale carries. Leaf pages are deliberately absent,

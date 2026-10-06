@@ -7,6 +7,7 @@ import { LOCALES, DEFAULT_LOCALE, LOCALE_ORDER, keyDiff } from "./locales.mjs";
 import { STARS, LEAVES } from "./data/water-margin.mjs";
 import { TRIBULATIONS, PEOPLE as JW_PEOPLE } from "./data/journey-west.mjs";
 import { TREE, BEAUTIES, PEOPLE as RC_PEOPLE, GUIDES as RC_GUIDES } from "./data/red-chamber.mjs";
+import { TK_CAST, TK_ERA } from "./data/three-kingdoms.mjs";
 
 const root = dirname(fileURLToPath(import.meta.url));
 
@@ -34,7 +35,7 @@ for (const code of LOCALE_ORDER.filter((c) => c !== DEFAULT_LOCALE)) {
 // Buster covers every file that feeds a page, shared runtime included, or a
 // runtime-only edit ships with an unchanged buster and browsers serve stale JS.
 const SRCS = [
-  "data/water-margin.mjs", "data/journey-west.mjs", "data/red-chamber.mjs",
+  "data/water-margin.mjs", "data/journey-west.mjs", "data/red-chamber.mjs", "data/three-kingdoms.mjs",
   "locales.mjs", "render.mjs", "build.mjs", "assets/codex.js", "assets/style.css", "assets/og.jpg",
   ...readdirSync(join(root, "assets/img")).filter((f) => f.endsWith(".jpg")).map((f) => `assets/img/${f}`),
 ];
@@ -46,7 +47,7 @@ for (const s of SRCS) {
 const lastmod = new Date(last).toISOString().slice(0, 10); // sitemaps stay date-granular
 const buster = new Date(last).toISOString().replace(/[-:T]/g, "").slice(0, 12); // minute-granular: a same-day edit must bust
 
-const pages = renderAll({ origin: ORIGIN, buster, STARS, LEAVES, JW_PEOPLE, TRIBULATIONS, TREE, BEAUTIES, RC_PEOPLE, RC_GUIDES });
+const pages = renderAll({ origin: ORIGIN, buster, STARS, LEAVES, JW_PEOPLE, TRIBULATIONS, TREE, BEAUTIES, RC_PEOPLE, RC_GUIDES, TK_CAST, TK_ERA });
 for (const [rel, html] of pages) {
   const p = join(root, rel);
   mkdirSync(dirname(p), { recursive: true });
@@ -61,12 +62,10 @@ const urlset = (rels) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns=
   rels.map((rel) => `  <url><loc>${locOf(rel)}</loc><lastmod>${lastmod}</lastmod></url>`).join("\n")}\n</urlset>\n`;
 // One sitemap per locale, so a locale can be submitted and retired on its own and
 // an expanding /ja/ set never eats the crawl budget of the 141 English URLs.
-const BOOTH = /(?:^|\/)three-kingdoms\/index\.html$/; // reserved booth: noindex teaser, not for crawlers
 const localeOf = (rel) => (/^[a-z]{2}\//.test(rel) ? rel.slice(0, 2) : "en");
 const mapName = (code) => (code === "en" ? "sitemap.xml" : `sitemap-${code}.xml`);
 const byLocale = {};
 for (const [rel] of pages) {
-  if (BOOTH.test(rel)) continue;
   (byLocale[localeOf(rel)] ??= []).push(rel);
 }
 for (const [code, rels] of Object.entries(byLocale)) writeFileSync(join(root, mapName(code)), urlset(rels));
