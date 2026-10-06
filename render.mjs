@@ -307,6 +307,15 @@ ${sources}
         isPartOf: { "@type": "WebSite", name: L["shell.site"], url: origin + BASE + "/" },
         about: { "@type": "Book", name: nv.seoNovel, alternateName: nv.novelZh },
       },
+      // Question-shaped pages also answer "People also ask" boxes; without
+      // FAQPage markup they are invisible to that surface.
+      ...(g.faq && g.faq.length ? [{
+        "@context": "https://schema.org", "@type": "FAQPage",
+        mainEntity: g.faq.map(([q, a]) => ({
+          "@type": "Question", name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
+      }] : []),
     ],
   });
 }

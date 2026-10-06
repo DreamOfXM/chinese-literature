@@ -1092,4 +1092,161 @@ export const GUIDES = [
       [`Joly's 1892–93 translation, first 56 chapters, archived by the University of Adelaide`, JOLY_1892],
     ],
   },
+  {
+    // Built for the query GSC actually recorded in volume — the lamp-oil
+    // question and its rephrasings — so the snippet answers it in one look.
+    slug: "why-jia-huan-burned-baoyu", navLabel: "The lamp-oil night", cardZh: "燈油",
+    cardTitle: "Why Jia Huan tipped the lamp on Baoyu",
+    cardBody: "The chapter-25 scalding: what happened in Lady Wang's room, the jealousy behind it, who took the scolding, and the curse it led to before the day was out.",
+    seoTitle: "Why Did Jia Huan Burn Baoyu with Hot Lamp Oil?",
+    seoDesc: "The ch. 25 lamp-oil scalding of Baoyu's face: what happened, whether it was an accident, who was scolded, and the black magic Concubine Zhao bought that same night.",
+    kicker: "Reading note IV · The lamp-oil night",
+    h1: "Why did Jia Huan burn Baoyu with the hot lamp oil?",
+    h1zh: "第二十五回·燈油",
+    lede: "In chapter 25 Jia Huan tipped a lamp of hot oil over his half-brother's face and left a row of blisters. The novel says plainly that it was not an accident, and plainly why: a concubine's son had spent his whole life watching the house love somebody else.",
+    answer: [
+      ["What happens", "Ch. 25, in Lady Wang's quarters. Baoyu lies on the kang after wine; Jia Huan, set to copy a sutra at the same table, pretends to stumble and pushes the lamp over him."],
+      ["Was it an accident", "No. The text says he had long hated Baoyu and acted on it — the stumble was the cover story the household later kept for Grandmother Jia's benefit."],
+      ["Who was scolded", "Lady Wang's fury fell on Jia Huan and on his mother: Concubine Zhao, for having raised him. Wang Xifeng hustled the boy away before it got worse."],
+      ["What it led to", "That same chapter: Concubine Zhao pays the nun Ma Daopo for paper-effigy black magic against Baoyu and Wang Xifeng. Both collapse; a monk restores the jade and both live."],
+    ],
+    blocks: [
+      {
+        h: "The scene, as the chapter gives it", zh: "本事",
+        paras: [
+          "Baoyu comes home from a birthday feast at the Wangs with wine in him, and his mother puts him down to rest on her kang. Jia Huan is already in the room, set to copying the Diamond Sutra — a chore that tells you his standing: the good son does lessons with tutors, this one copies scripture in the servants' hearing. Baoyu, bored and drowsy, teases the maid Caixia, who has no patience for him because her regard is all for Jia Huan. The novel watches Jia Huan watching this — and then his hand finds the lamp.",
+          "The oil takes Baoyu across the face in blisters. It is the jade-in-the-mouth boy's first visible wound from inside his own house, and it comes from the one person in it who has the least and resents it most.",
+        ],
+      },
+      {
+        h: "Why he did it", zh: "緣故",
+        paras: [
+          "The novel does not leave the motive to be inferred. Jia Huan is the son of a concubine, and the book shows the arithmetic of that birth again and again: the same father, a different everything. His mother's lodgings, his share of attention, the way servants weigh him against his brother — all of it is second, and the household does not pretend otherwise. The trigger in the scene is small on purpose: a maid's coldness, a brother's ease with her. A boy supplied with years of that arithmetic does not need a large trigger.",
+          "His mother is the other half of the answer. Concubine Zhao is the novel's study of what a permanent second place does to a person, and her son is both her instrument and her echo. Chapter 25 is the first time the two of them act on it together in daylight; the curse that same night is the second time.",
+        ],
+      },
+      {
+        h: "The scolding, and the cover story", zh: "訓斥",
+        paras: [
+          "Lady Wang's anger lands twice: on Jia Huan for the act, and on Concubine Zhao for the son — a mother punished through her child, which is the household's usual way of reaching her. Wang Xifeng, arriving at the noise, reads the room faster than anyone and removes the boy before Grandmother Jia hears it. To the old lady it goes down as Baoyu's own clumsiness, which spares her alarm and spares Jia Huan the one judge with real power over him.",
+        ],
+      },
+      {
+        h: "What grows out of it", zh: "後事",
+        paras: [
+          "The same chapter runs the revenge to its end: Ma Daopo takes Concubine Zhao's silver and a pawned lot of jewellery, works her paper goblins, and both Baoyu and Wang Xifeng go into death-fits before the scabby monk and the lame Taoist talk the jade back into doing its work. The novel keeps the two events in one chapter on purpose — the lamp in the morning, the curse at night, one grudge wearing two shapes.",
+          "And the grudge does not age out. Eight chapters later it is Jia Huan's word to his father about the maid Jinchuan that brings on the great beating of chapter 33. Read the two chapters together and you have the novel's whole statement on the second son: he never gets a battlefield, so he fights where he stands.",
+        ],
+        note: "The chapter attributions are the text's. The readings in the second and fourth sections — the arithmetic of a concubine-born son, one grudge in two shapes — are this site's, argued from the chapters cited below.",
+      },
+    ],
+    faq: [
+      ["Why did Jia Huan burn Baoyu with hot lamp oil?", "He was the concubine-born half-brother who had watched the house favour Baoyu all his life, and in that scene Baoyu was at ease with the one maid who preferred Jia Huan. The novel says his stumble with the lamp was deliberate."],
+      ["Did Baoyu's face heal?", "The chapter leaves him blistered and bandaged; the wound itself is not the plot. What carries forward is the grudge — the black magic bought that night, and Jia Huan's informing in chapter 33."],
+      ["Did Grandmother Jia find out?", "The household reported it to her as Baoyu's own accident. The concealment is in the chapter, and it is part of the point: the one person whose judgement Jia Huan feared never reaches him."],
+    ],
+    sources: [
+      [`The novel in Chinese, chapters 25 and 33 — the lamp-oil scene, Ma Daopo's curse, and the beating (read 6 Oct 2026)`, CH_TEXT],
+      [`English Wikipedia, “Dream of the Red Chamber” — chapter summary and the character web around it`, WIKI],
+    ],
+  },
+  {
+    slug: "jia-family-tree", navLabel: "The family tree", cardZh: "族譜",
+    cardTitle: "The Jia family tree, explained",
+    cardBody: "The two houses of the Jia clan laid out generation by generation — who rules each, who marries in, and where Baoyu, Daiyu and Xifeng actually sit.",
+    seoTitle: "The Jia Family Tree, Explained (Dream of the Red Chamber)",
+    seoDesc: "The Jia family tree in one table: the Ningguo and Rongguo houses through five generations, the marriages that brought in Wang, Xue, Lin and Shi — and where Baoyu sits.",
+    kicker: "Reading note V · The family tree",
+    h1: "The Jia family tree, explained",
+    h1zh: "賈氏族譜",
+    lede: "Two founding brothers, two houses, five generations — and a marriage web in which nearly every outsider who matters (Daiyu, Baochai, Xifeng) is already a cousin. The tree below is the one the novel's second chapter recites; the explanations under it are the ones readers actually need.",
+    answer: [
+      ["The houses", "Ningguo (elder line) and Rongguo (younger). Nearly all the story lives in Rongguo; Ningguo supplies the scandals next door."],
+      ["Baoyu's line", "Rongguo second son: Jia Zheng by Lady Wang, and the stone-born heir with the jade in his mouth."],
+      ["Why so many cousins", "The four great families intermarried for generations — so Daiyu is his father's side's cousin and Baochai his mother's side's, and the novel sets the two kinships against each other deliberately."],
+    ],
+    blocks: [
+      {
+        h: "Five generations, one table", zh: "五代",
+        paras: [
+          "The generations are marked by the shared character in the names — a real convention of the book, and the fastest way to place anyone: the founding dukes, then the dai generation, the wen generation, the yu generation, and the cao generation of boys who inherit the wreckage.",
+        ],
+        table: {
+          th: ["Generation", "Ningguo house (elder)", "Rongguo house (younger)", "Note"],
+          rows: [
+            ["Founders", "Jia Yan, Duke of Ningguo", "Jia Yuan, Duke of Rongguo", "Two brothers granted ducal titles for merit — the houses' names are their titles."],
+            ["dai", "Jia Daihua", "Jia Daishan × Grandmother Jia", "She is born a Shi of one of the four families — which is why Xiangyun calls her aunt."],
+            ["wen", "Jia Jing (a Daoist recluse; never home)", "Jia She × Lady Xing; Jia Zheng × Lady Wang; (daughter) Jia Min × Lin Ruhai", "Jia Zheng holds the real rank; Lady Wang is of the Wang family — Xifeng's aunt."],
+            ["yu", "Jia Zhen × Lady You", "Jia Zhu × Li Wan (d. young); Jia Yuanchun, Imperial Consort; Jia Lian × Wang Xifeng; Jia Baoyu; (by Concubine Zhao) Jia Tanchun, Jia Huan", "The novel's centre: two marriages, one prodigal, one jade. Xifeng runs the house on the strength of being Lady Wang's niece."],
+            ["cao", "Jia Rong × Qin Keqing", "Jia Lan (Jia Zhu's posthumous son)", "The register's youngest; Qiaojie belongs here too, as Wang Xifeng's daughter."],
+          ],
+        },
+      },
+      {
+        h: "The marriages that run the plot", zh: "聯姻",
+        paras: [
+          "Three outside families attach to the Jias by marriage, and each attachment is a plot engine. The Wangs attach twice — Lady Wang to Jia Zheng, and her niece Wang Xifeng to Jia Lian — which is why the niece manages the whole Rongguo household: her aunt owns the husband's line and her own family owns the money sense. The Xues attach through Lady Wang's sister Lady Xue, who moves into the Jia compound with Baochai and the oaf Xue Pan; the Lins attach through Jia Zheng's sister Jia Min, whose death brings Daiyu to the house in chapter 3 with nothing but a father far away.",
+          "That is the arithmetic behind the novel's central triangle: Daiyu is the father's-side cousin (a Jia by blood), Baochai the mother's-side cousin (a Wang by blood), and the family's choice between them is also a choice between the two mothers' families. The tree is not background; it is the board the game is played on.",
+        ],
+      },
+      {
+        h: "How to check any of this", zh: "對照",
+        paras: [
+          "The genealogy is recited by the antique dealer Leng Zixing in chapter 2 — the novel's own guided tour of the family before you meet it. Every row above can be checked against that chapter and against the expandable tree on this site's register page, which carries the same members with their fates.",
+        ],
+        note: "Generation attributions and the marriage web follow chapters 2–4 as recited; the reading of the triangle's kinship arithmetic is this site's.",
+      },
+    ],
+    faq: [
+      ["How are Baoyu, Daiyu and Baochai related?", "Daiyu is Baoyu's cousin on his father's side (his aunt Jia Min's daughter); Baochai is his cousin on his mother's side (Lady Wang's sister's daughter). Both are cousins; the novel weighs the two bloodlines against each other."],
+      ["Why does Wang Xifeng run the Rongguo house?", "She is married to Jia Lian of the yu generation, but her power is natal: she is Lady Wang's own niece, and the aunt-brother-in-law pair hold the house together."],
+      ["Are the Ningguo and Rongguo houses separate families?", "One family, two titled lines from two founding dukes. They share the ancestral compound's rites; the story mostly keeps Rongguo for the family and Ningguo for its scandals."],
+    ],
+    sources: [
+      [`The novel in Chinese, chapter 2 — Leng Zixing recites the genealogy (read 6 Oct 2026)`, CH_TEXT],
+      [`English Wikipedia, “Dream of the Red Chamber” — the character list and family relations`, WIKI],
+    ],
+  },
+  {
+    slug: "first-maid-expelled", navLabel: "The first expulsion", cardZh: "茜雪",
+    cardTitle: "The first maid Baoyu's house lost",
+    cardBody: "Before Jinchuan and Qingwen made expulsion famous, there was Xueqian — dismissed offstage after the maple-dew tea of chapter 8, and gone by chapter 20.",
+    seoTitle: "Who Was the First Maid Expelled in Red Chamber?",
+    seoDesc: "The first maid expelled in Dream of the Red Chamber was Xueqian, lost after the maple-dew tea night of chapter 8 — a dismissal the novel never even stages.",
+    kicker: "Reading note VI · The first expulsion",
+    h1: "Who was the first maid expelled from Baoyu's house?",
+    h1zh: "楓露茶·茜雪",
+    lede: "Not Jinchuan, and not Qingwen. The first maid the household lost was Xueqian, and the novel's treatment of her is colder than either famous case: her dismissal happens between chapters, offstage, announced later in someone else's grievance.",
+    answer: [
+      ["The answer", "Xueqian. Baoyu, drunk and angry that his maple-dew tea had gone to his old nurse, calls for the maid to be dismissed in chapter 8 — and by chapter 20 she is simply gone."],
+      ["The famous cases came later", "Jinchuan, dismissed by Lady Wang in chapter 30 and drowned by chapter 32; Qingwen, expelled in chapter 77 during the searches, dead within it."],
+      ["Why it matters", "The novel lets a drunk boy's word destroy a maid without a scene — the quiet version of an expulsion it will later show twice at full volume."],
+    ],
+    blocks: [
+      {
+        h: "The maple-dew tea night", zh: "楓露茶",
+        paras: [
+          "Chapter 8: Baoyu comes back from the Pear Fragrance Court with wine in him and asks for his maple-dew tea — the kind that takes three changes of water and an afternoon. He learns his old wet-nurse Li Nanny has drunk it. Drunk, furious at the familiarity, he smashes the cup and calls for the maid who let it happen to be sent away: that maid is Xueqian. The household calms him; the chapter closes the incident.",
+          "And that is all the novel shows. The dismissal itself is never staged. By chapter 19 it is an accomplished fact, and chapter 20 confirms it through Li Nanny's own grumbling — the same nurse whose tea-drinking caused it, complaining that the maid is already gone. The offstage-ness is the point: a servant's ruin did not need a scene.",
+        ],
+      },
+      {
+        h: "The two expulsions everyone knows", zh: "後例",
+        paras: [
+          "Set beside her, the later cases are public events. Jinchuan teases back once too brightly in chapter 30, is struck and dismissed by Lady Wang on the spot, and drowns herself in a well; her death, attached to Baoyu's name, is half of what gets him beaten in chapter 33. Qingwen is taken in the chapter 77 sweep after the garden search — carried out ill, with her things thrown after her — and dies in her cousin's hovel. Fangguan and the little actresses are driven to nunneries in the same chapter.",
+          "Three expulsions in one book, and the first of them is the one without a witness. Readers looking for where the novel's casual cruelty begins should start at the tea.",
+        ],
+        note: "Chapter attributions are the text's. Xueqian's dismissal being the first named expulsion is this site's count against the chapters cited; the novel does not rank its maids.",
+      },
+    ],
+    faq: [
+      ["Who was the first maid expelled in Dream of the Red Chamber?", "Xueqian, Baoyu's maid, dismissed after the maple-dew tea incident of chapter 8 and confirmed gone by chapter 20. The dismissal itself happens offstage."],
+      ["Was Xueqian expelled because of Baoyu?", "His drunken order in chapter 8 is the last cause shown; the novel never stages the decision or names who carried it out, which is itself the sharpest detail."],
+      ["Who are the famous expelled maids?", "Jinchuan, dismissed in chapter 30 and drowned by chapter 32; Qingwen, expelled in chapter 77 and dead within the chapter; the actresses including Fangguan, driven to nunneries the same chapter."],
+    ],
+    sources: [
+      [`The novel in Chinese, chapters 8, 19–20, 30, 32, 77 — the tea night, the confirmation, and the later expulsions (read 6 Oct 2026)`, CH_TEXT],
+      [`English Wikipedia, “Dream of the Red Chamber” — the maid characters and the garden search`, WIKI],
+    ],
+  },
 ];
