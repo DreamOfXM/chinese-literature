@@ -1165,4 +1165,40 @@ export const GUIDES = [
       [`English Wikipedia, “Journey to the West” — the translation history and the three editions (read 6 Oct 2026)`, WIKI],
     ],
   },
+  {
+    slug: "81-tribulations", navLabel: "The 81 trials", cardZh: "八十一難",
+    cardTitle: "Every named trial, in one table",
+    cardBody: "The road west as a list: place, demon or trial, treasure or power, who resolved it, chapters — the whole pilgrimage in reading order.",
+    seoTitle: "All the Tribulations of Journey to the West, Listed",
+    seoDesc: "Every named demon episode of the pilgrimage in one table: place, antagonist, treasure or power, how it was resolved, and chapters — the road west in reading order.",
+    kicker: "Reading note III · The list",
+    h1: "All the tribulations of Journey to the West, listed",
+    h1zh: "八十一難一覽",
+    lede: "The novel's own register counts eighty-one calamities; the ones with names — the episodes a reader actually looks up — are below in road order. Every demon named here opens into its own painted leaf on this site.",
+    answer: [
+      ["What this is", "The named antagonist episodes of the pilgrimage: place, demon or trial, treasure or power, resolution, and the chapter range — the same rows as the hub's index, in one straight list."],
+      ["Who collected them", "At journey's end the novel has the Buddha's registrar count the trials; the table on this site keeps the book's own chapter boundaries."],
+    ],
+    blocks: [
+      {
+        h: "The list, in road order", zh: "難表",
+        paras: [
+          "Rows are the novel's; the chapter ranges are the checkpoints. A demon's name in the table opens its leaf.",
+        ],
+        table: {
+          th: ["Place", "Demon / trial", "Treasure or power", "How it was resolved", "Ch."],
+          rows: TRIBULATIONS.map(([place, fiend, treasure, resolution, ch]) => [place, fiend, treasure, resolution, ch]),
+        },
+      },
+    ],
+    faq: [
+      ["How many tribulations are in Journey to the West?", "The Buddha's registrar counts eighty-one. Not all are named demon episodes — some are natural perils, lawsuits or shortages — and the named ones are what this table lists."],
+      ["What is the hardest tribulation in Journey to the West?", "The one readers single out most is the Six-Eared Macaque (ch. 57–58): a double of Wukong whom neither heaven nor the underworld nor the Bodhisattva can tell from the original — only the Buddha can."],
+      ["Are the demons in Journey to the West defeated or recruited?", "Both, and the split is the novel's running joke: heaven's escaped pets get fetched home, self-made demons get killed — the hub's index marks which resolution each episode took."],
+    ],
+    sources: [
+      [`The novel in Chinese, chapter list and the registrar's count (read 6 Oct 2026)`, CH_TEXT],
+      [`English Wikipedia, “Journey to the West” — the chapter structure`, WIKI],
+    ],
+  },
 ];

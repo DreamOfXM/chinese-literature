@@ -52,6 +52,30 @@ leaves arrive when the ink dries.`,
   "hub.why.b": `The novels are public domain; the readings are not. A table makes its claims checkable —
 rank against rank, chapter against chapter — where prose hides them. Where a field is a
 gloss or a condensation, the page says so.`,
+  "hub.start.link": "New here? Which of the four to read first →",
+
+  "start.lede": "One page for the reader who has heard of the four great Chinese novels and wants to know which one to open first: what each is, how long it runs, and where this site's tools would send you into it.",
+  "start.th": ["Novel", "Written", "What it is", "Start here"],
+  "start.rows": [
+    ["Water Margin 水滸傳", "c. 1400 · 120 ch.", "The outlaws' tragedy: 108 stars who take the marsh, win every campaign they are sent on, and are destroyed by the reward.", "<a href=\"/chinese-literature/water-margin/\">The 108-star roster</a>, or <a href=\"/chinese-literature/water-margin/how-does-water-margin-end/\">how it ends</a>"],
+    ["Journey to the West 西遊記", "c. 1592 · 100 ch.", "A pilgrimage comedy: one monk, three reformed monsters, eighty-one trials, and a scripture that arrives blank.", "<a href=\"/chinese-literature/journey-west/\">The demons index</a>, or <a href=\"/chinese-literature/journey-west/why-sun-wukong-500-years/\">why the monkey was pinned</a>"],
+    ["Dream of the Red Chamber 紅樓夢", "c. 1791 · 120 ch.", "The family chronicle: a great house spending itself while its children marry into the wrong futures.", "<a href=\"/chinese-literature/red-chamber/jia-family-tree/\">The family tree</a>, or <a href=\"/chinese-literature/red-chamber/plot-summary/\">the story in five bands</a>"],
+    ["Romance of the Three Kingdoms 三國演義", "c. 1522 · 120 ch.", "War and statecraft: forty years of the empire cut three ways, told battle by battle.", "<a href=\"/chinese-literature/three-kingdoms/\">The cast & battles tables</a>"],
+  ],
+  "start.paras": [
+    "Any order works — the four share a shelf, not a storyline, and each is complete on its own. If you want the easiest entry, Journey to the West is the most immediately funny; the deepest is Red Chamber; Water Margin moves fastest.",
+    "How long? Each runs past a hundred chapters. Red Chamber in English is the size of five volumes — about 2,339 pages of story — and our <a href=\"/chinese-literature/red-chamber/how-long/\">length guide</a> does the arithmetic in the open.",
+    "Which translation? For Red Chamber see <a href=\"/chinese-literature/red-chamber/which-translation/\">the two aims, Hawkes and the Yangs</a>; for Journey to the West, <a href=\"/chinese-literature/journey-west/which-translation/\">Waley, Jenner and Yu</a>. Water Margin is best known in Sidney Shapiro's Outlaws of the Marsh.",
+  ],
+  "start.faq": [
+    ["Which of the four great novels should I read first?", "Journey to the West if you want jokes and momentum; Red Chamber if you want the masterpiece; Water Margin if you want plot at speed. Three Kingdoms rewards readers who already like history and strategy."],
+    ["Do I need to read the four novels in order?", "No — they share a canon, not a plot. Any one of them is a complete first novel."],
+    ["Are the four great novels connected?", "Only as a shelf: all four read the same world of omens and officialdom, but no storyline carries from one to another."],
+    ["Which of the four is the longest?", "Dream of the Red Chamber — about 2,339 pages of story in English across five volumes. Journey to the West runs 100 chapters; Water Margin and Three Kingdoms 120 each."],
+  ],
+  "start.seoTitle": "Where to Start: The Four Great Chinese Novels",
+  "start.seoDesc": "Which of the four great Chinese novels to read first: what each is, how long it runs, and where to open it — one comparison page with every tool linked.",
+  "start.crumb": "Where to start",
   "hub.seoTitle": "Four Great Chinese Novels — Characters & Family Trees",
   "hub.seoDesc": "The four great Chinese novels as lookup tools: all 108 Water Margin stars ranked, every Journey to the West demon, the Jia family tree, the era dated.",
 
@@ -193,6 +217,30 @@ const JA = {
   "hub.card.tk.b": "年代入りの二つの表にまとめました。群雄・軍師・武将の氏字と所属と結末、そして州を動かした戦いの数々——どの行も回目つきです。結義兄弟の冊葉は、墨の乾く後に。",
   "hub.why": "なぜ文章でなく表か",
   "hub.why.b": "原作はパブリックドメインですが、読み方は人それぞれです。表なら主張を検証できます——星と星、回と回を突き合わせる。散文ではそれが隠れます。訓読や要約にとどめた欄には、その旨をページに書いています。",
+  "hub.start.link": "初めての方は「四大名著の読みはじめ」へ →",
+
+  "start.lede": "四大名著を一度に見渡す一頁です。それぞれ何の本か、どれだけ長いか、このサイトのどこを開けばいいか——初めて読む人のための入口。",
+  "start.th": ["小説", "成立", "どんな本", "読みはじめ"],
+  "start.rows": [
+    ["水滸伝", "1400年頃・120回", "好漢たちの悲劇。百八星が梁山泊に拠り、遣された戦には全て勝ち、恩賞に滅びる。", "<a href=\"/chinese-literature/water-margin/\">一百八星の座次表</a>、または<a href=\"/chinese-literature/water-margin/how-does-water-margin-end/\">結末の頁</a>"],
+    ["西遊記", "1592年頃・100回", "取経の道中喜劇。僧一人、改心した妖怪三匹、八十一難。", "<a href=\"/chinese-literature/journey-west/\">妖怪の索引</a>、または<a href=\"/chinese-literature/journey-west/why-sun-wukong-500-years/\">五行山の五百年</a>"],
+    ["紅楼夢", "1791年頃・120回", "名門の衰亡録。賈府が傾いていく間に、子らは間違った縁組みへ進む。", "<a href=\"/chinese-literature/red-chamber/jia-family-tree/\">賈氏の系図</a>、または<a href=\"/chinese-literature/red-chamber/plot-summary/\">五回帯のあらすじ</a>"],
+    ["三國演義", "1522年頃・120回", "戦争と覇権。天下三分の四十年を、戦ごとに描く。", "<a href=\"/chinese-literature/three-kingdoms/\">群雄と戦いの年表</a>"],
+  ],
+  "start.paras": [
+    "順番は自由です。四冊は一つの棚を共有しても筋を共有せず、どれ単体でも完結します。一番とっつきやすいのは西遊記、最も深いのは紅楼夢、最も速いのは水滸伝です。",
+    "長さは？ どれも百回を超えます。紅楼夢の英訳は全五巻・本文だけで約2,339頁——<a href=\"/chinese-literature/red-chamber/how-long/\">分量の頁</a>が計算を公開しています。",
+    "訳は？ 紅楼夢は<a href=\"/chinese-literature/red-chamber/which-translation/\">二つの狙い（霍克斯と楊憲益）</a>、西遊記は<a href=\"/chinese-literature/journey-west/which-translation/\">ウェーリー、ジェンナー、余国藩</a>の選択頁を。水滸伝はシドニー・シャピロ訳 Outlaws of the Marsh が定番です。",
+  ],
+  "start.faq": [
+    ["四大名著はどれから読めばよい？", "笑いと勢いなら西遊記、最高峰なら紅楼夢、速い物語なら水滸伝。三國演義は歴史と戦略が好きな読者に報います。"],
+    ["順番はある？", "ありません。四冊は一つの正典を共有しても筋は繋がらず、どれから読んでも完結します。"],
+    ["四冊に繋がりは？", "棚としてのみ。同じ讖と官界の世界を読みますが、物語が冊を越えて続くことはありません。"],
+    ["最も長いのは？", "紅楼夢——英訳で本文約2,339頁・全五巻。西遊記は一百回、水滸伝と三國演義は百二十回です。"],
+  ],
+  "start.seoTitle": "四大名著 どれから読むか",
+  "start.seoDesc": "四大名著の読みはじめ：それぞれ何の本か、どれだけ長いか、どこを開けばいいか。全ツールへの近道を一枚の表に。",
+  "start.crumb": "読みはじめ",
   "hub.seoTitle": "四大名著 人物検索・系図・回目索引",
   "hub.seoDesc": "中国の四大名著を検索用の表にまとめました。水滸伝の108星を座次順、西遊記の妖怪と法宝・収め方、紅楼夢の賈氏系図と十二釵の判詞、三國演義の群雄と戦いの年表。人物ページは肖像付き。",
 

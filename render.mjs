@@ -231,6 +231,7 @@ ${card("three-kingdoms", "", "三國", L["hub.card.tk.t"], L["hub.card.tk.b"])}
 <section class="plates">
   <h2 class="rule">${esc(L["hub.why"])} <span class="zh-h" lang="zh">以表代文</span></h2>
   <p class="plate-note" style="font-style:normal;font-size:1rem;color:var(--ink-soft)">${L["hub.why.b"]}</p>
+  <p class="plate-note" style="font-style:normal;font-size:1rem"><a class="rowlink" href="${BASE}/where-to-start/">${L["hub.start.link"]}</a></p>
 </section>`;
   return shell({
     origin, buster, path: p, L, alt,
@@ -456,6 +457,22 @@ ${lbData(nv)}
         description: r.hook,
         image: `${origin}${BASE}/assets/${leafPic(nv, r)}.jpg`,
       },
+      // Two stable questions per leaf: who they are, and how their story ends.
+      // Both answers come from the record's own fields, so the markup can never
+      // drift from the page the way hand-copied FAQ blocks do.
+      ...(r.hook ? [{
+        "@context": "https://schema.org", "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question", name: `Who is ${r.en} in ${nv.seoNovel}?`,
+            acceptedAnswer: { "@type": "Answer", text: clip(`${r.zh} ${r.en}${r.nng ? ` (“${r.nng}”)` : ""} — ${nv.seoRole(r)}. ${r.hook}`, 300) },
+          },
+          ...(r.end || r.fate ? [{
+            "@type": "Question", name: `What happens to ${r.en} in the end?`,
+            acceptedAnswer: { "@type": "Answer", text: String(r.end || r.fate) },
+          }] : []),
+        ],
+      }] : []),
     ],
   });
 }
@@ -830,8 +847,55 @@ ${era}
 // keeps lang="zh" styling; the romanised label beside it comes from locales.
 const AL_ZH = { wei: "魏", shu: "蜀", wu: "吳", other: "群" };
 
-// The three novel overviews share their builder call signature — they all need
-// the novel spec (`nv`) on top of cfg — so the tier doubles as its data lookup.
+// The front-door question: a reader who has heard of the four novels and
+// wants to know which to open first. Sits above any novel, so it is built
+// here rather than in a data module; every row links to a tool that exists.
+function whereToStart({ origin, buster }) {
+  const L = LOCALES[DEFAULT_LOCALE];
+  // No novel in scope here; the table's anchors are authored in the locale
+  // strings (the same trust the hub cards run on), so this only passes through.
+  const link = (t) => t;
+  const body = `
+<section class="lp-body guide">
+  <h1 class="lp-h1">Where to start with the Four Great Novels <span class="zh-h" lang="zh">四大名著讀法</span></h1>
+  <p class="lede">${L["start.lede"]}</p>
+  <h2 class="rule">The four, side by side <span class="zh-h" lang="zh">四書對照</span></h2>
+  <div class="scroll-x">
+  <table id="four">
+    <thead><tr>${L["start.th"].map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead>
+    <tbody>
+${L["start.rows"].map((row) => `      <tr>${row.map((c) => `<td>${link(c)}</td>`).join("")}</tr>`).join("\n")}
+    </tbody>
+  </table>
+  </div>
+  <h2 class="rule">How to choose <span class="zh-h" lang="zh">如何選</span></h2>
+${L["start.paras"].map((p) => `  <p>${link(p)}</p>`).join("\n")}
+</section>`;
+  return shell({
+    origin, buster, path: `${BASE}/where-to-start/`, L,
+    title: L["start.seoTitle"],
+    desc: L["start.seoDesc"],
+    body,
+    ogType: "article",
+    jsonld: [
+      NAV_CRUMB(origin, `${BASE}/where-to-start/`, L["start.crumb"], L),
+      {
+        "@context": "https://schema.org", "@type": "Article",
+        headline: L["start.seoTitle"], description: L["start.seoDesc"], inLanguage: "en",
+        isPartOf: { "@type": "WebSite", name: L["shell.site"], url: origin + BASE + "/" },
+      },
+      {
+        "@context": "https://schema.org", "@type": "FAQPage",
+        mainEntity: L["start.faq"].map(([q, a]) => ({
+          "@type": "Question", name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
+      },
+    ],
+  });
+}
+
+
 const TIERS_NOVEL = { "water-margin": waterMargin, "journey-west": journeyWest, "red-chamber": redChamber };
 
 export function renderAll(cfg) {
@@ -879,5 +943,8 @@ export function renderAll(cfg) {
       if (built) pages.push(built);
     }
   }
+  // English-only front door; sits above every novel, so it rides outside the
+  // locale loops and never enters the parity gate.
+  pages.push(["where-to-start/index.html", whereToStart(cfg)]);
   return pages;
 }
