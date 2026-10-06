@@ -525,3 +525,73 @@ export const LEAVES = {
     ],
   },
 };
+
+const WIKI = "https://en.wikipedia.org/wiki/Water_Margin";
+const CH_TEXT = "https://en.wikisource.org/wiki/zh:%E6%B0%B4%E6%BB%B8%E5%82%B3";
+
+// The roster's fate column already holds this page's data; the table below
+// restates it for the questions readers type before opening the book.
+export const GUIDES = [
+  {
+    slug: "how-does-water-margin-end", navLabel: "The ending", cardZh: "結局",
+    cardTitle: "How the book ends for the 108",
+    cardBody: "The Fang La campaign's toll, who returns, Song Jiang's poisoned wine, and the five endings people actually ask about.",
+    seoTitle: "How Does Water Margin End? The 108 Stars' Fates",
+    seoDesc: "The ending of Water Margin: the Fang La campaign toll, who of the 108 returns, Song Jiang's poisoned wine in ch. 120, and every star's fate in the roster.",
+    kicker: "Reading note I · The ending",
+    h1: "How does Water Margin end?",
+    h1zh: "水滸傳結局",
+    lede: "The outlaws win every campaign they are sent on and are destroyed by the reward. The hundred and eight who took the marsh are counted in the dozens by the end, and the chief dies of an honour the court sent him — the novel's whole argument, settled in two chapters.",
+    answer: [
+      ["The toll", "The amnesty holds only as long as the court needs them. After the Liao campaign comes Fang La (ch. 110–119), and the southern war kills the great majority of the 108 — by the usual count fewer than thirty return to the capital for reward."],
+      ["Song Jiang", "Poisoned wine, sent as an honour, chapter 120. Knowing Li Kui will rebel and ruin the names, he calls him to the grave-side and gives him the same cup."],
+      ["The loyal four", "Wu Yong and Hua Rong hang themselves at Song Jiang's tomb; Li Kui dies of the wine; the four are buried together at Liaoerwa."],
+      ["The ones who live", "Lu Zhishen attains nirvana at the Qiantang tide (ch. 119); the one-armed Wu Song lives to eighty at Liuhe temple; Lin Chong, paralysed, dies in Wu Song's care."],
+    ],
+    blocks: [
+      {
+        h: "The last forty chapters, compressed", zh: "後段",
+        table: {
+          th: ["Chapters", "What happens", "Where the 108 stand"],
+          rows: [
+            ["82", "The amnesty is granted; the outlaws become the court's army", "108 alive, sworn at the stone tablet of ch. 71"],
+            ["83–89", "The Liao campaign — won", "Losses begin, but the corps is still itself"],
+            ["110–119", "The Fang La campaign — won, and ruinous", "The majority of the 108 fall in the south; the roster's fate column is mostly written here"],
+            ["120", "Rewards, wine, burials; the emperor dreams, and a temple is built", "Fewer than 30 return; the chief is dead by the gift"],
+          ],
+        },
+      },
+      {
+        h: "The five endings people ask about", zh: "五種結局",
+        table: {
+          th: ["Star", "Fate", "Chapters"],
+          rows: [
+            ["Song Jiang", "poisoned by court wine sent as an honour; buried at Liaoerwa with the loyal dead", "120"],
+            ["Lu Zhishen", "hears the Qiantang tide, baths, sits, and attains nirvana — the best death the book gives anyone", "119"],
+            ["Wu Song", "loses an arm in the last battle, declines all reward, and lives to eighty as a monk at Liuhe temple", "117, 119"],
+            ["Lin Chong", "paralysed by illness after the campaigns, carried for half a year by Wu Song, dies in his care", "119"],
+            ["Wu Yong and Hua Rong", "hang themselves together at Song Jiang's tomb — the final entry in the book's account of loyalty", "120"],
+          ],
+        },
+        note: "Every row can be checked against the roster table on this site's hub page, which carries the same fates chapter by chapter.",
+      },
+      {
+        h: "Why the novel ends this way", zh: "為何如此",
+        paras: [
+          "The ending is not a betrayal of the outlaws; it is the bill for their own highest wish. From the stone tablet of chapter 71 onward, what all one hundred and eight want — stated in their own oath — is amnesty: to be folded back into the order that hunted them. The court grants exactly that, and uses it. Every campaign is loyal work, the deaths in the south are loyal deaths, and the wine is a reward — the novel simply refuses to let the loyalty pay any other way.",
+          "That is why the frame closes with an emperor who dreams the truth and builds a temple: the book lets heaven clear their names and the court keep the murders, in the same gesture. The reader who finishes angry at the court has read it right; the reader who notices that the outlaws asked for this has read it twice.",
+        ],
+        note: "Chapter attributions follow the 120-chapter text. The reading of the amnesty as the outlaws' own wish turned against them is this site's.",
+      },
+    ],
+    faq: [
+      ["How does Water Margin end for Song Jiang?", "He is poisoned by wine the court sends him as an honour, in chapter 120 — and, to keep the names safe, he gives Li Kui the same cup before he dies."],
+      ["How many of the 108 stars survive?", "By the usual count of the 120-chapter text, fewer than thirty return to the capital after the Fang La campaign. The rest fell in the south, died of illness, left, or took other roads."],
+      ["Does Wu Song die at the end of Water Margin?", "Not in the campaigns. He loses an arm in the last battle, refuses reward, and lives to eighty as a monk at Liuhe temple."],
+    ],
+    sources: [
+      [`The novel in Chinese, chapters 110–120 — the Fang La campaign, the wine, the burials (read 6 Oct 2026)`, CH_TEXT],
+      [`English Wikipedia, “Water Margin” — the campaigns and the ending`, WIKI],
+    ],
+  },
+];

@@ -4,8 +4,8 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { renderAll } from "./render.mjs";
 import { LOCALES, DEFAULT_LOCALE, LOCALE_ORDER, keyDiff } from "./locales.mjs";
-import { STARS, LEAVES } from "./data/water-margin.mjs";
-import { TRIBULATIONS, PEOPLE as JW_PEOPLE } from "./data/journey-west.mjs";
+import { STARS, LEAVES, GUIDES as WM_GUIDES } from "./data/water-margin.mjs";
+import { TRIBULATIONS, PEOPLE as JW_PEOPLE, GUIDES as JW_GUIDES } from "./data/journey-west.mjs";
 import { TREE, BEAUTIES, PEOPLE as RC_PEOPLE, GUIDES as RC_GUIDES } from "./data/red-chamber.mjs";
 import { TK_CAST, TK_ERA } from "./data/three-kingdoms.mjs";
 
@@ -47,7 +47,7 @@ for (const s of SRCS) {
 const lastmod = new Date(last).toISOString().slice(0, 10); // sitemaps stay date-granular
 const buster = new Date(last).toISOString().replace(/[-:T]/g, "").slice(0, 12); // minute-granular: a same-day edit must bust
 
-const pages = renderAll({ origin: ORIGIN, buster, STARS, LEAVES, JW_PEOPLE, TRIBULATIONS, TREE, BEAUTIES, RC_PEOPLE, RC_GUIDES, TK_CAST, TK_ERA });
+const pages = renderAll({ origin: ORIGIN, buster, STARS, LEAVES, JW_PEOPLE, TRIBULATIONS, TREE, BEAUTIES, RC_PEOPLE, RC_GUIDES, TK_CAST, TK_ERA, WM_GUIDES, JW_GUIDES });
 for (const [rel, html] of pages) {
   const p = join(root, rel);
   mkdirSync(dirname(p), { recursive: true });

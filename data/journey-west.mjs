@@ -1066,3 +1066,103 @@ export const TRIBULATIONS = [
   ["Diling County", "no demon — false murder charge", "a framed death", "Wukong clears the case in the underworld", "96-97"],
   ["Lingyun Crossing", "no demon — the final trial", "single-log bridge and bottomless boat", "crossed; mortal body left behind", "98"],
 ];
+
+const WIKI = "https://en.wikipedia.org/wiki/Journey_to_the_West";
+const CH_TEXT = "https://en.wikisource.org/wiki/zh:%E8%A5%BF%E9%81%8A%E8%A8%98";
+
+// Answer pages built for questions readers actually type; the FAQ field feeds
+// the FAQPage markup rendered by guidePage in render.mjs.
+export const GUIDES = [
+  {
+    slug: "why-sun-wukong-500-years", navLabel: "The 500 years", cardZh: "五行山",
+    cardTitle: "Why the monkey was pinned under a mountain",
+    cardBody: "The bet with the Buddha, the palm that turned out to be five fingers, the seal and the iron rations, and what the 500 years were actually for.",
+    seoTitle: "Why Was Sun Wukong Trapped 500 Years?",
+    seoDesc: "Why Buddha pinned Sun Wukong under Five Elements Mountain: the bet he lost, what the 500 years were for, who fed him, and how the Tang monk freed him in ch. 14.",
+    kicker: "Reading note I · The mountain",
+    h1: "Why was Sun Wukong trapped under the mountain for 500 years?",
+    h1zh: "五行山下五百年",
+    lede: "He bet the Buddha he could leap out of the Buddha's palm. He lost the bet, wrecked the banquet on the way down, and the mountain was the price — a sentence of 500 years between the rebel and the pilgrim he becomes.",
+    answer: [
+      ["The short answer", "The havoc in heaven ends with a wager: one somersault out of the Buddha's palm. Wukong's cloud carries him to five pink pillars at the end of the sky, where he signs his name — and the pillars are fingers. He never left the hand."],
+      ["What the 500 years were", "A sentence, not a death. The mountain pins him with a six-syllable seal; guardians feed him iron pellets and copper juice when he is hungry and thirsty. Five hundred years of that, awake."],
+      ["How it ends", "Chapter 14: the Tang monk climbs the mountain, lifts the seal, and calls him out as the first disciple — and fits him with the tightening fillet the same day."],
+      ["The book's own arithmetic", "The novel says 500 years, and also that the mountain fell in the time of Wang Mang (around 9 CE). From there to the Tang Zhenguan era is closer to 600 — a gap the book never reconciles."],
+    ],
+    blocks: [
+      {
+        h: "The bet, as chapter 7 gives it", zh: "打賭",
+        paras: [
+          "The captured sage laughs at the Buddha's offer: leap out of my palm and the throne of heaven is yours. One somersault is 108,000 li, and Wukong goes until the sky runs out — five flesh-pink pillars. He writes the great sage was here on the middle one, marks the base of it, and on the way back helps himself to a leak against the first pillar. Then the hand closes: the pillars were fingers, the writing is on the Buddha's middle finger, and the leak is on the thumb. The Buddha turns his hand over and makes it the mountain.",
+        ],
+      },
+      {
+        h: "The prison", zh: "囚",
+        paras: [
+          "The mountain is Five Elements Mountain — named for the five phases, and the Buddha's five fingers wearing geology. A seal of six golden syllables is pasted on its top, and that seal is what holds him: land gods and sky guardians are posted to the spot with a ration of iron pellets for hunger and copper juice for thirst. He can move his head; the rest is mountain. When the Tang monk finds him 500 years later, the first thing he asks is whether the old man on the mountain path is here with his freedom — the monkey has been counting years by the moss.",
+        ],
+      },
+      {
+        h: "What the 500 years are for", zh: "用意",
+        paras: [
+          "Heaven's whole apparatus could not reform him: furnaces, armies, executions that tickled. The mountain is the one sentence that holds, and it holds precisely because it does not argue — it waits. The 500 years sit between chapter 7 and chapter 14, between the great sage equal to heaven and the first disciple on the road, and the novel refuses to let the same creature be both at once without paying this gap first. Everything the monkey does later — the fillet he cannot remove, the rebellions he swallows — is priced against the mountain.",
+        ],
+        note: "The wager, the pillars, the seal and the rations are chapter 7 and 14's. The reading of the 500 years as the price between rebel and pilgrim is this site's.",
+      },
+    ],
+    faq: [
+      ["Why was Sun Wukong trapped for 500 years?", "He lost a bet with the Buddha — one somersault out of the Buddha's palm for the heavenly throne. He never left the hand: the pillars at the end of the sky were the Buddha's fingers."],
+      ["What did Sun Wukong eat under the mountain?", "Iron pellets when he was hungry and copper juice when he was thirsty, brought by the land gods and guardians posted at the mountain."],
+      ["Who freed Sun Wukong?", "The Tang monk, in chapter 14: he lifted the six-syllable seal from the summit and let the monkey out — as his first disciple."],
+    ],
+    sources: [
+      [`The novel in Chinese, chapters 7 and 14 — the wager, the seal, the rations, the release (read 6 Oct 2026)`, CH_TEXT],
+      [`English Wikipedia, “Journey to the West” — the havoc and the mountain`, WIKI],
+    ],
+  },
+  {
+    slug: "which-translation", navLabel: "The translations", cardZh: "譯本",
+    cardTitle: "Which English translation to read",
+    cardBody: "Waley for a first taste, Jenner for the whole story, Yu for everything with notes — what each of the three keeps and drops.",
+    seoTitle: "Which Journey to the West Translation Should I Read?",
+    seoDesc: "Waley's Monkey for a first taste, Jenner's complete 100-chapter text for the full story, Yu's annotated Chicago edition for the scholarship — what each keeps and drops.",
+    kicker: "Reading note II · The translations",
+    h1: "Which English translation of Journey to the West should you read?",
+    h1zh: "西遊記英譯",
+    lede: "Three answers, because the English Journey to the West is three different books. A witty abridgement a novelist made in wartime, a complete plain telling from Beijing, and a complete annotated edition from Chicago — and the choice between them is really a choice of what you want the book to be.",
+    answer: [
+      ["For a first taste", "Arthur Waley, Monkey (1942) — about thirty of the hundred chapters, the comedy kept and the scripture trimmed. The doorway most English readers walked through."],
+      ["For the whole story", "W. J. F. Jenner, Journey to the West (1982–86) — all 100 chapters, plainly told, long available in Beijing reprints."],
+      ["For the scholarship", "Anthony C. Yu, The Journey to the West (1977–83, revised 2012) — all 100 chapters with the poems, the notes and the source essays."],
+    ],
+    blocks: [
+      {
+        h: "The three, side by side", zh: "三種",
+        table: {
+          th: ["Translator", "What it is", "What it keeps, what it drops"],
+          rows: [
+            ["Arthur Waley, Monkey (1942)", "An abridgement of roughly 30 chapters", "The comedy entire, and Waley's own wit; drops most of the verse, the allegory and the later pilgrims'-share of the plot."],
+            ["W. J. F. Jenner (1982–86)", "Complete, 100 chapters, four volumes", "The whole story in clean modern English; the poems are carried but slimmed, and the apparatus is minimal."],
+            ["Anthony C. Yu (1977–83, rev. 2012)", "Complete, 100 chapters, four volumes", "Everything: verse, doctrinal notes, source essays, and the argument that the allegory is the novel."],
+          ],
+        },
+      },
+      {
+        h: "How to choose", zh: "選法",
+        paras: [
+          "If you want to meet the monkey and decide later, read Waley — a couple of sittings, and the invention of the English title Monkey is itself part of the book's afterlife. If you have decided and want the road, all hundred chapters, the demons in order, read Jenner: it is the honest full text at its most frictionless. If you want to know why a given episode is shaped the way it is — what the scripture is, what the numbers mean, which chapter titles are doctrinal jokes — read Yu, whose edition is as much a study of the novel as a translation of it.",
+          "One honest caution: Waley's Monkey is the one most other English references quote, so readers who start there keep meeting their own first book everywhere. That is an argument for starting there; it is also an argument for knowing it is only the first thirty of a hundred chapters.",
+        ],
+        note: "The characterisations of the three translations follow the publication histories summarized in the source below; the choosing paragraph is this site's.",
+      },
+    ],
+    faq: [
+      ["Is Waley's Monkey complete?", "No — it translates roughly 30 of the 100 chapters. It keeps the comedy and drops most of the verse and allegory."],
+      ["Which translation has all 100 chapters?", "Jenner's (1982–86) and Yu's (1977–83, revised 2012). Both are complete; Jenner is the plainer read, Yu the annotated one."],
+      ["Which is easiest to read?", "Waley's Monkey — it was written to be read like a novel, and most readers finish it in a few sittings."],
+    ],
+    sources: [
+      [`English Wikipedia, “Journey to the West” — the translation history and the three editions (read 6 Oct 2026)`, WIKI],
+    ],
+  },
+];

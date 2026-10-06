@@ -460,11 +460,15 @@ ${lbData(nv)}
   });
 }
 
-const wmNovel = (STARS, LEAVES) => ({
+const wmNovel = (STARS, LEAVES, GUIDES) => ({
   dir: "water-margin", key: "wm",
   imgOf: (r) => `img/wm-s${String(r.id).padStart(3, "0")}`,
   rows: STARS.filter(([rank]) => LEAVES[rank]).map(([rank, label, nn, nng, zh, en, fate]) =>
     ({ id: rank, tag: `rank ${rank}`, tagShort: String(rank), label, nn, nng, zh, en, fate, ...LEAVES[rank] })),
+  guidePages: GUIDES || [],
+  guideHeading: { en: "Reading notes", zh: "讀前須知" },
+  guideSourcesHeading: { en: "Where these figures come from", zh: "出處" },
+  guideLeafHint: { en: "The book itself: how it ends, and who was left —" },
  railHeadingZh: "水滸葉子",
   leafWord: "Leaf", unit: "of the marsh",
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
@@ -475,10 +479,14 @@ const wmNovel = (STARS, LEAVES) => ({
   relatedHeading: { en: "In the same chapters", zh: "同回" },
 });
 
-const jwNovel = (PEOPLE) => ({
+const jwNovel = (PEOPLE, GUIDES) => ({
   dir: "journey-west", key: "jw",
   imgOf: (r) => `img/jw-${slugOf(r.en)}`,
   rows: PEOPLE.map((r) => ({ ...r, tag: `no. ${r.id}`, tagShort: String(r.id) })),
+  guidePages: GUIDES || [],
+  guideHeading: { en: "Reading notes", zh: "讀前須知" },
+  guideSourcesHeading: { en: "Where these figures come from", zh: "出處" },
+  guideLeafHint: { en: "The book itself: why the monkey was pinned, which translation —" },
  railHeadingZh: "取經葉子",
   leafWord: "Leaf", unit: "of the pilgrimage",
   deedsHeading: "The great deeds", deedsHeadingZh: "大事記",
@@ -827,8 +835,8 @@ const AL_ZH = { wei: "魏", shu: "蜀", wu: "吳", other: "群" };
 const TIERS_NOVEL = { "water-margin": waterMargin, "journey-west": journeyWest, "red-chamber": redChamber };
 
 export function renderAll(cfg) {
-  const specs = [wmNovel(cfg.STARS, cfg.LEAVES)];
-  if (cfg.JW_PEOPLE) specs.push(jwNovel(cfg.JW_PEOPLE));
+  const specs = [wmNovel(cfg.STARS, cfg.LEAVES, cfg.WM_GUIDES)];
+  if (cfg.JW_PEOPLE) specs.push(jwNovel(cfg.JW_PEOPLE, cfg.JW_GUIDES));
   if (cfg.RC_PEOPLE) specs.push(rcNovel(cfg.RC_PEOPLE, cfg.RC_GUIDES));
   const byDir = Object.fromEntries(specs.map((nv) => [nv.dir, nv]));
 
