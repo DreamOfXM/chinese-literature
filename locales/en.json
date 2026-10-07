@@ -1,0 +1,247 @@
+{
+  "code": "en",
+  "htmlLang": "en",
+  "selfName": "English",
+  "langLabel": "Language",
+  "tiers": [
+    "",
+    "water-margin",
+    "journey-west",
+    "red-chamber",
+    "three-kingdoms"
+  ],
+  "strings": {
+    "shell.site": "Chinese Literature",
+    "shell.ogAlt": "Ink-wash banner: marsh boat, mountain bridge, stone staff and moon-gate garden, one vignette per novel.",
+    "shell.nav.wm": "Water Margin",
+    "shell.nav.jw": "Journey to the West",
+    "shell.nav.rc": "Red Chamber",
+    "shell.nav.tk": "Three Kingdoms",
+    "shell.footer": [
+      "<p class=\"sig\"><a href=\"{site}/\"><b>Chinese Literature</b> · <span class=\"url\">{siteBare}/</span></a></p>",
+      "<p>Built from public-domain texts. The rankings, notes and ink illustrations are original to this site; republication without a link back is not permitted.</p>",
+      "<p>English nicknames and verse glosses are interpretive, not official translations.</p>",
+      "<p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. This site measures aggregate usage through Google Analytics — page views, how far pages are scrolled, and which painted leaves are opened. No personal data is collected, nothing is sold, and the site carries no advertising.</p>",
+      "<p>Maintained by <a href=\"https://github.com/DreamOfXM\" rel=\"me\">DreamOfXM</a>. Every row cites a chapter, so corrections can be checked — <a href=\"https://github.com/DreamOfXM/chinese-literature/issues\">open an issue</a>.</p>"
+    ],
+    "hub.alt": "Ink-wash banner: a marsh boat, a mountain bridge, a stone staff and a moon-gate garden — one vignette per novel.",
+    "hub.kicker": "The Ming–Qing canon · 冊頁",
+    "hub.title": "The classical novels, as lookup tools",
+    "hub.zh": "四大名著",
+    "hub.lede": "Not essays — tables, trees, indexes and painted leaves you can filter. Each tool answers a\nquestion with a row or a branch: who held which rank, which demon carried which treasure, who is\nwhose mother in the Jia house. All four great novels now hold a table here; the fourth's painted\nleaves arrive when the ink dries.",
+    "hub.tools": "The tools",
+    "hub.card.wm.t": "The 108 Stars of Water Margin",
+    "hub.card.wm.b": "Every star in rank order: heavenly or earthly, nickname in Chinese and English, name, and a condensed fate from the campaign chapters. Stars with a leaf of their own open into a painted portrait and their deeds in chapter order.",
+    "hub.card.jw.t": "Demons &amp; Tribulations of Journey to the West",
+    "hub.card.jw.b": "Each named antagonist episode: place, demon, magic treasure or ability, how it was resolved, and the chapter range — with a painted leaf for everyone in it, pilgrim, god or monster.",
+    "hub.card.rc.t": "Red Chamber: Family Tree &amp; Twelve Beauties",
+    "hub.card.rc.b": "The Jia house as an expandable tree, the Jinling register with its verses, glosses and fates, and a painted leaf for every named person in the house — many headed by the 判詞 written about them in chapter five.",
+    "hub.card.tk.t": "Romance of the Three Kingdoms",
+    "hub.card.tk.b": "The era as two dated tables: the lords, strategists and warriors who moved it — allegiance, courtesy name, fate — and the battles that turned provinces, every row cited to its chapters. Painted leaves for the oath brothers follow the ink.",
+    "hub.why": "Why tables and not articles",
+    "hub.why.b": "The novels are public domain; the readings are not. A table makes its claims checkable —\nrank against rank, chapter against chapter — where prose hides them. Where a field is a\ngloss or a condensation, the page says so.",
+    "hub.start.link": "New here? Which of the four to read first →",
+    "start.lede": "One page for the reader who has heard of the four great Chinese novels and wants to know which one to open first: what each is, how long it runs, and where this site's tools would send you into it.",
+    "start.th": [
+      "Novel",
+      "Written",
+      "What it is",
+      "Start here"
+    ],
+    "start.rows": [
+      [
+        "Water Margin 水滸傳",
+        "c. 1400 · 120 ch.",
+        "The outlaws' tragedy: 108 stars who take the marsh, win every campaign they are sent on, and are destroyed by the reward.",
+        "<a href=\"/chinese-literature/water-margin/\">The 108-star roster</a>, or <a href=\"/chinese-literature/water-margin/how-does-water-margin-end/\">how it ends</a>"
+      ],
+      [
+        "Journey to the West 西遊記",
+        "c. 1592 · 100 ch.",
+        "A pilgrimage comedy: one monk, three reformed monsters, eighty-one trials, and a scripture that arrives blank.",
+        "<a href=\"/chinese-literature/journey-west/\">The demons index</a>, or <a href=\"/chinese-literature/journey-west/why-sun-wukong-500-years/\">why the monkey was pinned</a>"
+      ],
+      [
+        "Dream of the Red Chamber 紅樓夢",
+        "c. 1791 · 120 ch.",
+        "The family chronicle: a great house spending itself while its children marry into the wrong futures.",
+        "<a href=\"/chinese-literature/red-chamber/jia-family-tree/\">The family tree</a>, or <a href=\"/chinese-literature/red-chamber/plot-summary/\">the story in five bands</a>"
+      ],
+      [
+        "Romance of the Three Kingdoms 三國演義",
+        "c. 1522 · 120 ch.",
+        "War and statecraft: forty years of the empire cut three ways, told battle by battle.",
+        "<a href=\"/chinese-literature/three-kingdoms/\">The cast & battles tables</a>"
+      ]
+    ],
+    "start.paras": [
+      "Any order works — the four share a shelf, not a storyline, and each is complete on its own. If you want the easiest entry, Journey to the West is the most immediately funny; the deepest is Red Chamber; Water Margin moves fastest.",
+      "How long? Each runs past a hundred chapters. Red Chamber in English is the size of five volumes — about 2,339 pages of story — and our <a href=\"/chinese-literature/red-chamber/how-long/\">length guide</a> does the arithmetic in the open.",
+      "Which translation? For Red Chamber see <a href=\"/chinese-literature/red-chamber/which-translation/\">the two aims, Hawkes and the Yangs</a>; for Journey to the West, <a href=\"/chinese-literature/journey-west/which-translation/\">Waley, Jenner and Yu</a>. Water Margin is best known in Sidney Shapiro's Outlaws of the Marsh."
+    ],
+    "start.faq": [
+      [
+        "Which of the four great novels should I read first?",
+        "Journey to the West if you want jokes and momentum; Red Chamber if you want the masterpiece; Water Margin if you want plot at speed. Three Kingdoms rewards readers who already like history and strategy."
+      ],
+      [
+        "Do I need to read the four novels in order?",
+        "No — they share a canon, not a plot. Any one of them is a complete first novel."
+      ],
+      [
+        "Are the four great novels connected?",
+        "Only as a shelf: all four read the same world of omens and officialdom, but no storyline carries from one to another."
+      ],
+      [
+        "Which of the four is the longest?",
+        "Dream of the Red Chamber — about 2,339 pages of story in English across five volumes. Journey to the West runs 100 chapters; Water Margin and Three Kingdoms 120 each."
+      ]
+    ],
+    "start.seoTitle": "Where to Start: The Four Great Chinese Novels",
+    "start.seoDesc": "Which of the four great Chinese novels to read first: what each is, how long it runs, and where to open it — one comparison page with every tool linked.",
+    "start.crumb": "Where to start",
+    "hub.seoTitle": "Four Great Chinese Novels — Characters & Family Trees",
+    "hub.seoDesc": "The four great Chinese novels as lookup tools: all 108 Water Margin stars ranked, every Journey to the West demon, the Jia family tree, the era dated.",
+    "rail.heading": "The leaves",
+    "rail.hint": "All {n} painted leaves are in this rail. Swipe it sideways, click one to open it full size, then arrow or drag through the rest.",
+    "rail.plateNote": "Modern ink interpretations painted for this site after the Ming drinking-leaf tradition — not historical portraits and not scans of any edition.",
+    "rail.aria.wm": "Portrait leaves of the Water Margin characters, scrollable sideways",
+    "rail.aria.jw": "Portrait leaves of the Journey to the West characters, scrollable sideways",
+    "rail.aria.rc": "Portrait leaves of the Dream of the Red Chamber characters, scrollable sideways",
+    "rail.cardAria": "Open the leaf of {en} full size",
+    "rail.cardAlt": "Ink leaf portrait of {en}, {nn}.",
+    "wm.alt": "Ink-wash painting of the Liangshan marsh at dawn: a palisade stronghold with unmarked banners, reed beds and boats on still water.",
+    "wm.kicker": "Leaf I · The marsh · c. 1400",
+    "wm.title": "The 108 Stars of Water Margin",
+    "wm.zh": "水滸傳",
+    "wm.lede": "The Liangshan roster in rank order. The first 36 are the Heavenly Spirits, the remaining 72\nthe Earthly Fiends. Fates are condensed from chapters 90–120; a dash means this table's source\nsummary does not record that person individually. Every row with a leaf opens into that\ncharacter's own page — painted portrait, great deeds in chapter order, and the ending.",
+    "wm.roster": "The roster",
+    "wm.ph": "Search nickname, name, star…",
+    "wm.all": "All 108",
+    "wm.heavenly": "Heavenly 36",
+    "wm.earthly": "Earthly 72",
+    "wm.th": [
+      "#",
+      "Star",
+      "Nickname",
+      "Name",
+      "Fate"
+    ],
+    "wm.seoTitle": "Water Margin's 108 Stars — All Characters Ranked & Fates",
+    "wm.seoDesc": "Every Water Margin character in rank order: the 108 Stars of Destiny with star name, nickname in Chinese and English, and condensed fate. 45 characters open into their own page with deeds and ending.",
+    "wm.crumb": "Water Margin 108 Stars",
+    "jw.alt": "Ink-wash painting of four pilgrims crossing a stone bridge among karst peaks and cloud, on the road west.",
+    "jw.kicker": "Leaf II · The road west · c. 1592",
+    "jw.title": "Demons &amp; Tribulations of Journey to the West",
+    "jw.zh": "西遊記",
+    "jw.lede": "The novel's own register counts eighty-one calamities. This index covers the named antagonist\nepisodes — the ones people actually look up: which demon, which magic treasure, and who had to\ncome and fetch it. Every named person below opens into their own leaf: painted portrait, deeds\nin chapter order, and the ending.",
+    "jw.cast": "The cast",
+    "jw.ph": "Search name, epithet, title…",
+    "jw.all": "All {n}",
+    "jw.side": {
+      "pilgrim": "Pilgrim",
+      "heaven": "Heaven",
+      "demon": "Demon"
+    },
+    "jw.pilgrim": "Pilgrims",
+    "jw.heaven": "Heaven",
+    "jw.demon": "Demons",
+    "jw.th": [
+      "#",
+      "Side",
+      "Name",
+      "Epithet",
+      "Style / seat",
+      "Why this leaf exists"
+    ],
+    "jw.index": "The index",
+    "jw.ph2": "Search demon, place, treasure…",
+    "jw.th2": [
+      "Place",
+      "Demon / antagonist",
+      "Treasure or ability",
+      "Resolution",
+      "Ch."
+    ],
+    "jw.seoTitle": "Journey to the West Demons — Fiends, Treasures & Endings",
+    "jw.seoDesc": "Every demon episode of Journey to the West: place, antagonist, treasure or ability, how it was resolved, and the chapter range. {n} characters open as painted leaves.",
+    "jw.crumb": "Journey to the West Index",
+    "rc.alt": "Ink-wash painting of a classical Chinese garden: moon gate, pavilion, zigzag bridge over a pond with falling petals.",
+    "rc.kicker": "Leaf III · The garden · c. 1791",
+    "rc.title": "Dream of the Red Chamber: Family Tree &amp; Twelve Beauties",
+    "rc.zh": "紅樓夢",
+    "rc.lede": "The Jia house is the plot: who is whose mother decides who can marry whom and who mourns\nwhom. Expand the branches, then read the Jinling register — the verses that foretell each\nwoman's ending, with glosses. Every named person below opens into their own leaf: painted\nportrait, the register verse that was written about them before they did anything, the deeds\nin chapter order, and the ending.",
+    "rc.household": "The household",
+    "rc.ph": "Search name, epithet, role…",
+    "rc.all": "All {n}",
+    "rc.roll": {
+      "register": "Main register",
+      "sub": "Second register",
+      "deputy": "Third register",
+      "household": "The household",
+      "maid": "Maids"
+    },
+    "rc.th": [
+      "#",
+      "Roll",
+      "Name",
+      "Epithet",
+      "Seat / role",
+      "Why this leaf exists"
+    ],
+    "rc.tree": "The family tree",
+    "rc.beauties": "The Twelve Beauties of Jinling",
+    "rc.hint": "{v} of these people keep their own leaf, with the verses quoted in full above their deeds; the register rows below carry the condensed couplets as the chapter-5 book keeps them.",
+    "rc.th2": [
+      "Name",
+      "Register verse",
+      "Gloss",
+      "Fate"
+    ],
+    "rc.seoTitle": "Dream of the Red Chamber Family Tree & Twelve Beauties",
+    "rc.seoDesc": "The Jia family tree, the Twelve Beauties of Jinling with their verses, and {n} characters who open into their own painted leaf — {v} headed by their 判词.",
+    "rc.crumb": "Red Chamber Tree & Register",
+    "tk.alt": "Ink-wash banner: a marsh boat, a mountain bridge, a stone staff and a moon-gate garden — one vignette per novel.",
+    "tk.kicker": "Leaf IV · The three kingdoms · c. 1522",
+    "tk.title": "Romance of the Three Kingdoms",
+    "tk.titleZh": "三國演義",
+    "tk.lede": "The era as two dated tables. The cast: the lords, strategists and warriors who moved\nit, with courtesy names, allegiance and a condensed fate. The battles: which lord, which\nstrategist, which fight turned which province — every row citing the chapters, so a claim can\nbe checked against the novel. Painted leaves for the oath brothers and their rivals follow\nwhen the ink is dry.",
+    "tk.cast": "The cast",
+    "tk.ph": "Search name, courtesy name, fate…",
+    "tk.all": "All {n}",
+    "tk.side": {
+      "lord": "Lord",
+      "strategist": "Strategist",
+      "warrior": "Warrior"
+    },
+    "tk.lord": "Lords",
+    "tk.strategist": "Strategists",
+    "tk.warrior": "Warriors",
+    "tk.alleg": {
+      "wei": "Wei",
+      "shu": "Shu",
+      "wu": "Wu",
+      "other": "—"
+    },
+    "tk.th": [
+      "#",
+      "Role",
+      "Name",
+      "Courtesy name",
+      "Allegiance",
+      "Fate"
+    ],
+    "tk.era": "The era, dated",
+    "tk.ph2": "Search battle, lord, year…",
+    "tk.th2": [
+      "Year",
+      "Event",
+      "Sides",
+      "How it ended",
+      "Ch."
+    ],
+    "tk.seoTitle": "Romance of the Three Kingdoms — Cast & Battles Dated",
+    "tk.seoDesc": "Every major figure of the Three Kingdoms — lord, strategist or warrior — with allegiance and a condensed fate, plus the era's battles dated by chapter.",
+    "tk.crumb": "Three Kingdoms Cast & Battles"
+  }
+}

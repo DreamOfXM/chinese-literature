@@ -50,6 +50,12 @@ python3 -m http.server 8790
 
 The local preview is for development only. It is not required to read the published website.
 
+### Adding a language
+
+A language is one JSON file, not a code module. Copy `locales/en.json` to `locales/<code>.json`, translate the `strings`, and set `code`, `htmlLang`, `selfName` and `langLabel`. Then run `node build.mjs`: the locale's pages, its own `sitemap-<code>.xml` and its robots.txt line are generated automatically, and the hreflang cluster widens to include it.
+
+Two rules the build enforces for you: the parity gate refuses a half-translated file (any string still equal to English fails the build), and every non-English string must stay on one line, because HTML renders a source line break as a stray space mid-sentence.
+
 ## Corrections
 
 Open an issue. Each entry points back to a chapter or source context, so corrections can be checked and incorporated into the page.

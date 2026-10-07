@@ -37,6 +37,7 @@ for (const code of LOCALE_ORDER.filter((c) => c !== DEFAULT_LOCALE)) {
 const SRCS = [
   "data/water-margin.mjs", "data/journey-west.mjs", "data/red-chamber.mjs", "data/three-kingdoms.mjs",
   "locales.mjs", "render.mjs", "build.mjs", "assets/codex.js", "assets/style.css", "assets/og.jpg",
+  ...readdirSync(join(root, "locales")).filter((f) => f.endsWith(".json")).map((f) => `locales/${f}`),
   ...readdirSync(join(root, "assets/img")).filter((f) => f.endsWith(".jpg")).map((f) => `assets/img/${f}`),
 ];
 let last = 0;
