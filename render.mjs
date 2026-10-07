@@ -239,6 +239,7 @@ ${card("three-kingdoms", "", "三國", L["hub.card.tk.t"], L["hub.card.tk.b"])}
   <h2 class="rule">${esc(L["hub.why"])} <span class="zh-h" lang="zh">以表代文</span></h2>
   <p class="plate-note" style="font-style:normal;font-size:1rem;color:var(--ink-soft)">${L["hub.why.b"]}</p>
   <p class="plate-note" style="font-style:normal;font-size:1rem"><a class="rowlink" href="${BASE}/where-to-start/">${L["hub.start.link"]}</a></p>
+  <p class="plate-note" style="font-style:normal;font-size:1rem"><a class="rowlink" href="https://dreamofxm.github.io/bambooscroll/">${L["hub.bs.link"]}</a></p>
 </section>`;
   return shell({
     origin, buster, path: p, L, alt,
@@ -839,7 +840,8 @@ ${cast}
 ${era}
   </tbody>
 </table>
-</div>`;
+</div>
+<p class="plate-note" style="font-style:normal;font-size:1rem;max-width:46rem;margin:1.4rem auto 0"><a class="rowlink" href="https://dreamofxm.github.io/bambooscroll/dynasty/three-kingdoms/">${L["tk.bs.link"]}</a></p>`;
   const path = `${BASE}${lp(L.code)}/three-kingdoms/`;
   return shell({
     origin, buster, path, L, alt,

@@ -23,6 +23,8 @@
       "<p>English nicknames and verse glosses are interpretive, not official translations.</p>",
       "<p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. This site measures aggregate usage through Google Analytics — page views, how far pages are scrolled, and which painted leaves are opened. No personal data is collected, nothing is sold, and the site carries no advertising.</p>",
       "<p>Maintained by <a href=\"https://github.com/DreamOfXM\" rel=\"me\">DreamOfXM</a>. Every row cites a chapter, so corrections can be checked — <a href=\"https://github.com/DreamOfXM/chinese-literature/issues\">open an issue</a>.</p>"
+,
+    "<p>Sister site: <a href=\"https://dreamofxm.github.io/bambooscroll/\"><b>Bamboo Scroll</b> — free webcomics of Chinese history, told only from the official records.</a></p>"
     ],
     "hub.alt": "Ink-wash banner: a marsh boat, a mountain bridge, a stone staff and a moon-gate garden — one vignette per novel.",
     "hub.kicker": "The Ming–Qing canon · 冊頁",
@@ -41,6 +43,7 @@
     "hub.why": "Why tables and not articles",
     "hub.why.b": "The novels are public domain; the readings are not. A table makes its claims checkable —\nrank against rank, chapter against chapter — where prose hides them. Where a field is a\ngloss or a condensation, the page says so.",
     "hub.start.link": "New here? Which of the four to read first →",
+    "hub.bs.link": "New — Bamboo Scroll: the history behind the novels, in free sourced comics →",
     "start.lede": "One page for the reader who has heard of the four great Chinese novels and wants to know which one to open first: what each is, how long it runs, and where this site's tools would send you into it.",
     "start.th": [
       "Novel",
@@ -206,6 +209,7 @@
     "tk.title": "Romance of the Three Kingdoms",
     "tk.titleZh": "三國演義",
     "tk.lede": "The era as two dated tables. The cast: the lords, strategists and warriors who moved\nit, with courtesy names, allegiance and a condensed fate. The battles: which lord, which\nstrategist, which fight turned which province — every row citing the chapters, so a claim can\nbe checked against the novel. Painted leaves for the oath brothers and their rivals follow\nwhen the ink is dry.",
+    "tk.bs.link": "Beyond the tables: Bamboo Scroll tells the real history behind this novel, in free comics — every panel cited to the records →",
     "tk.cast": "The cast",
     "tk.ph": "Search name, courtesy name, fate…",
     "tk.all": "All {n}",
