@@ -90,6 +90,7 @@ ${body}
 ${L["shell.footer"].map((f) => "  " + f(origin + BASE + lp(L.code))).join("\n")}
 </footer>
 <script src="${BASE}/assets/codex.js?v=${buster}" defer></script>
+<script src="${BASE}/assets/interact.js?v=${buster}" defer></script>
 </body>
 </html>`;
 }
@@ -211,13 +212,27 @@ ${pic(buster, img, alt, 1600, 766, true)}
 </section>`;
 }
 
-function hub({ origin, buster, L, alt }) {
+// The daily game needs the marsh's roll call in the page: rank, nickname pair,
+// name, and whether that seat has a leaf to link to. Compact on purpose — it
+// rides inside every hub and the quiz page.
+const compactStars = (STARS, LEAVES) => JSON.stringify(
+  STARS.map(([rank, , nickZh, nickEn, nameZh, pinyin]) => [rank, nickZh, nickEn, nameZh, pinyin, LEAVES[rank] ? 1 : 0])
+);
+
+function hub({ origin, buster, L, alt, STARS, LEAVES, JW_PEOPLE, RC_PEOPLE }) {
   const p = `${BASE}${lp(L.code)}/`;
   const card = (dir, key, zhCard, title, body) => `    <a class="card${key}" href="${BASE}${lp(L.code)}/${dir}/">
       <span class="card-zh" lang="zh" aria-hidden="true">${zhCard}</span>
       <h2>${title}</h2>
       <p>${body}</p>
     </a>`;
+  // The bookshelf needs stored-key → (name) for every leaf that exists, so a
+  // saved shelf can link back without a second lookup. Keys match what leaf
+  // pages store: "dir/slug".
+  const leafIndex = {};
+  for (const [rank, , , , zh, en] of STARS) if (LEAVES[rank]) leafIndex[`water-margin/${slugOf(en)}`] = [zh, en];
+  for (const r of JW_PEOPLE || []) leafIndex[`journey-west/${slugOf(r.en)}`] = [r.zh, r.en];
+  for (const r of RC_PEOPLE || []) leafIndex[`red-chamber/${slugOf(r.en)}`] = [r.zh, r.en];
   const body = `${hero(buster, {
     img: "og",
     alt: L["hub.alt"],
@@ -235,10 +250,23 @@ ${card("red-chamber", "", "紅樓", L["hub.card.rc.t"], L["hub.card.rc.b"])}
 ${card("three-kingdoms", "", "三國", L["hub.card.tk.t"], L["hub.card.tk.b"])}
   </div>
 </section>
+<section class="plates" id="daily">
+  <h2 class="rule">${esc(L["daily.title"])} <span class="zh-h" lang="zh">${esc(L["daily.zh"])}</span></h2>
+  <div class="daily-card" id="daily-slot" data-base="${BASE}${lp(L.code)}" data-buster="${buster}" data-kicker="${esc(L["daily.kicker"])}" data-cta="${esc(L["daily.cta"])}" data-cta-leaf="${esc(L["daily.ctaLeaf"])}"></div>
+</section>
+<section class="plates" id="shelf">
+  <h2 class="rule">${esc(L["shelf.title"])} <span class="zh-h" lang="zh">${esc(L["shelf.zh"])}</span></h2>
+  <p class="plate-note shelf-progress" style="font-style:normal" id="shelf-progress" data-favs="${esc(L["shelf.favs"])}" data-seen="${esc(L["shelf.seen"])}"></p>
+  <ul class="shelf-list" id="shelf-list" data-base="${BASE}${lp(L.code)}"></ul>
+  <p class="plate-note" style="font-style:normal" id="shelf-empty" hidden>${L["shelf.empty"]}</p>
+</section>
+<script type="application/json" id="stars-data">${compactStars(STARS, LEAVES)}</script>
+<script type="application/json" id="leaf-index">${JSON.stringify(leafIndex)}</script>
 <section class="plates">
   <h2 class="rule">${esc(L["hub.why"])} <span class="zh-h" lang="zh">以表代文</span></h2>
   <p class="plate-note" style="font-style:normal;font-size:1rem;color:var(--ink-soft)">${L["hub.why.b"]}</p>
   <p class="plate-note" style="font-style:normal;font-size:1rem"><a class="rowlink" href="${BASE}/where-to-start/">${L["hub.start.link"]}</a></p>
+  <p class="plate-note" style="font-style:normal;font-size:1rem"><a class="rowlink" href="${BASE}${lp(L.code)}/quiz/">${L["hub.quiz.link"]}</a></p>
   <p class="plate-note" style="font-style:normal;font-size:1rem"><a class="rowlink" href="https://dreamofxm.github.io/bambooscroll/">${L["hub.bs.link"]}</a></p>
 </section>`;
   return shell({
@@ -416,7 +444,7 @@ ${peers.map(({ o }) => `        <li><a class="rowlink" href="${leafHref(nv, o)}"
       </ul>
     </section>` : "";
   const body = `
-<section class="leafpage">
+<section class="leafpage" data-leaf-slug="${nv.dir}/${slugOf(r.en)}">
   <div class="lp-mount">
     <button class="lp-open" data-lb="${at}" aria-label="Open the portrait of ${esc(r.en)} full size">
 ${pic(buster, leafPic(nv, r), `Ink leaf portrait of ${esc(r.en)}, ${esc(r.nng)}.`, 720, 900, true)}
@@ -429,6 +457,7 @@ ${pic(buster, leafPic(nv, r), `Ink leaf portrait of ${esc(r.en)}, ${esc(r.nng)}.
     <h1>${esc(r.en)} <span class="zh-h" lang="zh">${esc(r.zh)}</span></h1>
     <p class="lp-context">In <a href="${BASE}/${nv.dir}/">${esc(nv.seoNovel)}</a> <span lang="zh">${esc(nv.novelZh)}</span> (${esc(nv.novelDate)}) · ${nv.seoRole(r)}${r.nn ? ` · nicknamed <span lang="zh">${esc(r.nn)}</span> “${esc(r.nng)}”` : ""}</p>
     <p class="lede">${esc(r.hook)}</p>
+    <button class="fav-btn" type="button" data-leaf-slug="${nv.dir}/${slugOf(r.en)}" data-off="${esc(L["fav.add"])}" data-on="${esc(L["fav.on"])}" aria-pressed="false"><span class="seal-fav" lang="zh" aria-hidden="true">藏</span><span class="fav-t">${esc(L["fav.add"])}</span></button>
 ${meta}
 ${verse}
     <h2 class="rule">${esc(nv.deedsHeading)} <span class="zh-h" lang="zh">${nv.deedsHeadingZh}</span></h2>
@@ -905,6 +934,36 @@ ${L["start.paras"].map((p) => `  <p>${link(p)}</p>`).join("\n")}
 }
 
 
+// The daily game: ten nicknames dealt by the date, four names to a question.
+// A tier like any other, so every locale's /quiz/ gets hreflang twins for free.
+function quizPage({ origin, buster, L, alt, STARS, LEAVES }) {
+  const p = `${BASE}${lp(L.code)}/quiz/`;
+  const body = `
+<section class="lp-body quiz-page">
+  <p class="kicker">${esc(L["quiz.kicker"])}</p>
+  <h1>${esc(L["quiz.title"])} <span class="zh-h" lang="zh">${esc(L["quiz.zh"])}</span></h1>
+  <p class="lede">${esc(L["quiz.lede"])}</p>
+  <div id="quiz-root" data-base="${BASE}${lp(L.code)}" data-q="${esc(L["quiz.q"])}" data-t10="${esc(L["quiz.t10"])}" data-t8="${esc(L["quiz.t8"])}" data-t6="${esc(L["quiz.t6"])}" data-t3="${esc(L["quiz.t3"])}" data-t0="${esc(L["quiz.t0"])}" data-tomorrow="${esc(L["quiz.tomorrow"])}" data-copy="${esc(L["quiz.copy"])}" data-copied="${esc(L["quiz.copied"])}" data-share="${esc(L["quiz.share"])}" data-roster="${esc(L["quiz.roster"])}"></div>
+</section>
+<script type="application/json" id="stars-data">${compactStars(STARS, LEAVES)}</script>`;
+  return shell({
+    origin, buster, path: p, L, alt,
+    title: L["quiz.seoTitle"],
+    desc: L["quiz.seoDesc"],
+    body,
+    ogType: "article",
+    jsonld: [
+      NAV_CRUMB(origin, p, L["quiz.crumb"], L),
+      {
+        "@context": "https://schema.org", "@type": "Article",
+        headline: L["quiz.seoTitle"], description: L["quiz.seoDesc"], inLanguage: L.htmlLang,
+        isPartOf: { "@type": "WebSite", name: L["shell.site"], url: origin + BASE + "/" },
+      },
+    ],
+  });
+}
+
+
 const TIERS_NOVEL = { "water-margin": waterMargin, "journey-west": journeyWest, "red-chamber": redChamber };
 
 export function renderAll(cfg) {
@@ -921,7 +980,7 @@ export function renderAll(cfg) {
       LOCALE_ORDER.filter((other) => other !== code && localeTiers(other).includes(tier)).map((other) => [other, pathOf(other, tier)])
     );
     const args = { ...cfg, L: LOCALES[code], alt };
-    const builder = tier === "" ? hub : tier === "three-kingdoms" ? threeKingdoms : TIERS_NOVEL[tier];
+    const builder = tier === "" ? hub : tier === "quiz" ? quizPage : tier === "three-kingdoms" ? threeKingdoms : TIERS_NOVEL[tier];
     if (builder === undefined) return null;
     if (TIERS_NOVEL[tier]) {
       if (!byDir[tier]) return null; // a tier whose data isn't loaded ships nothing
@@ -933,7 +992,7 @@ export function renderAll(cfg) {
   const pages = [];
   // English keeps its historical emission order so sitemap.xml doesn't churn,
   // and its leaves stay interleaved with its overviews.
-  for (const tier of ["", "three-kingdoms", ...specs.map((nv) => nv.dir)]) {
+  for (const tier of ["", "quiz", "three-kingdoms", ...specs.map((nv) => nv.dir)]) {
     const built = localeTiers(DEFAULT_LOCALE).includes(tier) ? overview(DEFAULT_LOCALE, tier) : null;
     if (!built) continue;
     pages.push(built);

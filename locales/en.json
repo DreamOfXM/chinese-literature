@@ -5,6 +5,7 @@
   "langLabel": "Language",
   "tiers": [
     "",
+    "quiz",
     "water-margin",
     "journey-west",
     "red-chamber",
@@ -22,9 +23,8 @@
       "<p>Built from public-domain texts. The rankings, notes and ink illustrations are original to this site; republication without a link back is not permitted.</p>",
       "<p>English nicknames and verse glosses are interpretive, not official translations.</p>",
       "<p>The paintings are modern ink interpretations made for this site; no scan, studio still or game asset appears anywhere on it. This site measures aggregate usage through Google Analytics — page views, how far pages are scrolled, and which painted leaves are opened. No personal data is collected, nothing is sold, and the site carries no advertising.</p>",
-      "<p>Maintained by <a href=\"https://github.com/DreamOfXM\" rel=\"me\">DreamOfXM</a>. Every row cites a chapter, so corrections can be checked — <a href=\"https://github.com/DreamOfXM/chinese-literature/issues\">open an issue</a>.</p>"
-,
-    "<p>Sister site: <a href=\"https://dreamofxm.github.io/bambooscroll/\"><b>Bamboo Scroll</b> — free webcomics of Chinese history, told only from the official records.</a></p>"
+      "<p>Maintained by <a href=\"https://github.com/DreamOfXM\" rel=\"me\">DreamOfXM</a>. Every row cites a chapter, so corrections can be checked — <a href=\"https://github.com/DreamOfXM/chinese-literature/issues\">open an issue</a>.</p>",
+      "<p>Sister site: <a href=\"https://dreamofxm.github.io/bambooscroll/\"><b>Bamboo Scroll</b> — free webcomics of Chinese history, told only from the official records.</a></p>"
     ],
     "hub.alt": "Ink-wash banner: a marsh boat, a mountain bridge, a stone staff and a moon-gate garden — one vignette per novel.",
     "hub.kicker": "The Ming–Qing canon · 冊頁",
@@ -246,6 +246,37 @@
     ],
     "tk.seoTitle": "Romance of the Three Kingdoms — Cast & Battles Dated",
     "tk.seoDesc": "Every major figure of the Three Kingdoms — lord, strategist or warrior — with allegiance and a condensed fate, plus the era's battles dated by chapter.",
-    "tk.crumb": "Three Kingdoms Cast & Battles"
+    "tk.crumb": "Three Kingdoms Cast & Battles",
+    "hub.quiz.link": "New — the Water Margin nickname quiz, ten a day →",
+    "daily.title": "Star of the day",
+    "daily.zh": "每日一將",
+    "daily.kicker": "One of the 108, every day",
+    "daily.cta": "See the roster",
+    "daily.ctaLeaf": "Open the leaf",
+    "shelf.title": "My shelf",
+    "shelf.zh": "我的書架",
+    "shelf.empty": "Nothing kept yet — open any character leaf and press the seal to shelve them here.",
+    "shelf.seen": "{n} leaves read",
+    "shelf.favs": "{n} on the shelf",
+    "fav.add": "Keep on my shelf",
+    "fav.on": "On my shelf",
+    "quiz.seoTitle": "Water Margin Nickname Quiz — the 108 Stars, Ten a Day",
+    "quiz.seoDesc": "Ten nicknames a day from the 108 Stars of Water Margin. Four names each — guess the hero, keep score, share your tally.",
+    "quiz.crumb": "Nickname quiz",
+    "quiz.kicker": "A daily game of the marsh",
+    "quiz.title": "Guess the hero behind the nickname",
+    "quiz.lede": "Ten nicknames, four names each — the same ten for everyone, new at midnight. The marsh keeps score.",
+    "quiz.q": "Question {n} of 10",
+    "quiz.tomorrow": "The next ten are dealt at midnight.",
+    "quiz.t10": "智多星 — even Wu Yong could not have scored better.",
+    "quiz.t8": "Heaven-rank knowledge — the marsh holds no secrets from you.",
+    "quiz.t6": "A solid earth-rank outing — your seat is earned.",
+    "quiz.t3": "New to the mountain — the roll call will come with time.",
+    "quiz.t0": "A scholar's start — the marsh is a book you have yet to open.",
+    "quiz.copy": "Copy my score",
+    "quiz.copied": "Copied!",
+    "quiz.share": "I scored {n}/10 on the Water Margin nickname quiz — ",
+    "quiz.roster": "The 108 Stars",
+    "quiz.zh": "猜綽號"
   }
 }

@@ -6,6 +6,7 @@
   "extends": "en",
   "tiers": [
     "",
+    "quiz",
     "water-margin",
     "journey-west",
     "red-chamber",
@@ -23,9 +24,8 @@
       "<p>底本均为公版原文。序列的编排、注释与水墨画作系本站原创，转载须附指向本站的链接。</p>",
       "<p>英文绰号与韵文释义均为意译而非官方译名，中文版照此声明。</p>",
       "<p>画作全部是为本站新绘的水墨解读，未使用任何版本扫描件、影视截图或游戏素材。本站通过 Google Analytics 只看聚合统计——浏览量、滚动深度与打开的册叶；不收集个人信息，不卖数据，也不登广告。</p>",
-      "<p>由 <a href=\"https://github.com/DreamOfXM\" rel=\"me\">DreamOfXM</a> 维护。每一行都标着回目，勘误可以对着原著核——<a href=\"https://github.com/DreamOfXM/chinese-literature/issues\">提个 issue</a>。</p>"
-,
-    "<p>姊妹站：<a href=\"https://dreamofxm.github.io/bambooscroll/\"><b>Bamboo Scroll 竹卷</b> — 免费英文漫画讲中国正史。</a></p>"
+      "<p>由 <a href=\"https://github.com/DreamOfXM\" rel=\"me\">DreamOfXM</a> 维护。每一行都标着回目，勘误可以对着原著核——<a href=\"https://github.com/DreamOfXM/chinese-literature/issues\">提个 issue</a>。</p>",
+      "<p>姊妹站：<a href=\"https://dreamofxm.github.io/bambooscroll/\"><b>Bamboo Scroll 竹卷</b> — 免费英文漫画讲中国正史。</a></p>"
     ],
     "hub.alt": "水墨横卷：苇荡孤舟、山间石桥、锡杖与月门庭院，四部小说各占一景。",
     "hub.kicker": "明清四大名著 · 册页",
@@ -247,6 +247,37 @@
     ],
     "tk.seoTitle": "三国演义 群雄谋士武将与战役年表",
     "tk.seoDesc": "三国演义主要人物一览：群雄、谋士、武将的所属与结局要略，附按年份与回目编成的战役年表。",
-    "tk.crumb": "三国群雄与战役年表"
+    "tk.crumb": "三国群雄与战役年表",
+    "hub.quiz.link": "新玩法 — 水浒传猜绰号小测，每日十题 →",
+    "daily.title": "每日一将",
+    "daily.zh": "每日一將",
+    "daily.kicker": "一百单八人，一天一位",
+    "daily.cta": "看图鉴",
+    "daily.ctaLeaf": "翻开册页",
+    "shelf.title": "我的书架",
+    "shelf.zh": "我的書架",
+    "shelf.empty": "书架还空着——翻开任何一叶册页，按下印章，他就归位此处。",
+    "shelf.seen": "已读 {n} 叶",
+    "shelf.favs": "书架 {n} 人",
+    "fav.add": "收进书架",
+    "fav.on": "已在书架",
+    "quiz.seoTitle": "水浒传猜绰号小测 — 一百单八将，每日十题",
+    "quiz.seoDesc": "每天十道绰号题，猜出背后的好汉。计分、评语、一键分享成绩，零点换新一局。",
+    "quiz.crumb": "猜绰号",
+    "quiz.kicker": "梁山泊的每日一局",
+    "quiz.title": "看绰号，猜好汉",
+    "quiz.lede": "十道绰号题，每题四个名字——当天全网同题，零点换新。梁山泊给你记分。",
+    "quiz.q": "第 {n} 题 / 共 10 题",
+    "quiz.tomorrow": "下一局零点发榜。",
+    "quiz.t10": "智多星——吴用也不过如此。",
+    "quiz.t8": "天罡之才——梁山的事瞒不过你。",
+    "quiz.t6": "地煞好汉——座次还在，继续聚义。",
+    "quiz.t3": "新入伙——山寨的规矩还长着呢。",
+    "quiz.t0": "白面书生——这部书等你翻开。",
+    "quiz.copy": "复制我的成绩",
+    "quiz.copied": "已复制",
+    "quiz.share": "我在「水浒传猜绰号」小测里答对 {n}/10 — ",
+    "quiz.roster": "一百单八将",
+    "quiz.zh": "猜綽號"
   }
 }
