@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 Sitemap: https://dreamofxm.github.io/chinese-literature/sitemap.xml
 Sitemap: https://dreamofxm.github.io/chinese-literature/sitemap-ja.xml
+Sitemap: https://dreamofxm.github.io/chinese-literature/sitemap-zh.xml
