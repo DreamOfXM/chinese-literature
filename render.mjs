@@ -34,9 +34,16 @@ function shell({ origin, buster, path, title, desc, body, jsonld, og, ogType, no
       + `\n<link rel="alternate" hreflang="x-default" href="${esc(origin + (cluster.find((c) => c.code === DEFAULT_LOCALE) || cluster[0]).href)}">`
     : "";
   const switcher = cluster.length > 1 ? `
-  <nav class="lang-switch" aria-label="${esc(L.langLabel)}">
-${cluster.map((c) => `    <a href="${esc(c.href)}" hreflang="${c.code}" lang="${c.code}"${c.code === L.code ? ' class="on" aria-current="true"' : ""}>${esc(LOCALES[c.code].selfName)}</a>`).join("\n")}
-  </nav>` : "";
+  <details class="lang-switch">
+    <summary aria-label="${esc(L.langLabel)}">
+      <svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3.5 9.5h17M3.5 14.5h17"></path></svg>
+      <span>${esc(L.selfName)}</span>
+      <svg class="caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"></path></svg>
+    </summary>
+    <ul>
+${cluster.map((c) => `      <li><a href="${esc(c.href)}" hreflang="${c.code}" lang="${c.code}"${c.code === L.code ? ' class="on" aria-current="true"' : ""}>${esc(LOCALES[c.code].selfName)}</a></li>`).join("\n")}
+    </ul>
+  </details>` : "";
   return `<!doctype html>
 <html lang="${L.htmlLang}">
 <head>

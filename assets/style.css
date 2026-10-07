@@ -119,22 +119,65 @@ header.site nav a:hover { color: var(--ink); }
 header.site nav a:hover::after { right: 0; }
 
 /* ---------- language switcher ---------- */
+/* <details>-based dropdown: zero JS, focusable, stays open on tab-through. */
 
-header.site nav.lang-switch {
+header.site details.lang-switch {
+  position: relative;
   margin-left: 0;
-  gap: .6rem;
   padding-left: clamp(.9rem, 2vw, 1.5rem);
   border-left: 1px solid var(--line);
 }
 
-header.site nav.lang-switch a {
+header.site details.lang-switch summary {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  list-style: none;
+  cursor: pointer;
+  color: var(--ink-faint);
+  font-family: var(--micro);
   font-size: .74rem;
   letter-spacing: .1em;
-  color: var(--ink-faint);
+  padding: .3rem 0;
+  user-select: none;
 }
 
-header.site nav.lang-switch a.on { color: var(--seal-deep); }
-header.site nav.lang-switch a.on::after { right: 0; }
+header.site details.lang-switch summary::-webkit-details-marker { display: none; }
+header.site details.lang-switch summary:hover,
+header.site details.lang-switch[open] summary { color: var(--ink); }
+
+header.site details.lang-switch summary svg { fill: none; stroke: currentColor; stroke-width: 1.6; }
+header.site details.lang-switch summary .globe { width: 15px; height: 15px; }
+header.site details.lang-switch summary .caret { width: 9px; height: 9px; transition: transform .18s ease; }
+header.site details.lang-switch[open] summary .caret { transform: rotate(180deg); }
+
+header.site details.lang-switch ul {
+  position: absolute;
+  top: calc(100% + .45rem);
+  right: 0;
+  margin: 0;
+  padding: .25rem;
+  list-style: none;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 .4rem 1.1rem rgba(43, 32, 18, .14);
+  min-width: 8rem;
+  z-index: 30;
+}
+
+header.site details.lang-switch a {
+  display: block;
+  padding: .45rem .65rem;
+  color: var(--ink-faint);
+  text-decoration: none;
+  font-family: var(--micro);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+header.site details.lang-switch a:hover { color: var(--ink); }
+header.site details.lang-switch a.on { color: var(--seal-deep); }
 
 /* ---------- hero ---------- */
 
@@ -1405,7 +1448,7 @@ footer.site .sig .url { color: #a89c82; font-size: .82rem; }
   .count { margin-left: 0; width: 100%; }
   /* Four page links plus a locale pair won't fit one 375px row. */
   header.site { flex-wrap: wrap; row-gap: .3rem; }
-  header.site nav.lang-switch { margin-left: auto; border-left: 0; padding-left: 0; }
+  header.site details.lang-switch { margin-left: auto; border-left: 0; padding-left: 0; }
   header.site nav { font-size: .78rem; }
   thead th { position: static; }
 
